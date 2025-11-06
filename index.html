@@ -533,7 +533,7 @@ industriales basadas en datos reales.
 
 <!-- STEP-BY-STEP MODAL -->
 <div id="tutorialModal" class="hidden fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded w-full max-w-xl relative">
+  <div class="bg-white p-6 rounded relative">
     <button id="btnClose" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">×</button>
     <h3 id="tutorialTitle" class="text-xl font-bold mb-3"></h3>
     <div id="tutorialContent" class="text-sm mb-4"></div>
@@ -728,61 +728,73 @@ function calcDeriv(){
 /* -----------------------
    EXPLAIN DERIV STEP-BY-STEP with MathJax
    ----------------------- */
-function explainDeriv(){
-  try{
+function explainDeriv() {
+  try {
     const expr = document.getElementById('exprD').value.trim();
-    if(!expr){ alert('Ingresa una función'); return; }
+    if (!expr) { alert('Ingresa una función'); return; }
 
-    const x0raw = document.getElementById('x0').value;
-    const hraw = document.getElementById('h').value;
-    const x0 = Number(String(x0raw).replace(/,/g,'.'));
-    const h = Number(String(hraw).replace(/,/g,'.'));
-    if(!isFinite(x0) || !isFinite(h) || h <= 0){
-      alert('x₀ y h inválidos'); return;
+    const x0 = Number(String(document.getElementById('x0').value).replace(/,/g,'.'));
+    const h  = Number(String(document.getElementById('h').value).replace(/,/g,'.'));
+
+    if (!isFinite(x0) || !isFinite(h) || h <= 0){
+      alert('Valores inválidos. Asegúrate de que x₀ sea numérico y h > 0');
+      return;
     }
 
-    const fn = makeFunction(expr);
-    const f0 = fn(x0);
+    let fn;
+    try{
+      fn = makeFunction(expr);
+    }catch(e){
+      alert("Error interpretando la función. Revisa la sintaxis.");
+      return;
+    }
+
+    const f0  = fn(x0);
     const fph = fn(x0 + h);
     const fmh = fn(x0 - h);
 
-    const forward = (fph - f0) / h;
+    const forward  = (fph - f0) / h;
     const backward = (f0 - fmh) / h;
-    const central = (fph - fmh) / (2 * h);
+    const central  = (fph - fmh) / (2*h);
 
     const steps = [
       `<b>Algoritmo paso a paso</b><br><br>`,
-
       `<b>Función:</b> \\( f(x) = ${expr} \\)`,
       `<b>Datos iniciales:</b> \\( x_0 = ${x0},\\; h = ${h} \\)<br><br>`,
 
-      `<b>Paso 1.</b> Evaluamos la función en los puntos necesarios:`,
-      `\\[ f(x_0) = f(${x0}) = ${f0.toFixed(8)} \\]`,
-      `\\[ f(x_0 + h) = f(${x0} + ${h}) = ${fph.toFixed(8)} \\]`,
-      `\\[ f(x_0 - h) = f(${x0} - ${h}) = ${fmh.toFixed(8)} \\]<br><br>`,
+      `<b>Paso 1.</b> Sustituimos en la función:`,
+      `\\[ f(${x0}) = ${expr.replace(/x/g,`(${x0})`)} \\]`,
+      `\\[ f(${x0}+${h}) = ${expr.replace(/x/g,`(${x0}+${h})`)} \\]`,
+      `\\[ f(${x0}-${h}) = ${expr.replace(/x/g,`(${x0}-${h})`)} \\]<br>`,
+
+      `<b>Evaluamos:</b>`,
+      `\\[ f(${x0}) = ${f0.toFixed(8)} \\]`,
+      `\\[ f(${x0}+${h}) = ${fph.toFixed(8)} \\]`,
+      `\\[ f(${x0}-${h}) = ${fmh.toFixed(8)} \\]<br><br>`,
 
       `<b>Paso 2.</b> Diferencia hacia adelante:`,
-      `\\[ f'(x_0) \\approx \\frac{f(x_0 + h) - f(x_0)}{h} = \\frac{${fph.toFixed(8)} - ${f0.toFixed(8)}}{${h}} = ${forward.toFixed(8)} \\]<br><br>`,
+      `\\[ f'(x_0) \\approx \\frac{${fph.toFixed(8)} - ${f0.toFixed(8)}}{${h}} = ${forward.toFixed(8)} \\]<br><br>`,
 
       `<b>Paso 3.</b> Diferencia hacia atrás:`,
-      `\\[ f'(x_0) \\approx \\frac{f(x_0) - f(x_0 - h)}{h} = \\frac{${f0.toFixed(8)} - ${fmh.toFixed(8)}}{${h}} = ${backward.toFixed(8)} \\]<br><br>`,
+      `\\[ f'(x_0) \\approx \\frac{${f0.toFixed(8)} - ${fmh.toFixed(8)}}{${h}} = ${backward.toFixed(8)} \\]<br><br>`,
 
-      `<b>Paso 4.</b> Diferencia centrada (más precisa):`,
-      `\\[ f'(x_0) \\approx \\frac{f(x_0 + h) - f(x_0 - h)}{2h} = \\frac{${fph.toFixed(8)} - ${fmh.toFixed(8)}}{2 \\cdot ${h}} = ${central.toFixed(8)} \\]<br><br>`,
+      `<b>Paso 4.</b> Diferencia centrada:</b>`,
+      `\\[ f'(x_0) \\approx \\frac{${fph.toFixed(8)} - ${fmh.toFixed(8)}}{2\\cdot${h}} = ${central.toFixed(8)} \\]<br><br>`,
 
-      `<b>Resultado final aproximado:</b> \\( f'(x_0) \\approx ${central.toFixed(8)} \\)`
+      `<b>Resultado final:</b> \\( f'(x_0) \\approx ${central.toFixed(8)} \\)`
     ];
-
 
     openTutorial('', steps);
 
-    // Renderiza bien el formato LaTeX si usas MathJax
-    if (window.MathJax) MathJax.typeset();
-    
+    if (window.MathJax) {
+      MathJax.typesetPromise?.() || MathJax.typeset();
+    }
+
   } catch(e){
     alert('Error en explicación: ' + e.message);
   }
 }
+
 
 
 /* -----------------------
@@ -907,84 +919,134 @@ function closeTutorialIntro(){ document.getElementById('tutorialIntro').classLis
 /* -----------------------
    EXPLAIN INT STEP-BY-STEP with MathJax
    ----------------------- */
-function explainInt(){
-  try{
+function explainInt() {
+  try {
     const expr = document.getElementById('exprI').value.trim();
-    if(!expr){ alert('Ingresa una función'); return; }
+    if (!expr) { alert('Ingresa una función'); return; }
 
     const a = Number(String(document.getElementById('a').value).replace(/,/g,'.'));
     const b = Number(String(document.getElementById('b').value).replace(/,/g,'.'));
-    const n = parseInt(document.getElementById('n').value);
-    if(!isFinite(a) || !isFinite(b) || !(n>0) || a>=b){
-      alert('a, b y n inválidos'); return;
+    const nInput = document.getElementById('n').value;
+    const n = parseInt(nInput);
+
+    if (!isFinite(a) || !isFinite(b) || !isFinite(n) || n <= 0 || a >= b) {
+      alert('Valores inválidos. Asegúrate: a<b y n>0');
+      return;
     }
 
-    const fn = makeFunction(expr);
+    let fn;
+    try {
+      fn = makeFunction(expr);
+    } catch {
+      alert("Error interpretando la función. Revisa la sintaxis.");
+      return;
+    }
+
+    // Paso del método
     const h = (b - a) / n;
 
-    // Calculate points and values
+    // Puntos
     const points = [];
-    for(let i=0; i<=n; i++){
-      const xi = a + i*h;
-      points.push({i, xi, fxi: fn(xi)});
+    for (let i = 0; i <= n; i++) {
+      const xi = a + i * h;
+      points.push({ i, xi, fxi: fn(xi) });
     }
 
-    // Trapezoid calculation
+    // Trapecio
     let trapSum = 0.5 * (points[0].fxi + points[n].fxi);
-    for(let i=1; i<n; i++) trapSum += points[i].fxi;
+    for (let i = 1; i < n; i++) trapSum += points[i].fxi;
     const trapResult = trapSum * h;
 
-    // Simpson calculation (ensure even n)
-    let n2 = n;
-    if(n2 % 2 === 1) n2++;
-    const h2 = (b - a) / n2;
-    let simpSum = points[0].fxi + points[n].fxi;
-    for(let i=1; i<n2; i++){
-      const coeff = (i % 2 === 0) ? 2 : 4;
-      simpSum += coeff * fn(a + i*h2);
-    }
-    const simpResult = simpSum * h2 / 3;
+    // Simpson — n debe ser par
+    let nS = n;
+    if (nS % 2 === 1) nS++; // Ajuste si n es impar
+    const hS = (b - a) / nS;
 
+    let simpsonSum = fn(a) + fn(b);
+    for (let i = 1; i < nS; i++) {
+      const coeff = (i % 2 === 0) ? 2 : 4;
+      simpsonSum += coeff * fn(a + i * hS);
+    }
+    const simpsonResult = simpsonSum * hS / 3;
+
+    // Construcción de pasos
     const steps = [
       `<b>Algoritmo paso a paso</b><br><br>`,
 
       `<b>Función:</b> \\( f(x) = ${expr} \\)`,
-      `<b>Datos iniciales:</b> \\( a = ${a},\\; b = ${b},\\; n = ${n} \\)<br><br>`,
+      `<b>Datos iniciales:</b> \\( a=${a},\\; b=${b},\\; n=${n} \\)<br><br>`,
 
-      `<b>Paso 1.</b> Calculamos el paso h:`,
-      `\\[ h = \\frac{b - a}{n} = \\frac{${b} - ${a}}{${n}} = ${h.toFixed(6)} \\]<br><br>`,
+      `<b>Paso 1.</b> Sustituimos en la función:`,
+      `\\[ f(x) = ${expr} \\]`,
+      `\\[ f(a) = f(${a}) = ${expr.replace(/x/g, "(" + a + ")")} \\]`,
+      `\\[ f(b) = f(${b}) = ${expr.replace(/x/g, "(" + b + ")")} \\]<br>`,
 
-      `<b>Paso 2.</b> Evaluamos la función en los puntos del intervalo:`,
-      `\\[ f(a) = f(${a}) = ${points[0].fxi.toFixed(8)} \\]`,
-      `\\[ f(b) = f(${b}) = ${points[n].fxi.toFixed(8)} \\]`,
-      `\\begin{array}{c|c|c}
-      i & x_i & f(x_i) \\\\
-      \\hline
-      ${points.map(p => `${p.i} & ${p.xi.toFixed(6)} & ${p.fxi.toFixed(8)}`).join(' \\\\\n      ')}
-      \\end{array}<br><br>`,
+      `<b>Paso 2.</b> Calculamos el tamaño del subintervalo:`,
+      `\\[ h = \\frac{b-a}{n} = \\frac{${b}-${a}}{${n}} = ${h.toFixed(6)} \\]<br>`,
 
-      `<b>Paso 3.</b> Regla del trapecio:`,
-      `\\[ \\int_a^b f(x)\\,dx \\approx h\\left[ \\frac{f(a)+f(b)}{2} + \\sum_{i=1}^{n-1} f(x_i) \\right] \\]`,
-      `\\[ \\int_a^b f(x)\\,dx \\approx ${h.toFixed(6)}\\left[ \\frac{${points[0].fxi.toFixed(8)}+${points[n].fxi.toFixed(8)}}{2} + ${points.slice(1,n).map(p => p.fxi.toFixed(8)).join(' + ')} \\right] = ${trapResult.toFixed(8)} \\]<br><br>`,
+      `<b>Paso 3.</b> Construimos la tabla de valores:</b><br>`,
 
-      `<b>Paso 4.</b> Regla de Simpson (1/3):`,
-      `\\[ \\int_a^b f(x)\\,dx \\approx \\frac{h}{3}\\left[ f(a) + f(b) + 4\\sum_{i\\ impar} f(x_i) + 2\\sum_{i\\ par} f(x_i) \\right] \\]`,
-      `\\[ \\int_a^b f(x)\\,dx \\approx \\frac{${h.toFixed(6)}}{3}\\left[ ${points[0].fxi.toFixed(8)} + ${points[n].fxi.toFixed(8)} + ${points.slice(1,n).filter((_,i)=>i%2===0).map(p=>`4\\cdot${p.fxi.toFixed(8)}`).join(' + ')} + ${points.slice(1,n).filter((_,i)=>i%2===1).map(p=>`2\\cdot${p.fxi.toFixed(8)}`).join(' + ')} \\right] = ${simpResult.toFixed(8)} \\]<br><br>`,
+      `\\[
+        \\begin{array}{c|c|c}
+        i & x_i & f(x_i) \\\\ \\hline
+        ${points.map(p => `${p.i} & ${p.xi.toFixed(6)} & ${p.fxi.toFixed(8)}`).join(' \\\\ ')}
+        \\end{array}
+      \\]<br><br>`,
 
-      `<b>Resultado final aproximado:</b>`,
-      `\\[ \\int_{${a}}^{${b}} f(x)\\,dx \\approx ${trapResult.toFixed(8)} \\] (Trapecio)`,
-      `\\[ \\int_{${a}}^{${b}} f(x)\\,dx \\approx ${simpResult.toFixed(8)} \\] (Simpson)`
+      `<b>Paso 4.</b> Regla del trapecio:</b>`,
+      `\\[
+        \\int_a^b f(x) dx \\approx
+        h \\left[
+          \\frac{f(a)+f(b)}{2}
+          + \\sum_{i=1}^{n-1} f(x_i)
+        \\right]
+      \\]`,
+      `\\[
+        = ${h.toFixed(6)} \\left[
+        \\frac{${points[0].fxi.toFixed(8)} + ${points[n].fxi.toFixed(8)}}{2}
+        + (${points.slice(1,n).map(p=>p.fxi.toFixed(8)).join(" + ")})
+        \\right]
+        = ${trapResult.toFixed(8)}
+      \\]<br><br>`,
+
+      `<b>Paso 5.</b> Regla de Simpson (1/3):</b>`,
+      `\\[
+        \\int_a^b f(x) dx \\approx
+        \\frac{h}{3}\\left[
+          f(a)+f(b)
+          +4\\sum_{i \\text{ impar}} f(x_i)
+          +2\\sum_{i \\text{ par}} f(x_i)
+        \\right]
+      \\]`,
+      `<i>Nota:</i> Se ajusta n a ${nS} para que sea par.<br>`,
+      `\\[
+        = \\frac{${hS.toFixed(6)}}{3}
+        \\left[
+          ${fn(a).toFixed(8)} + ${fn(b).toFixed(8)}
+          + (${Array.from({length:nS},(_,i)=>i)
+               .filter(i=>i%2===1)
+               .map(i=>`4(${fn(a+i*hS).toFixed(8)})`).join(" + ")})
+          + (${Array.from({length:nS},(_,i)=>i)
+               .filter(i=>i%2===0 && i!==0 && i!==nS)
+               .map(i=>`2(${fn(a+i*hS).toFixed(8)})`).join(" + ")})
+        \\right]
+        = ${simpsonResult.toFixed(8)}
+      \\]<br><br>`,
+
+      `<b>Resultado final aproximado:</b><br>`,
+      `\\[ \\text{Trapecio: } \\, ${trapResult.toFixed(8)} \\]`,
+      `\\[ \\text{Simpson: } \\, ${simpsonResult.toFixed(8)} \\]`
     ];
 
     openTutorial('', steps);
 
-    // Renderiza bien el formato LaTeX si usas MathJax
-    if (window.MathJax) MathJax.typeset();
+    if (window.MathJax) MathJax.typesetPromise?.() || MathJax.typeset();
 
-  } catch(e){
-    alert('Error en explicación: ' + e.message);
+  } catch (e) {
+    alert("Error en explicación: " + e.message);
   }
 }
+
 
 /* -----------------------
    Init: set some sensible defaults
