@@ -238,13 +238,9 @@
   <div class="bg-white p-4 rounded shadow mb-6">
     <h3 class="font-semibold mb-2">¿Qué es la integración numérica?</h3>
     <p class="text-sm text-gray-700">
-      La <strong>integración numérica</strong> es un conjunto de métodos que permite aproximar el valor de una integral definida
-      cuando no puede resolverse analíticamente o cuando solo se dispone de datos discretos. 
-      El objetivo principal es estimar el área bajo una curva dentro de un intervalo <code>[a,b]</code>.
-    </p>
-    <p class="text-sm text-gray-700 mt-2">
-      Es muy utilizada en ingeniería, donde se requiere calcular áreas, consumo energético, fuerzas, calor,
-      volúmenes y otros valores provenientes de sensores o datos experimentales.
+      La <strong>integración numérica</strong> permite aproximar integrales definidas cuando no puede hallarse la solución analítica,
+      o cuando se cuenta con datos discretos medidos experimentalmente. Su objetivo es calcular el área bajo la curva 
+      de una función en un intervalo \([a,b]\).
     </p>
   </div>
 
@@ -252,10 +248,9 @@
   <div class="bg-white p-4 rounded shadow mb-6">
     <h3 class="font-semibold mb-2">¿Cuándo se utiliza?</h3>
     <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Cuando la función no tiene solución analítica conocida.</li>
-      <li>Cuando se trabaja con datos reales obtenidos de sensores.</li>
-      <li>En sistemas donde la integral exacta es demasiado compleja.</li>
-      <li>En procesos industriales, científicos y de simulación.</li>
+      <li>Cuando no existe una solución cerrada de la integral.</li>
+      <li>Cuando se tienen datos experimentales medidos.</li>
+      <li>En cálculos de energía, fluidos, fuerzas, señales e industria.</li>
     </ul>
   </div>
 
@@ -264,44 +259,38 @@
     <div class="bg-white p-4 rounded shadow">
       <h3 class="font-semibold mb-2">Ventajas</h3>
       <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>No requiere fórmula exacta de la integral.</li>
-        <li>Se adapta a datos discretos experimentales.</li>
-        <li>Fácil implementación.</li>
-        <li>Mayor precisión al aumentar subdivisiones.</li>
+        <li>Útil con datos reales discretos.</li>
+        <li>Implementación sencilla.</li>
+        <li>Mejora la precisión aumentando subdivisiones.</li>
       </ul>
     </div>
 
     <div class="bg-white p-4 rounded shadow">
       <h3 class="font-semibold mb-2">Desventajas</h3>
       <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>El resultado siempre es aproximado.</li>
-        <li>Puede ser impreciso si la función cambia bruscamente.</li>
-        <li>Requiere mayor cálculo para mejorar precisión.</li>
+        <li>Siempre es aproximado.</li>
+        <li>Puede perder precisión si hay variaciones bruscas entre mediciones.</li>
+        <li>Más precisión suele implicar más cálculo.</li>
       </ul>
     </div>
   </div>
 
-  <!-- Formulas generales -->
+  <!-- Fórmulas generales -->
   <div class="bg-white p-4 rounded shadow mb-6">
     <h3 class="font-semibold mb-2">Fórmulas Generales</h3>
 
-    <p class="text-sm font-medium text-gray-700 mt-2">Regla del Trapecio:</p>
+    <p class="text-sm font-medium text-gray-700 mt-2">Regla del Trapecio</p>
     <p class="text-center text-sm my-2">
-      $$\int_{a}^{b} f(x)\,dx \approx \frac{h}{2}\left[f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\right]$$
+      $$\int_a^b f(x)\,dx \approx \frac{h}{2}\Big[f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)\Big]$$
     </p>
 
-    <p class="text-sm font-medium text-gray-700 mt-4">Regla de Simpson 1/3:</p>
+    <p class="text-sm font-medium text-gray-700 mt-4">Regla de Simpson 3/8</p>
     <p class="text-center text-sm my-2">
-      $$\int_{a}^{b} f(x)\,dx \approx \frac{h}{3}\left[f(x_0) + 4\sum_{\text{i impar}} f(x_i) + 2\sum_{\text{i par}} f(x_i) + f(x_n)\right]$$
-    </p>
-
-    <p class="text-sm font-medium text-gray-700 mt-4">Regla de Simpson 3/8:</p>
-    <p class="text-center text-sm my-2">
-      $$\int_{a}^{b} f(x)\,dx \approx \frac{3h}{8}\left[f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3) + \cdots + f(x_n)\right]$$
+      $$\int_a^b f(x)\,dx \approx \frac{3h}{8}\Big[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)+\cdots+f(x_n)\Big]$$
     </p>
 
     <p class="text-xs italic text-gray-600 mt-3">
-      Nota: Simpson 1/3 requiere \(n\) par. Simpson 3/8 requiere \(n\) múltiplo de 3.
+      Nota: Simpson 1/3 requiere \(n\) par; Simpson 3/8 requiere \(n\) múltiplo de 3.
     </p>
   </div>
 
@@ -310,113 +299,130 @@
     <img src="infografia-integracion.jpeg" alt="Infografía integración" class="rounded shadow-md w-full md:w-3/4">
   </div>
 
-  <!-- Métodos principales tabla -->
+  <!-- Datos del caso práctico (tabla) -->
   <div class="bg-white p-4 rounded shadow mb-6">
-    <h4 class="font-semibold mb-2">Comparativa de métodos</h4>
+    <h3 class="font-semibold mb-2">Datos del caso práctico</h3>
+<p class="text-sm text-gray-700 mb-3">
+  Mediciones horarias de la función \( f(t_i) \) durante una jornada de 6 horas.
+</p>
+
+
     <div class="overflow-x-auto">
       <table class="w-full text-sm border border-gray-300">
         <thead class="bg-slate-100">
           <tr>
-            <th class="border p-1">Método</th>
-            <th class="border p-1">Aproximación</th>
-            <th class="border p-1">Grado</th>
-            <th class="border p-1">n</th>
-            <th class="border p-1">Fórmula</th>
-            <th class="border p-1">Coeficientes</th>
-            <th class="border p-1">Ventajas</th>
-            <th class="border p-1">Desventajas</th>
-            <th class="border p-1">Uso recomendado</th>
-            <th class="border p-1">Error</th>
+            <th class="border p-1">i</th>
+            <th class="border p-1">tᵢ (h)</th>
+            <th class="border p-1">f(tᵢ) (kW)</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="border p-1">Trapecio</td>
-            <td class="border p-1">Rectas</td>
-            <td class="border p-1">1</td>
-            <td class="border p-1">Cualquiera</td>
-            <td class="border p-1">\(\frac{h}{2}[f(x_0)+2Σf(x_i)+f(x_n)]\)</td>
-            <td class="border p-1">1, 2, ..., 2, 1</td>
-            <td class="border p-1">Simple, datos experimentales</td>
-            <td class="border p-1">Menor precisión</td>
-            <td class="border p-1">Rápido y básico</td>
-            <td class="border p-1">\(O(h^2)\)</td>
-          </tr>
-          <tr>
-            <td class="border p-1">Simpson 1/3</td>
-            <td class="border p-1">Parábolas</td>
-            <td class="border p-1">2</td>
-            <td class="border p-1">Par</td>
-            <td class="border p-1">\(\frac{h}{3}[f(x_0)+4Σf(x_i)+2Σf(x_i)+f(x_n)]\)</td>
-            <td class="border p-1">1,4,2,...,4,1</td>
-            <td class="border p-1">Alta precisión</td>
-            <td class="border p-1">n debe ser par</td>
-            <td class="border p-1">Funciones suaves</td>
-            <td class="border p-1">\(O(h^4)\)</td>
-          </tr>
-          <tr>
-            <td class="border p-1">Simpson 3/8</td>
-            <td class="border p-1">Cúbicas</td>
-            <td class="border p-1">3</td>
-            <td class="border p-1">Múltiplo 3</td>
-            <td class="border p-1">\(\frac{3h}{8}[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]\)</td>
-            <td class="border p-1">1,3,3,1,...</td>
-            <td class="border p-1">Gran precisión</td>
-            <td class="border p-1">Más cálculo</td>
-            <td class="border p-1">Curvas complejas</td>
-            <td class="border p-1">\(O(h^4)\)</td>
-          </tr>
+          <tr><td class="border p-1">0</td><td class="border p-1">0</td><td class="border p-1">2.00000</td></tr>
+          <tr><td class="border p-1">1</td><td class="border p-1">1</td><td class="border p-1">1.61306</td></tr>
+          <tr><td class="border p-1">2</td><td class="border p-1">2</td><td class="border p-1">2.33576</td></tr>
+          <tr><td class="border p-1">3</td><td class="border p-1">3</td><td class="border p-1">4.04628</td></tr>
+          <tr><td class="border p-1">4</td><td class="border p-1">4</td><td class="border p-1">6.67067</td></tr>
+          <tr><td class="border p-1">5</td><td class="border p-1">5</td><td class="border p-1">10.16416</td></tr>
+          <tr><td class="border p-1">6</td><td class="border p-1">6</td><td class="border p-1">14.49957</td></tr>
         </tbody>
       </table>
     </div>
+
+    <p class="text-xs text-gray-600 mt-2">*Los valores muestran la tasa de consumo (kW) en cada hora.*</p>
   </div>
 
-  <!-- Caso Trapecio -->
+  <!-- Método del Trapecio: procedimiento -->
   <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">Caso de estudio: Consumo energético industrial</h3>
-    <p class="text-sm text-gray-700">
-      Se desea estimar el consumo energético durante 6 horas:
-    </p>
+    <h3 class="font-semibold mb-2">Método del Trapecio</h3>
 
+    <p class="text-sm text-gray-700">Integral a estimar:</p>
     <p class="text-center my-2 text-sm">
-      $$\int_0^6 \left(2e^{-0.5t} + 0.4t^2\right) dt$$
+      $$\int_0^6\big(2e^{-0.5t}+0.4t^2\big)\,dt$$
     </p>
 
-    <h4 class="font-semibold mb-2">Método del Trapecio</h4>
+    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 1. Datos</p>
     <p class="text-sm text-gray-700">
-      Con paso \(h = 1\):
+      Se tiene \(n=6\) subintervalos, \(h=\dfrac{b-a}{n}=\dfrac{6-0}{6}=1\). Los valores \(f(t_i)\) están en la tabla anterior.
     </p>
 
-    <p class="text-center my-2 text-sm">
-      $$\frac{1}{2}\left[f(0) + 2(f(1)+f(2)+f(3)+f(4)+f(5)) + f(6)\right]$$
+    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 2. Fórmula del Trapecio (compuesto)</p>
+    <p class="text-center text-sm my-2">
+      $$I_T \approx \frac{h}{2}\Big[f(t_0)+2\sum_{i=1}^{5} f(t_i) + f(t_6)\Big]$$
+    </p>
+
+    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 3. Sustituir los valores</p>
+    <p class="text-center text-sm my-2">
+      $$\begin{aligned}
+      \sum_{i=1}^{5} f(t_i) &= f(1)+f(2)+f(3)+f(4)+f(5) \\
+      &= 1.61306 + 2.33576 + 4.04628 + 6.67067 + 10.16416 \\
+      &= 24.82993
+      \end{aligned}$$
+    </p>
+
+    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 4. Calcular</p>
+    <p class="text-center text-sm my-2">
+      $$I_T \approx \frac{1}{2}\Big[ f(0) + 2(24.82993) + f(6) \Big]$$
+      $$= \frac{1}{2}\Big[ 2.00000 + 49.65986 + 14.49957 \Big]$$
+      $$= \frac{1}{2}\big[66.15943\big] = 33.079715 \ (\text{kWh})$$
     </p>
 
     <p class="text-sm text-gray-700 mt-2"><strong>Resultado:</strong> \(33.079695\) kWh</p>
+    <p class="text-xs italic text-gray-600">(pequeñas diferencias son por redondeo de los valores intermedios)</p>
   </div>
 
-  <!-- Caso Simpson 3/8 -->
+  <!-- Método Simpson 3/8: procedimiento -->
   <div class="bg-white p-4 rounded shadow mb-6">
-    <h4 class="font-semibold mb-2">Método Simpson 3/8</h4>
+    <h3 class="font-semibold mb-2">Método Simpson 3/8</h3>
 
-    <p class="text-sm text-gray-700">
-      Usando los mismos datos horarios:
-    </p>
+    <p class="text-sm text-gray-700">Usamos los mismos datos de la tabla y \(h=1\).</p>
 
+    <p class="text-sm font-semibold text-gray-700 mt-3">Fórmula general (compuesta por bloques de 3 subintervalos)</p>
     <p class="text-center my-2 text-sm">
-      $$\frac{3}{8}[f(0)+3f(1)+3f(2)+f(3)+3f(4)+3f(5)+f(6)]$$
+      $$I_{3/8} \approx \frac{3h}{8}\Big[f(t_0)+f(t_n) + 3\sum_{\substack{i=1\\ i\not\equiv 0\pmod{3}}}^{n-1} f(t_i) + 2\sum_{\substack{i=1\\ i\equiv 0\pmod{3}}}^{n-1} f(t_i)\Big]$$
     </p>
 
-    <p class="text-sm text-gray-700"><strong>Resultado:</strong> \(32.60364\) kWh</p>
+    <p class="text-sm font-semibold text-gray-700 mt-3">Reducido para \(n=6\) y \(h=1\)</p>
+    <p class="text-center my-2 text-sm">
+      $$I_{3/8} = \frac{3}{8}\Big[f(0)+f(6) + 3\big(f(1)+f(2)+f(4)+f(5)\big) + 2f(3)\Big]$$
+    </p>
 
-    <h4 class="font-semibold mt-2 mb-1">Conclusión comparativa</h4>
+    <p class="text-sm font-semibold text-gray-700 mt-3">Sustituyendo los valores</p>
+
+    <p class="text-sm my-2 text-gray-700">
+      <strong>1)</strong> \(f(0)+f(6) = 2.00000 + 14.49957 = 16.49957\)
+    </p>
+
+    <p class="text-sm my-2 text-gray-700">
+      <strong>2)</strong> \(f(1)+f(2)+f(4)+f(5) = 1.61306 + 2.33576 + 6.67067 + 10.16416 = 20.78365\)
+    </p>
+
+    <p class="text-sm my-2 text-gray-700">
+      <strong>3)</strong> \(3\cdot (f(1)+f(2)+f(4)+f(5)) = 3 \times 20.78365 = 62.35095\)
+    </p>
+
+    <p class="text-sm my-2 text-gray-700">
+      <strong>4)</strong> \(2\cdot f(3) = 2 \times 4.04628 = 8.09252\)
+    </p>
+
+    <p class="text-sm font-semibold text-gray-700 mt-3">Sumando los términos interiores (S)</p>
+    <p class="text-center my-2 text-sm">
+      $$S = 16.49957 \;+\; 62.35095 \;+\; 8.09252 \;=\; 86.94304$$
+    </p>
+
+    <p class="text-sm font-semibold text-gray-700 mt-3">Finalmente (multiplicando por \(3/8\))</p>
+    <p class="text-center my-2 text-sm">
+      $$I_{3/8} = \frac{3}{8}\,S = \frac{3}{8}\times 86.94304 = 32.60364\ \text{kWh}$$
+    </p>
+
+    <h4 class="font-semibold mt-3 mb-1">Resultados comparativos</h4>
     <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Diferencia ≈ \(0.476\) kWh (≈1.44%)</li>
-      <li>Simpson 3/8 ofrece mayor precisión teórica</li>
-      <li>Ambos métodos válidos → mismo conjunto de datos</li>
+      <li>Método Trapecio: \(33.079695\) kWh</li>
+      <li>Método Simpson 3/8: \(32.60364\) kWh</li>
+      <li>Diferencia absoluta: \(|33.079695 - 32.60364| \approx 0.47606\ \text{kWh}\) (~1.44%)</li>
     </ul>
   </div>
 </section>
-x
+
 
   <section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
       <div class="grid md:grid-cols-2 gap-6">
@@ -479,7 +485,7 @@ x
 
       <!-- Caso práctico -->
       <div class="bg-white p-4 rounded shadow mb-6 mt-6">
-        <h4 class="font-semibold mb-2">Caso práctico (trapecio)</h4>
+        <h4 class="font-semibold mb-2">Tabla dinamica para trapecio </h4>
         <div id="areaTable" class="text-sm text-gray-700 overflow-x-auto">—</div>
       </div>
   </section>
