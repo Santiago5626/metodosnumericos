@@ -1,1070 +1,1101 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Métodos Numéricos</title>
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Métodos Numéricos</title>
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-<!-- MathJax for LaTeX -->
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: { fontCache: 'global' }
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <!-- MathJax for LaTeX -->
+  <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: { fontCache: 'global' }
+  };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 
-<style>
-  .page { display:none; animation:fade .35s ease }
-  .page.active { display:block }
-  @keyframes fade { from{opacity:0} to{opacity:1} }
-  .keybtn{ padding:.5rem .75rem; background:#f1f5f9; border-radius:.5rem; cursor:pointer; font-size:.9rem; text-align:center }
-  .keybtn:hover{ background:#e2e8f0 }
-  pre.math { background:#f8fafc; padding:8px; border-radius:6px; font-size:0.95rem; overflow:auto }
-  #tutorial-overlay { pointer-events: none; }
-  #tutorial-highlight { pointer-events: none; }
-  #tutorial-textbox { pointer-events: auto; }
-  #tutorialModal > div { height: 90vh; display: flex; flex-direction: column; }
-  #tutorialContent { overflow-y: auto; flex: 1; }
-</style>
-</head>
-<body class="bg-gray-100 font-sans">
+  <style>
+    .page { display:none; animation:fade .35s ease }
+    .page.active { display:block }
+    @keyframes fade { from{opacity:0} to{opacity:1} }
+    .keybtn{ padding:.5rem .75rem; background:#f1f5f9; border-radius:.5rem; cursor:pointer; font-size:.9rem; text-align:center }
+    .keybtn:hover{ background:#e2e8f0 }
+    pre.math { background:#f8fafc; padding:8px; border-radius:6px; font-size:0.95rem; overflow:auto }
+    #tutorial-overlay { pointer-events: none; }
+    #tutorial-highlight { pointer-events: none; }
+    #tutorial-textbox { pointer-events: auto; }
+    #tutorialModal > div { height: 90vh; display: flex; flex-direction: column; }
+    #tutorialContent { overflow-y: auto; flex: 1; }
+  </style>
+  </head>
+  <body class="bg-gray-100 font-sans">
 
-<!-- HEADER -->
-<header class="bg-slate-800 text-white p-4 flex justify-between items-center shadow">
-  <h1 class="font-bold text-lg flex items-center gap-2"><i class="bi bi-calculator"></i> Métodos Numéricos</h1>
-  <div class="flex items-center gap-4">
-    <nav class="hidden md:flex gap-4">
-      <button class="nav-btn px-2 py-1" data-page="sec-deriv">Derivadas Numéricas</button>
-      <button class="nav-btn px-2 py-1" data-page="sec-int">Integración Numérica</button>
-    </nav>
-    <button id="menuBtn" class="md:hidden text-2xl"><i class="bi bi-list"></i></button>
-  </div>
-</header>
-
-<!-- MOBILE MENU -->
-<nav id="menuMobile" class="hidden bg-slate-900 text-white flex-col p-3 md:hidden gap-2">
-  <button class="nav-btn text-left py-2 w-full" data-page="sec-deriv">Derivadas Numéricas</button>
-  <button class="nav-btn text-left py-2 w-full" data-page="sec-int">Integración Numérica</button>
-</nav>
-    <section id="sec-deriv" class="page active max-w-4xl mx-auto">
-  <h2 class="text-2xl font-semibold mb-4">Diferenciación Numérica</h2>
-
-<div class="mb-6">
-
-<!-- ===================== TEORÍA ===================== -->
-<div>
-  <div class="bg-white p-4 rounded shadow">
-
-    <h3 class="font-semibold mb-2">Concepto</h3>
-    <p class="text-sm text-gray-700">
-      La <strong>derivación numérica</strong> es una técnica empleada para aproximar la derivada de una función 
-      cuando esta no se conoce de forma analítica o sus datos solo están disponibles en puntos discretos.
-    </p>
-
-    <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
-      <li>Funciones sin fórmula explícita</li>
-      <li>Modelos experimentales y registros de sensores</li>
-      <li>Cálculos complejos o costosos</li>
-      <li>Sistemas discretos en ingeniería</li>
-    </ul>
-
-    <hr class="my-3">
-
-    <h3 class="font-semibold mb-2">Definición Formal</h3>
-    <p class="text-sm text-gray-700">
-      La derivada de una función se define como el límite:
-    </p>
-    <p class="text-sm text-gray-700">
-      $$
-      f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
-      $$
-    </p>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <h3 class="font-semibold mb-2">Aproximaciones por Diferencias Finitas</h3>
-
-        <p class="text-sm text-gray-700 font-medium mt-2">Diferencia hacia adelante (Forward):</p>
-        <p class="text-sm text-gray-700">
-          $$
-          f'(x) \approx \frac{f(x+h) - f(x)}{h}
-          $$
-        </p>
-
-        <p class="text-sm text-gray-700 font-medium mt-2">Diferencia hacia atrás (Backward):</p>
-        <p class="text-sm text-gray-700">
-          $$
-          f'(x) \approx \frac{f(x) - f(x-h)}{h}
-          $$
-        </p>
-
-        <p class="text-sm text-gray-700 font-medium mt-2">Diferencia centrada (Central):</p>
-        <p class="text-sm text-gray-700">
-          $$
-          f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
-          $$
-        </p>
-
-        <p class="text-xs text-gray-600 mt-2">
-          La fórmula centrada es más precisa:  \( O(h^2) \) vs \( O(h) \) para las demás.
-        </p>
-      </div>
-
-      <div>
-        <img src="infografia-diferenciacion.jpeg" class="w-full rounded shadow-md mb-4">
-      </div>
+  <!-- HEADER -->
+  <header class="bg-slate-800 text-white p-4 flex justify-between items-center shadow">
+    <h1 class="font-bold text-lg flex items-center gap-2"><i class="bi bi-calculator"></i> Métodos Numéricos</h1>
+    <div class="flex items-center gap-4">
+      <nav class="hidden md:flex gap-4">
+        <button class="nav-btn px-2 py-1" data-page="sec-deriv">Derivadas Numéricas</button>
+        <button class="nav-btn px-2 py-1" data-page="sec-int">Integración Numérica</button>
+      </nav>
+      <button id="menuBtn" class="md:hidden text-2xl"><i class="bi bi-list"></i></button>
     </div>
+  </header>
 
-    <hr class="my-3">
+  <!-- MOBILE MENU -->
+  <nav id="menuMobile" class="hidden bg-slate-900 text-white flex-col p-3 md:hidden gap-2">
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-deriv">Derivadas Numéricas</button>
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-int">Integración Numérica</button>
+  </nav>
+      <section id="sec-deriv" class="page active max-w-4xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-4">Diferenciación Numérica</h2>
 
-    <h3 class="font-semibold mb-2">Importancia</h3>
-    <p class="text-sm text-gray-700">
-      Permite estudiar tasas de cambio cuando solo se cuenta con datos discretos.
-      Fundamental en optimización, simulación, análisis científico e ingeniería.
-    </p>
+  <div class="mb-6">
 
-    <h3 class="font-semibold mt-3">Características</h3>
-    <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Aproxima derivadas reales</li>
-      <li>Uso de puntos separados por paso h</li>
-      <li>Basada en diferencias finitas</li>
-      <li>Error disminuye al reducir h</li>
-      <li>Implementación sencilla en software</li>
-    </ul>
+  <!-- ===================== TEORÍA ===================== -->
+  <div>
+    <div class="bg-white p-4 rounded shadow">
 
-    <h3 class="font-semibold mt-3">Aplicaciones</h3>
-    <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Control y automatización industrial</li>
-      <li>Análisis de señales y sensores</li>
-      <li>Finanzas y estimación de riesgo</li>
-      <li>Aprendizaje automático (gradiente)</li>
-    </ul>
+      <h3 class="font-semibold mb-2">Concepto</h3>
+      <p class="text-sm text-gray-700">
+        La <strong>derivación numérica</strong> es una técnica empleada para aproximar la derivada de una función 
+        cuando esta no se conoce de forma analítica o sus datos solo están disponibles en puntos discretos.
+      </p>
 
-    <h3 class="font-semibold mt-3">Ventajas</h3>
-    <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Fácil implementación</li>
-      <li>Útil con datos experimentales</li>
-    </ul>
+      <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
+        <li>Funciones sin fórmula explícita</li>
+        <li>Modelos experimentales y registros de sensores</li>
+        <li>Cálculos complejos o costosos</li>
+        <li>Sistemas discretos en ingeniería</li>
+      </ul>
 
-    <h3 class="font-semibold mt-3">Desventajas</h3>
-    <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Sensible al tamaño de paso h</li>
-      <li>Afectada por ruido en los datos</li>
-      <li>No adecuada para discontinuidades bruscas</li>
-    </ul>
+      <hr class="my-3">
 
+      <h3 class="font-semibold mb-2">Definición Formal</h3>
+      <p class="text-sm text-gray-700">
+        La derivada de una función se define como el límite:
+      </p>
+      <p class="text-sm text-gray-700">
+        $$
+        f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+        $$
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-semibold mb-2">Aproximaciones por Diferencias Finitas</h3>
+
+          <p class="text-sm text-gray-700 font-medium mt-2">Diferencia hacia adelante (Forward):</p>
+          <p class="text-sm text-gray-700">
+            $$
+            f'(x) \approx \frac{f(x+h) - f(x)}{h}
+            $$
+          </p>
+
+          <p class="text-sm text-gray-700 font-medium mt-2">Diferencia hacia atrás (Backward):</p>
+          <p class="text-sm text-gray-700">
+            $$
+            f'(x) \approx \frac{f(x) - f(x-h)}{h}
+            $$
+          </p>
+
+          <p class="text-sm text-gray-700 font-medium mt-2">Diferencia centrada (Central):</p>
+          <p class="text-sm text-gray-700">
+            $$
+            f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
+            $$
+          </p>
+
+          <p class="text-xs text-gray-600 mt-2">
+            La fórmula centrada es más precisa:  \( O(h^2) \) vs \( O(h) \) para las demás.
+          </p>
+        </div>
+
+
+      </div>
+
+      <hr class="my-3">
+
+      <h3 class="font-semibold mb-2">Importancia</h3>
+      <p class="text-sm text-gray-700">
+        Permite estudiar tasas de cambio cuando solo se cuenta con datos discretos.
+        Fundamental en optimización, simulación, análisis científico e ingeniería.
+      </p>
+
+      <h3 class="font-semibold mt-3">Características</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>Aproxima derivadas reales</li>
+        <li>Uso de puntos separados por paso h</li>
+        <li>Basada en diferencias finitas</li>
+        <li>Error disminuye al reducir h</li>
+        <li>Implementación sencilla en software</li>
+      </ul>
+
+      <h3 class="font-semibold mt-3">Aplicaciones</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>Control y automatización industrial</li>
+        <li>Análisis de señales y sensores</li>
+        <li>Finanzas y estimación de riesgo</li>
+        <li>Aprendizaje automático (gradiente)</li>
+      </ul>
+
+      <h3 class="font-semibold mt-3">Ventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>Fácil implementación</li>
+        <li>Útil con datos experimentales</li>
+      </ul>
+
+      <h3 class="font-semibold mt-3">Desventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>Sensible al tamaño de paso h</li>
+        <li>Afectada por ruido en los datos</li>
+        <li>No adecuada para discontinuidades bruscas</li>
+      </ul>
+
+    </div>
   </div>
-</div>
 
-<!-- ================= CASO DE ESTUDIO ================= -->
-<div>
-  <div class="bg-white p-4 rounded shadow">
-
-<h3 class="font-semibold mb-2">Caso de Estudio: Producción de Botellas</h3>
-<p class="text-sm text-gray-700">
-  En una planta de bebidas se mide la producción acumulada para estimar la tasa de producción
-  (botellas/minuto) utilizando diferencias finitas.
-</p>
-
-<p class="font-medium text-sm mt-2 text-gray-700">Datos discretos observados:</p>
-<p class="text-xs text-gray-700">P(t) = [0, 480, 1020, 1570, 2100, 2610, 3100]</p>
-<p class="text-xs text-gray-700">t (min)= [0, 10, 20, 30, 40, 50, 60]</p>
-
-
-<h4 class="font-semibold mt-4">Cálculo de tasas de cambio</h4>
-
-<div class="overflow-x-auto">
-<table class="w-full text-sm border mt-2">
-<thead class="bg-gray-100 text-gray-800">
-<tr>
-  <th class="border p-2">t (min)</th>
-  <th class="border p-2">Adelante</th>
-  <th class="border p-2">Centrada</th>
-  <th class="border p-2">Atrás</th>
-</tr>
-</thead>
-<tbody>
-<tr><td class="border p-2">0</td><td class="border p-2">48.0</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td></tr>
-<tr><td class="border p-2">10</td><td class="border p-2">54.0</td><td class="border p-2">51.0</td><td class="border p-2">48.0</td></tr>
-<tr><td class="border p-2">20</td><td class="border p-2">55.0</td><td class="border p-2">54.5</td><td class="border p-2">54.0</td></tr>
-<tr><td class="border p-2">30</td><td class="border p-2">53.0</td><td class="border p-2">54.0</td><td class="border p-2">55.0</td></tr>
-<tr><td class="border p-2">40</td><td class="border p-2">51.0</td><td class="border p-2">52.0</td><td class="border p-2">53.0</td></tr>
-<tr><td class="border p-2">50</td><td class="border p-2">49.0</td><td class="border p-2">50.0</td><td class="border p-2">51.0</td></tr>
-<tr><td class="border p-2">60</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td><td class="border p-2">49.0</td></tr>
-</tbody>
-</table>
-</div>
-
-<hr class="my-3">
-
-<p class="font-medium text-sm">Interpretación de resultados</p>
-<ul class="text-sm text-gray-700 list-disc list-inside">
-  <li>La producción aumenta hasta ~30 min y luego se estabiliza ligeramente.</li>
-  <li>El método centrado proporciona valores más equilibrados y precisos.</li>
-  <li>Forward tiende a sobreestimar y backward a subestimar.</li>
-</ul>
-
-<img src="image.png"class="rounded shadow-md mt-3">
-
-<p class="font-medium mt-3">Conclusión</p>
-<p class="text-sm text-gray-700">
-La diferenciación numérica permite evaluar la eficiencia del proceso y tomar decisiones 
-industriales basadas en datos reales.
-</p>
-
+  <!-- Infografía arriba del caso de estudio -->
+  <div class="flex justify-center mb-6">
+    <img src="infografia-diferenciacion.jpeg" alt="Infografía de Diferenciación Numérica" class="rounded shadow-md w-full md:w-3/4">
   </div>
-</div>
-  </section>
+
+  <!-- ================= CASO DE ESTUDIO ================= -->
+  <div>
+    <div class="bg-white p-4 rounded shadow">
+
+  <h3 class="font-semibold mb-2">Caso de Estudio: Producción de Botellas</h3>
+  <p class="text-sm text-gray-700">
+    En una planta de bebidas se mide la producción acumulada para estimar la tasa de producción
+    (botellas/minuto) utilizando diferencias finitas.
+  </p>
+
+  <p class="font-medium text-sm mt-2 text-gray-700">Datos discretos observados:</p>
+  <p class="text-xs text-gray-700">P(t) = [0, 480, 1020, 1570, 2100, 2610, 3100]</p>
+  <p class="text-xs text-gray-700">t (min)= [0, 10, 20, 30, 40, 50, 60]</p>
 
 
-  <!-- ========== INTEGRACIÓN ========== -->
-  <section id="sec-int" class="page max-w-4xl mx-auto p-4">
+  <h4 class="font-semibold mt-4">Cálculo de tasas de cambio</h4>
+
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm border mt-2">
+  <thead class="bg-gray-100 text-gray-800">
+  <tr>
+    <th class="border p-2">t (min)</th>
+    <th class="border p-2">Adelante</th>
+    <th class="border p-2">Centrada</th>
+    <th class="border p-2">Atrás</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr><td class="border p-2">0</td><td class="border p-2">48.0</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td></tr>
+  <tr><td class="border p-2">10</td><td class="border p-2">54.0</td><td class="border p-2">51.0</td><td class="border p-2">48.0</td></tr>
+  <tr><td class="border p-2">20</td><td class="border p-2">55.0</td><td class="border p-2">54.5</td><td class="border p-2">54.0</td></tr>
+  <tr><td class="border p-2">30</td><td class="border p-2">53.0</td><td class="border p-2">54.0</td><td class="border p-2">55.0</td></tr>
+  <tr><td class="border p-2">40</td><td class="border p-2">51.0</td><td class="border p-2">52.0</td><td class="border p-2">53.0</td></tr>
+  <tr><td class="border p-2">50</td><td class="border p-2">49.0</td><td class="border p-2">50.0</td><td class="border p-2">51.0</td></tr>
+  <tr><td class="border p-2">60</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td><td class="border p-2">49.0</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <hr class="my-3">
+
+  <p class="font-medium text-sm">Interpretación de resultados</p>
+  <ul class="text-sm text-gray-700 list-disc list-inside">
+    <li>La producción aumenta hasta ~30 min y luego se estabiliza ligeramente.</li>
+    <li>El método centrado proporciona valores más equilibrados y precisos.</li>
+    <li>Forward tiende a sobreestimar y backward a subestimar.</li>
+  </ul>
+
+  <img src="image.png"class="rounded shadow-md mt-3">
+
+  <p class="font-medium mt-3">Conclusión</p>
+  <p class="text-sm text-gray-700">
+  La diferenciación numérica permite evaluar la eficiencia del proceso y tomar decisiones 
+  industriales basadas en datos reales.
+  </p>
+
+    </div>
+  </div>
+    </section>
+<!-- ========== INTEGRACIÓN ========== -->
+<section id="sec-int" class="page max-w-4xl mx-auto p-4">
   <h2 class="text-2xl font-semibold mb-4">Integración Numérica</h2>
 
-  <!-- Contextualización teórica -->
-  <div class="mb-6">
+  <!-- Concepto -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-2">¿Qué es la integración numérica?</h3>
+    <p class="text-sm text-gray-700">
+      La <strong>integración numérica</strong> es un conjunto de métodos que permite aproximar el valor de una integral definida
+      cuando no puede resolverse analíticamente o cuando solo se dispone de datos discretos. 
+      El objetivo principal es estimar el área bajo una curva dentro de un intervalo <code>[a,b]</code>.
+    </p>
+    <p class="text-sm text-gray-700 mt-2">
+      Es muy utilizada en ingeniería, donde se requiere calcular áreas, consumo energético, fuerzas, calor,
+      volúmenes y otros valores provenientes de sensores o datos experimentales.
+    </p>
+  </div>
+
+  <!-- Cuándo se usa -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-2">¿Cuándo se utiliza?</h3>
+    <ul class="list-disc list-inside text-sm text-gray-700">
+      <li>Cuando la función no tiene solución analítica conocida.</li>
+      <li>Cuando se trabaja con datos reales obtenidos de sensores.</li>
+      <li>En sistemas donde la integral exacta es demasiado compleja.</li>
+      <li>En procesos industriales, científicos y de simulación.</li>
+    </ul>
+  </div>
+
+  <!-- Ventajas y desventajas -->
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
     <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mb-2">Concepto general</h3>
-      <p class="text-sm text-gray-700">
-        La <strong>integración numérica</strong> es un procedimiento que permite estimar el valor de una integral definida
-        cuando no se puede resolver de manera analítica o se dispone únicamente de datos discretos. Consiste en
-        aproximar el área bajo una curva dentro de un intervalo <code>[a,b]</code> mediante la suma de áreas más simples,
-        como trapecios o parábolas. Entre los métodos más utilizados están:
-        <strong>la regla del trapecio</strong> (aproximación lineal) y <strong>la regla de Simpson</strong> (aproximación
-        cuadrática o cúbica según el caso).
-      </p>
+      <h3 class="font-semibold mb-2">Ventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>No requiere fórmula exacta de la integral.</li>
+        <li>Se adapta a datos discretos experimentales.</li>
+        <li>Fácil implementación.</li>
+        <li>Mayor precisión al aumentar subdivisiones.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-2">Desventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>El resultado siempre es aproximado.</li>
+        <li>Puede ser impreciso si la función cambia bruscamente.</li>
+        <li>Requiere mayor cálculo para mejorar precisión.</li>
+      </ul>
     </div>
   </div>
 
-  <!-- Métodos principales -->
+  <!-- Formulas generales -->
   <div class="bg-white p-4 rounded shadow mb-6">
-    <h4 class="font-semibold mb-2">Principales métodos de integración numérica</h4>
+    <h3 class="font-semibold mb-2">Fórmulas Generales</h3>
+
+    <p class="text-sm font-medium text-gray-700 mt-2">Regla del Trapecio:</p>
+    <p class="text-center text-sm my-2">
+      $$\int_{a}^{b} f(x)\,dx \approx \frac{h}{2}\left[f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\right]$$
+    </p>
+
+    <p class="text-sm font-medium text-gray-700 mt-4">Regla de Simpson 1/3:</p>
+    <p class="text-center text-sm my-2">
+      $$\int_{a}^{b} f(x)\,dx \approx \frac{h}{3}\left[f(x_0) + 4\sum_{\text{i impar}} f(x_i) + 2\sum_{\text{i par}} f(x_i) + f(x_n)\right]$$
+    </p>
+
+    <p class="text-sm font-medium text-gray-700 mt-4">Regla de Simpson 3/8:</p>
+    <p class="text-center text-sm my-2">
+      $$\int_{a}^{b} f(x)\,dx \approx \frac{3h}{8}\left[f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3) + \cdots + f(x_n)\right]$$
+    </p>
+
+    <p class="text-xs italic text-gray-600 mt-3">
+      Nota: Simpson 1/3 requiere \(n\) par. Simpson 3/8 requiere \(n\) múltiplo de 3.
+    </p>
+  </div>
+
+  <!-- Infografía -->
+  <div class="flex justify-center mb-6">
+    <img src="infografia-integracion.jpeg" alt="Infografía integración" class="rounded shadow-md w-full md:w-3/4">
+  </div>
+
+  <!-- Métodos principales tabla -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h4 class="font-semibold mb-2">Comparativa de métodos</h4>
     <div class="overflow-x-auto">
       <table class="w-full text-sm border border-gray-300">
         <thead class="bg-slate-100">
           <tr>
             <th class="border p-1">Método</th>
-            <th class="border p-1">Cómo aproxima la curva</th>
-            <th class="border p-1">Grado del polinomio</th>
+            <th class="border p-1">Aproximación</th>
+            <th class="border p-1">Grado</th>
             <th class="border p-1">n</th>
-            <th class="border p-1">Fórmula base</th>
-            <th class="border p-1">Secuencia de coeficientes</th>
+            <th class="border p-1">Fórmula</th>
+            <th class="border p-1">Coeficientes</th>
             <th class="border p-1">Ventajas</th>
             <th class="border p-1">Desventajas</th>
-            <th class="border p-1">Cuándo usarlo</th>
-            <th class="border p-1">Precisión / Error</th>
+            <th class="border p-1">Uso recomendado</th>
+            <th class="border p-1">Error</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="border p-1">Trapecio</td>
-            <td class="border p-1">Aproxima la curva mediante segmentos de línea recta.</td>
-            <td class="border p-1">1 (lineal)</td>
+            <td class="border p-1">Rectas</td>
+            <td class="border p-1">1</td>
             <td class="border p-1">Cualquiera</td>
-            <td class="border p-1">\( T = \frac{h}{2}[f(x_0)+2Σf(x_i)+f(x_n)] \)</td>
-            <td class="border p-1">1, 2, 2, …, 2, 1</td>
-            <td class="border p-1">Fácil de aplicar, útil con datos experimentales o tablas discretas.</td>
-            <td class="border p-1">Menor precisión; converge lentamente.</td>
-            <td class="border p-1">Cuando se busca simplicidad y rapidez de cálculo.</td>
-            <td class="border p-1">Error proporcional a \(h^2\)</td>
+            <td class="border p-1">\(\frac{h}{2}[f(x_0)+2Σf(x_i)+f(x_n)]\)</td>
+            <td class="border p-1">1, 2, ..., 2, 1</td>
+            <td class="border p-1">Simple, datos experimentales</td>
+            <td class="border p-1">Menor precisión</td>
+            <td class="border p-1">Rápido y básico</td>
+            <td class="border p-1">\(O(h^2)\)</td>
           </tr>
           <tr>
             <td class="border p-1">Simpson 1/3</td>
-            <td class="border p-1">Aproxima la curva mediante parábolas en pares de intervalos.</td>
-            <td class="border p-1">2 (cuadrático)</td>
+            <td class="border p-1">Parábolas</td>
+            <td class="border p-1">2</td>
             <td class="border p-1">Par</td>
-            <td class="border p-1">\( S = \frac{h}{3}[f(x_0)+4Σ_{impares}f(x_i)+2Σ_{pares}f(x_i)+f(x_n)] \)</td>
-            <td class="border p-1">1, 4, 2, 4, …, 4, 1</td>
-            <td class="border p-1">Alta precisión con pocas subdivisiones.</td>
-            <td class="border p-1">Solo válido si n es par.</td>
-            <td class="border p-1">Cuando se requiere buena precisión y la función es suave.</td>
-            <td class="border p-1">Error proporcional a \(h^4\)</td>
+            <td class="border p-1">\(\frac{h}{3}[f(x_0)+4Σf(x_i)+2Σf(x_i)+f(x_n)]\)</td>
+            <td class="border p-1">1,4,2,...,4,1</td>
+            <td class="border p-1">Alta precisión</td>
+            <td class="border p-1">n debe ser par</td>
+            <td class="border p-1">Funciones suaves</td>
+            <td class="border p-1">\(O(h^4)\)</td>
           </tr>
           <tr>
             <td class="border p-1">Simpson 3/8</td>
-            <td class="border p-1">Aproxima la curva con polinomios cúbicos cada tres subintervalos.</td>
-            <td class="border p-1">3 (cúbico)</td>
-            <td class="border p-1">Múltiplo de 3</td>
-            <td class="border p-1">\( I = \frac{3h}{8}[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)] \)</td>
-            <td class="border p-1">1, 3, 3, 2, …, 3, 1</td>
-            <td class="border p-1">Buena precisión en funciones con variaciones bruscas.</td>
-            <td class="border p-1">Requiere n múltiplo de 3, más cálculo.</td>
-            <td class="border p-1">Cuando Simpson 1/3 no aplica (n impar).</td>
-            <td class="border p-1">Error proporcional a \(h^4\)</td>
+            <td class="border p-1">Cúbicas</td>
+            <td class="border p-1">3</td>
+            <td class="border p-1">Múltiplo 3</td>
+            <td class="border p-1">\(\frac{3h}{8}[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]\)</td>
+            <td class="border p-1">1,3,3,1,...</td>
+            <td class="border p-1">Gran precisión</td>
+            <td class="border p-1">Más cálculo</td>
+            <td class="border p-1">Curvas complejas</td>
+            <td class="border p-1">\(O(h^4)\)</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Ejemplo práctico del PDF -->
+  <!-- Caso Trapecio -->
   <div class="bg-white p-4 rounded shadow mb-6">
-    <!-- Infografía: Estimación del consumo energético -->
-<div class="flex justify-center mb-6">
-  <img src="infografia-integracion.jpeg" alt="Estimación del consumo energético" class="rounded shadow-md w-full md:w-3/4">
-</div>
-
-    <h4 class="font-semibold mb-2">Ejemplo práctico: comparación entre Trapecio y Simpson 1/3</h4>
-    <p class="text-sm text-gray-700 mb-2">
-      A continuación se presenta un caso de estudio basado en la comparación numérica de los métodos del
-      Trapecio y Simpson 1/3 para la integral:
-    </p>
-    <p class="text-center italic text-gray-800 mb-2">
-      \( \int_0^6 ( 2e^{-0.5t} + 0.4t^2 ) \, dt \)
-    </p>
-    <p class="text-sm text-gray-700 mb-4">
-      El objetivo fue evaluar la eficiencia y precisión de ambos métodos a diferentes números de subintervalos <em>n</em>.
+    <h3 class="font-semibold mb-2">Caso de estudio: Consumo energético industrial</h3>
+    <p class="text-sm text-gray-700">
+      Se desea estimar el consumo energético durante 6 horas:
     </p>
 
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm border border-gray-300">
-        <thead class="bg-slate-100">
-          <tr>
-            <th class="border p-1">n</th>
-            <th class="border p-1">Trapecio (Aprox.)</th>
-            <th class="border p-1">Simpson 1/3 (Aprox.)</th>
-            <th class="border p-1">Error Trapecio</th>
-            <th class="border p-1">Error Simpson</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border p-1 text-center">4</td>
-            <td class="border p-1 text-center">33.6774</td>
-            <td class="border p-1 text-center">32.6071</td>
-            <td class="border p-1 text-center">1.0765</td>
-            <td class="border p-1 text-center">0.0063</td>
-          </tr>
-          <tr>
-            <td class="border p-1 text-center">6</td>
-            <td class="border p-1 text-center">33.0797</td>
-            <td class="border p-1 text-center">32.6021</td>
-            <td class="border p-1 text-center">0.4789</td>
-            <td class="border p-1 text-center">0.0013</td>
-          </tr>
-          <tr>
-            <td class="border p-1 text-center">8</td>
-            <td class="border p-1 text-center">32.8703</td>
-            <td class="border p-1 text-center">32.6013</td>
-            <td class="border p-1 text-center">0.2694</td>
-            <td class="border p-1 text-center">0.0004</td>
-          </tr>
-          <tr>
-            <td class="border p-1 text-center">10</td>
-            <td class="border p-1 text-center">32.7733</td>
-            <td class="border p-1 text-center">32.6010</td>
-            <td class="border p-1 text-center">0.1725</td>
-            <td class="border p-1 text-center">0.0002</td>
-          </tr>
-          <tr>
-            <td class="border p-1 text-center">12</td>
-            <td class="border p-1 text-center">32.7206</td>
-            <td class="border p-1 text-center">32.6009</td>
-            <td class="border p-1 text-center">0.1198</td>
-            <td class="border p-1 text-center">0.0001</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="text-sm text-gray-700 mt-4">
-      <strong>Conclusiones:</strong> El método del Trapecio presenta errores relativamente altos y converge de forma más
-      lenta hacia el valor real de la integral. Por otro lado, el método de Simpson 1/3 logra una excelente precisión
-      incluso con un número pequeño de subintervalos, siendo más eficiente para funciones suaves y continuas.
+    <p class="text-center my-2 text-sm">
+      $$\int_0^6 \left(2e^{-0.5t} + 0.4t^2\right) dt$$
     </p>
+
+    <h4 class="font-semibold mb-2">Método del Trapecio</h4>
+    <p class="text-sm text-gray-700">
+      Con paso \(h = 1\):
+    </p>
+
+    <p class="text-center my-2 text-sm">
+      $$\frac{1}{2}\left[f(0) + 2(f(1)+f(2)+f(3)+f(4)+f(5)) + f(6)\right]$$
+    </p>
+
+    <p class="text-sm text-gray-700 mt-2"><strong>Resultado:</strong> \(33.079695\) kWh</p>
+  </div>
+
+  <!-- Caso Simpson 3/8 -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h4 class="font-semibold mb-2">Método Simpson 3/8</h4>
+
+    <p class="text-sm text-gray-700">
+      Usando los mismos datos horarios:
+    </p>
+
+    <p class="text-center my-2 text-sm">
+      $$\frac{3}{8}[f(0)+3f(1)+3f(2)+f(3)+3f(4)+3f(5)+f(6)]$$
+    </p>
+
+    <p class="text-sm text-gray-700"><strong>Resultado:</strong> \(32.60364\) kWh</p>
+
+    <h4 class="font-semibold mt-2 mb-1">Conclusión comparativa</h4>
+    <ul class="list-disc list-inside text-sm text-gray-700">
+      <li>Diferencia ≈ \(0.476\) kWh (≈1.44%)</li>
+      <li>Simpson 3/8 ofrece mayor precisión teórica</li>
+      <li>Ambos métodos válidos → mismo conjunto de datos</li>
+    </ul>
   </div>
 </section>
+x
 
-<section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
-    <div class="grid md:grid-cols-2 gap-6">
-      <div>
-        <div class="bg-white p-4 rounded shadow mb-4">
-          <h3 class="font-semibold mb-2">Visualización</h3>
-          <canvas id="chartI" style="max-height:360px"></canvas>
-        </div>
-        <div class="mb-4">
-          <button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
-        </div>
-      </div>
-
-      <div>
-        <!-- Inputs -->
-        <div class="bg-white p-4 rounded shadow mb-4">
-          <button onclick="startTutorial('int')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
-          <label class="block text-sm font-medium mb-1">f(x)</label>
-          <input id="exprI" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
-
-          <!-- keyboard -->
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="int-keyboard">
-            <div class="keybtn" onclick="insertKey('exprI','sin(')">sin</div>
-            <div class="keybtn" onclick="insertKey('exprI','cos(')">cos</div>
-            <div class="keybtn" onclick="insertKey('exprI','tan(')">tan</div>
-            <div class="keybtn" onclick="insertKey('exprI','ln(')">ln</div>
-            <div class="keybtn" onclick="insertKey('exprI','sqrt(')">√</div>
-            <div class="keybtn" onclick="insertKey('exprI','^')">^</div>
-            <div class="keybtn" onclick="insertKey('exprI','x')">x</div>
-            <div class="keybtn" onclick="insertKey('exprI','(')">(</div>
-            <div class="keybtn" onclick="insertKey('exprI',')')">)</div>
-            <div class="keybtn" onclick="insertKey('exprI','pi')">π</div>
-            <div class="keybtn" onclick="insertKey('exprI','e')">e</div>
-            <div class="keybtn" onclick="insertKey('exprI','-')">-</div>
+  <section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <div class="bg-white p-4 rounded shadow mb-4">
+            <h3 class="font-semibold mb-2">Visualización</h3>
+            <canvas id="chartI" style="max-height:360px"></canvas>
           </div>
+          <div class="mb-4">
+            <button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
+          </div>
+        </div>
 
-          <div class="flex flex-col sm:flex-row gap-2 mb-3">
-            <div class="flex-1">
-              <label class="text-sm font-medium">a</label>
-              <input id="a" class="w-full p-2 border rounded" value="0" />
+        <div>
+          <!-- Inputs -->
+          <div class="bg-white p-4 rounded shadow mb-4">
+            <button onclick="startTutorial('int')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
+            <label class="block text-sm font-medium mb-1">f(x)</label>
+            <input id="exprI" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
+
+            <!-- keyboard -->
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="int-keyboard">
+              <div class="keybtn" onclick="insertKey('exprI','sin(')">sin</div>
+              <div class="keybtn" onclick="insertKey('exprI','cos(')">cos</div>
+              <div class="keybtn" onclick="insertKey('exprI','tan(')">tan</div>
+              <div class="keybtn" onclick="insertKey('exprI','ln(')">ln</div>
+              <div class="keybtn" onclick="insertKey('exprI','sqrt(')">√</div>
+              <div class="keybtn" onclick="insertKey('exprI','^')">^</div>
+              <div class="keybtn" onclick="insertKey('exprI','x')">x</div>
+              <div class="keybtn" onclick="insertKey('exprI','(')">(</div>
+              <div class="keybtn" onclick="insertKey('exprI',')')">)</div>
+              <div class="keybtn" onclick="insertKey('exprI','pi')">π</div>
+              <div class="keybtn" onclick="insertKey('exprI','e')">e</div>
+              <div class="keybtn" onclick="insertKey('exprI','-')">-</div>
             </div>
-            <div class="flex-1">
-              <label class="text-sm font-medium">b</label>
-              <input id="b" class="w-full p-2 border rounded" value="2" />
+
+            <div class="flex flex-col sm:flex-row gap-2 mb-3">
+              <div class="flex-1">
+                <label class="text-sm font-medium">a</label>
+                <input id="a" class="w-full p-2 border rounded" value="0" />
+              </div>
+              <div class="flex-1">
+                <label class="text-sm font-medium">b</label>
+                <input id="b" class="w-full p-2 border rounded" value="2" />
+              </div>
             </div>
+
+            <label class="text-sm font-medium">n (subintervalos)</label>
+            <input id="n" class="w-full p-2 border rounded mb-3" value="4" />
+
+            <div class="flex gap-2">
+              <button id="calcInt" onclick="calcInt()" class="flex-1 bg-green-600 text-white py-2 rounded">Calcular</button>
+              <button id="explainInt" onclick="explainInt()" class="flex-1 bg-emerald-100 text-emerald-800 py-2 rounded">Paso a paso</button>
+            </div>
+
+            <div id="resI" class="mt-3 text-sm font-mono text-gray-700"></div>
           </div>
-
-          <label class="text-sm font-medium">n (subintervalos)</label>
-          <input id="n" class="w-full p-2 border rounded mb-3" value="4" />
-
-          <div class="flex gap-2">
-            <button id="calcInt" onclick="calcInt()" class="flex-1 bg-green-600 text-white py-2 rounded">Calcular</button>
-            <button id="explainInt" onclick="explainInt()" class="flex-1 bg-emerald-100 text-emerald-800 py-2 rounded">Paso a paso</button>
-          </div>
-
-          <div id="resI" class="mt-3 text-sm font-mono text-gray-700"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Caso práctico -->
-    <div class="bg-white p-4 rounded shadow mb-6 mt-6">
-      <h4 class="font-semibold mb-2">Caso práctico (trapecio)</h4>
-      <div id="areaTable" class="text-sm text-gray-700 overflow-x-auto">—</div>
-    </div>
-</section>
-
-    <!-- Bottom row: Visualization and Calculator -->
-    <!-- This section was moved into sec-int-calc -->
-
-    <!-- Caso práctico -->
-    <!-- This section was moved into sec-int-calc -->
-
-  <!-- ========== DERIVADAS (CALCULADORA) ========== -->
-  <section id="sec-deriv-calc" class="page active max-w-4xl mx-auto p-4">
-    <div class="grid md:grid-cols-2 gap-6">
-      <div>
-        <div class="bg-white p-4 rounded shadow mb-4">
-          <button onclick="startTutorial('deriv')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
-          <label class="block text-sm font-medium mb-1">f(x)</label>
-          <input id="exprD" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
-
-          <!-- Math keyboard -->
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="deriv-keyboard">
-            <div class="keybtn" onclick="insertKey('exprD','sin(')">sin</div>
-            <div class="keybtn" onclick="insertKey('exprD','cos(')">cos</div>
-            <div class="keybtn" onclick="insertKey('exprD','tan(')">tan</div>
-            <div class="keybtn" onclick="insertKey('exprD','ln(')">ln</div>
-            <div class="keybtn" onclick="insertKey('exprD','sqrt(')">√</div>
-            <div class="keybtn" onclick="insertKey('exprD','^')">^</div>
-
-            <div class="keybtn" onclick="insertKey('exprD','x')">x</div>
-            <div class="keybtn" onclick="insertKey('exprD','(')">(</div>
-            <div class="keybtn" onclick="insertKey('exprD',')')">)</div>
-            <div class="keybtn" onclick="insertKey('exprD','pi')">π</div>
-            <div class="keybtn" onclick="insertKey('exprD','e')">e</div>
-            <div class="keybtn" onclick="insertKey('exprD','-')">-</div>
-          </div>
-
-          <label class="block text-sm font-medium">x₀</label>
-          <input id="x0" type="text" class="w-full p-2 border rounded mb-2" value="1" />
-
-          <label class="block text-sm font-medium">h</label>
-          <input id="h" type="text" class="w-full p-2 border rounded mb-3" value="0.1" />
-
-          <div class="flex gap-2">
-            <button id="calcDeriv" onclick="calcDeriv()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
-            <button id="explainDeriv" onclick="explainDeriv()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
-          </div>
-
-          <button id="loadTeacherExercise" onclick="loadTeacherExercise()" class="mt-3 w-full bg-gray-200 py-2 rounded">Ejercicio de ejemplo</button>
-          <div id="resD" class="mt-3 text-sm font-mono text-gray-700"></div>
         </div>
       </div>
 
-      <div>
-        <div class="bg-white p-4 rounded shadow mb-4">
-          <h3 class="font-semibold mb-2">Visualización</h3>
-          <p class="text-sm text-gray-600 mb-2">Gráfica de la función y la recta tangente aproximada (derivada central).</p>
-          <canvas id="chartD" style="max-height:360px"></canvas>
-        </div>
-        <div class="mb-4">
-          <button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
-        </div>
+      <!-- Caso práctico -->
+      <div class="bg-white p-4 rounded shadow mb-6 mt-6">
+        <h4 class="font-semibold mb-2">Caso práctico (trapecio)</h4>
+        <div id="areaTable" class="text-sm text-gray-700 overflow-x-auto">—</div>
       </div>
-    </div>
   </section>
 
-<!-- TUTORIAL INTRO (modal) -->
-<div id="tutorialIntro" class="hidden fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded max-w-lg">
-    <h3 class="text-xl font-bold mb-2">Tutorial rápido</h3>
-    <p class="text-sm mb-3">
-      1) Escribe una función con el teclado o manualmente (ej: <code>sin(x)+x^2</code>)<br>
-      2) Usa el teclado para símbolos √, π, e, ^, paréntesis, etc.<br>
-      3) En 'h' puedes poner coma o punto (ej: 0,1 ó 0.1) — se corrige automáticamente.<br>
-      4) Pulsa <b>Calcular</b> y luego <b>Paso a paso</b> para ver la explicación.
-    </p>
-    <div class="flex gap-2">
-      <button onclick="closeTutorialIntro()" class="flex-1 bg-blue-600 text-white py-2 rounded">Comenzar</button>
-      <button onclick="openTutorial('Guía rápida', ['¿Qué es derivada?', '¿Qué es integración?'])" class="flex-1 bg-gray-200 py-2 rounded">Ver guía</button>
+      <!-- Bottom row: Visualization and Calculator -->
+      <!-- This section was moved into sec-int-calc -->
+
+      <!-- Caso práctico -->
+      <!-- This section was moved into sec-int-calc -->
+
+    <!-- ========== DERIVADAS (CALCULADORA) ========== -->
+    <section id="sec-deriv-calc" class="page active max-w-4xl mx-auto p-4">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <div class="bg-white p-4 rounded shadow mb-4">
+            <button onclick="startTutorial('deriv')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
+            <label class="block text-sm font-medium mb-1">f(x)</label>
+            <input id="exprD" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
+
+            <!-- Math keyboard -->
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="deriv-keyboard">
+              <div class="keybtn" onclick="insertKey('exprD','sin(')">sin</div>
+              <div class="keybtn" onclick="insertKey('exprD','cos(')">cos</div>
+              <div class="keybtn" onclick="insertKey('exprD','tan(')">tan</div>
+              <div class="keybtn" onclick="insertKey('exprD','ln(')">ln</div>
+              <div class="keybtn" onclick="insertKey('exprD','sqrt(')">√</div>
+              <div class="keybtn" onclick="insertKey('exprD','^')">^</div>
+
+              <div class="keybtn" onclick="insertKey('exprD','x')">x</div>
+              <div class="keybtn" onclick="insertKey('exprD','(')">(</div>
+              <div class="keybtn" onclick="insertKey('exprD',')')">)</div>
+              <div class="keybtn" onclick="insertKey('exprD','pi')">π</div>
+              <div class="keybtn" onclick="insertKey('exprD','e')">e</div>
+              <div class="keybtn" onclick="insertKey('exprD','-')">-</div>
+            </div>
+
+            <label class="block text-sm font-medium">x₀</label>
+            <input id="x0" type="text" class="w-full p-2 border rounded mb-2" value="1" />
+
+            <label class="block text-sm font-medium">h</label>
+            <input id="h" type="text" class="w-full p-2 border rounded mb-3" value="0.1" />
+
+            <div class="flex gap-2">
+              <button id="calcDeriv" onclick="calcDeriv()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
+              <button id="explainDeriv" onclick="explainDeriv()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
+            </div>
+
+            <button id="loadTeacherExercise" onclick="loadTeacherExercise()" class="mt-3 w-full bg-gray-200 py-2 rounded">Ejercicio de ejemplo</button>
+            <div id="resD" class="mt-3 text-sm font-mono text-gray-700"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="bg-white p-4 rounded shadow mb-4">
+            <h3 class="font-semibold mb-2">Visualización</h3>
+            <p class="text-sm text-gray-600 mb-2">Gráfica de la función y la recta tangente aproximada (derivada central).</p>
+            <canvas id="chartD" style="max-height:360px"></canvas>
+          </div>
+          <div class="mb-4">
+            <button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- TUTORIAL INTRO (modal) -->
+  <div id="tutorialIntro" class="hidden fixed inset-0 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded max-w-lg">
+      <h3 class="text-xl font-bold mb-2">Tutorial rápido</h3>
+      <p class="text-sm mb-3">
+        1) Escribe una función con el teclado o manualmente (ej: <code>sin(x)+x^2</code>)<br>
+        2) Usa el teclado para símbolos √, π, e, ^, paréntesis, etc.<br>
+        3) En 'h' puedes poner coma o punto (ej: 0,1 ó 0.1) — se corrige automáticamente.<br>
+        4) Pulsa <b>Calcular</b> y luego <b>Paso a paso</b> para ver la explicación.
+      </p>
+      <div class="flex gap-2">
+        <button onclick="closeTutorialIntro()" class="flex-1 bg-blue-600 text-white py-2 rounded">Comenzar</button>
+        <button onclick="openTutorial('Guía rápida', ['¿Qué es derivada?', '¿Qué es integración?'])" class="flex-1 bg-gray-200 py-2 rounded">Ver guía</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- STEP-BY-STEP MODAL -->
-<div id="tutorialModal" class="hidden fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded relative">
-    <button id="btnClose" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">×</button>
-    <h3 id="tutorialTitle" class="text-xl font-bold mb-3"></h3>
-    <div id="tutorialContent" class="text-sm mb-4"></div>
+  <!-- STEP-BY-STEP MODAL -->
+  <div id="tutorialModal" class="hidden fixed inset-0 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded relative">
+      <button id="btnClose" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">×</button>
+      <h3 id="tutorialTitle" class="text-xl font-bold mb-3"></h3>
+      <div id="tutorialContent" class="text-sm mb-4"></div>
+    </div>
   </div>
-</div>
 
-<script>
-/* -----------------------
-   UTIL: Navigation SPA
-   ----------------------- */
-const pages = document.querySelectorAll('.page');
-const navBtns = document.querySelectorAll('.nav-btn');
+  <script>
+  /* -----------------------
+    UTIL: Navigation SPA
+    ----------------------- */
+  const pages = document.querySelectorAll('.page');
+  const navBtns = document.querySelectorAll('.nav-btn');
 
-navBtns.forEach(b => {
-  b.addEventListener('click', () => {
-    const id = b.dataset.page;
-    const isDeriv = id === 'sec-deriv';
-    const isInt = id === 'sec-int';
+  navBtns.forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.page;
+      const isDeriv = id === 'sec-deriv';
+      const isInt = id === 'sec-int';
 
-    // Ocultar todas las secciones
-    pages.forEach(p => {
-      p.classList.remove('active');
-      p.style.display = 'none';
+      // Ocultar todas las secciones
+      pages.forEach(p => {
+        p.classList.remove('active');
+        p.style.display = 'none';
+      });
+      
+      // Mostrar las secciones correspondientes
+      if (isDeriv) {
+        document.getElementById('sec-deriv').style.display = 'block';
+        document.getElementById('sec-deriv-calc').style.display = 'block';
+      } else if (isInt) {
+        document.getElementById('sec-int').style.display = 'block';
+        document.getElementById('sec-int-calc').style.display = 'block';
+      }
+      
+      // Cierra el menú móvil si está abierto
+      document.getElementById('menuMobile').classList.add('hidden');
+
+      // Vuelve arriba de la página
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    // Mostrar las secciones correspondientes
-    if (isDeriv) {
-      document.getElementById('sec-deriv').style.display = 'block';
-      document.getElementById('sec-deriv-calc').style.display = 'block';
-    } else if (isInt) {
-      document.getElementById('sec-int').style.display = 'block';
-      document.getElementById('sec-int-calc').style.display = 'block';
-    }
-    
-    // Cierra el menú móvil si está abierto
-    document.getElementById('menuMobile').classList.add('hidden');
-
-    // Vuelve arriba de la página
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-});
 
-// Mostrar solo la primera sección al cargar
-document.querySelectorAll('.page:not(.active)').forEach(p => p.style.display = 'none');
-document.getElementById('sec-deriv').style.display = 'block';
-document.getElementById('sec-deriv-calc').style.display = 'block';
+  // Mostrar solo la primera sección al cargar
+  document.querySelectorAll('.page:not(.active)').forEach(p => p.style.display = 'none');
+  document.getElementById('sec-deriv').style.display = 'block';
+  document.getElementById('sec-deriv-calc').style.display = 'block';
 
-// Menú móvil toggle
-document.getElementById('menuBtn').onclick = () =>
-  document.getElementById('menuMobile').classList.toggle('hidden');
+  // Menú móvil toggle
+  document.getElementById('menuBtn').onclick = () =>
+    document.getElementById('menuMobile').classList.toggle('hidden');
 
-/* -----------------------
-   UTIL: Insert keyboard keys
-   ----------------------- */
-function insertKey(id, val){
-  const el = document.getElementById(id);
-  const pos = el.selectionStart || el.value.length;
-  el.value = el.value.slice(0,pos) + val + el.value.slice(pos);
-  el.focus();
-  el.selectionStart = el.selectionEnd = pos + val.length;
-}
-
-/* -----------------------
-   PARSER: support natural math + fractions
-   - converts: sin -> Math.sin, ^ -> **, pi -> Math.PI
-   - converts fractions like 1/2x -> (1/2)*x and 3/4 -> (3/4)
-   - replace commas with dots in numbers
-   ----------------------- */
-function parseExpr(raw){
-  if(!raw) return raw;
-  let s = String(raw);
-
-  // replace comma decimals "0,1" -> "0.1" (careful: replace only inside numbers)
-  s = s.replace(/(\d+),(\d+)/g, (m,a,b)=> a + '.' + b);
-
-  // Insert multiplication for cases like ')x' or '2x' or ')( ' 
-  // But first handle fraction patterns: digits/digits optionally followed by variable
-  s = s.replace(/(\d+)\s*\/\s*(\d+)/g, '($1/$2)'); // 1/2 -> (1/2)
-
-  // If pattern like (1/2)x or (1/2) x => ensure (1/2)*x
-  s = s.replace(/\)\s*(?=[a-zA-Z\(])/g, ')*');
-
-  // Cases like (1/2)x without space were converted to (1/2)x -> add *
-  s = s.replace(/\)\s*([a-zA-Z\(])/g, ')*$1');
-
-  // Cases like 2x => 2*x (add multiplication between number and variable/parenthesis)
-  s = s.replace(/(\d)(?=\s*[a-zA-Z\(])/g, '$1*');
-
-  // Replace caret with exponent
-  s = s.replace(/\^/g, '**');
-
-  // Replace common functions and constants (case-insensitive)
-  s = s.replace(/\bpi\b/gi, 'Math.PI');
-  s = s.replace(/\be\^/gi, 'Math.exp('); // e^(
-  // If user wrote e^x (without parenthesis), convert e^x -> Math.exp(x)
-  s = s.replace(/\bMath\.exp\(\s*([^\)]+)\s*\)/g, 'Math.exp($1)'); // already ok
-  // convert functions
-  s = s.replace(/\bsin\b/gi, 'Math.sin');
-  s = s.replace(/\bcos\b/gi, 'Math.cos');
-  s = s.replace(/\btan\b/gi, 'Math.tan');
-  s = s.replace(/\bsqrt\b/gi, 'Math.sqrt');
-  s = s.replace(/\bln\b/gi, 'Math.log');
-  s = s.replace(/\blog\b/gi, 'Math.log');
-
-  // Close unmatched Math.exp( if user wrote e^(...) we try to keep as Math.exp(...)
-  // (user should write e^(x) or exp(x) ideally)
-  // Ensure single '*' doesn't remain false
-  return s;
-}
-
-function makeFunction(expr){
-  const parsed = parseExpr(expr || '');
-  try{
-    // use with(Math) to have math functions available without Math prefix in some cases
-    return new Function('x', `with(Math){ return ${parsed}; }`);
-  } catch(e){
-    // throw error upwards
-    throw new Error('Expresión inválida: ' + e.message);
+  /* -----------------------
+    UTIL: Insert keyboard keys
+    ----------------------- */
+  function insertKey(id, val){
+    const el = document.getElementById(id);
+    const pos = el.selectionStart || el.value.length;
+    el.value = el.value.slice(0,pos) + val + el.value.slice(pos);
+    el.focus();
+    el.selectionStart = el.selectionEnd = pos + val.length;
   }
-}
 
-/* -----------------------
-   UTIL: normalize numeric inputs (commas -> dots)
-   ----------------------- */
-function normNumInput(id){
-  const el = document.getElementById(id);
-  if(!el) return null;
-  const v = String(el.value).trim();
-  if(v === '') return NaN;
-  // replace comma decimals
-  const v2 = v.replace(/,/g, '.');
-  return Number(v2);
-}
+  /* -----------------------
+    PARSER: support natural math + fractions
+    - converts: sin -> Math.sin, ^ -> **, pi -> Math.PI
+    - converts fractions like 1/2x -> (1/2)*x and 3/4 -> (3/4)
+    - replace commas with dots in numbers
+    ----------------------- */
+  function parseExpr(raw){
+    if(!raw) return raw;
+    let s = String(raw);
 
-/* -----------------------
-   DERIVADAS
-   ----------------------- */
-let chartDInstance = null;
-function calcDeriv(){
-  try{
-    const expr = document.getElementById('exprD').value;
-    if(!expr){ resD.innerHTML = 'Introduce una función.'; return; }
+    // replace comma decimals "0,1" -> "0.1" (careful: replace only inside numbers)
+    s = s.replace(/(\d+),(\d+)/g, (m,a,b)=> a + '.' + b);
 
-    const x0raw = document.getElementById('x0').value;
-    const hraw = document.getElementById('h').value;
-    // normalize comma -> dot and support pi, e, π
-    let x0str = String(x0raw).trim().replace(/,/g,'.').replace(/\bpi\b/gi, Math.PI.toString()).replace(/π/g, Math.PI.toString()).replace(/\be\b/gi, Math.E.toString());
-    let hstr = String(hraw).trim().replace(/,/g,'.').replace(/\bpi\b/gi, Math.PI.toString()).replace(/π/g, Math.PI.toString()).replace(/\be\b/gi, Math.E.toString());
-    const x0 = Number(x0str);
-    const h = Number(hstr);
+    // Insert multiplication for cases like ')x' or '2x' or ')( ' 
+    // But first handle fraction patterns: digits/digits optionally followed by variable
+    s = s.replace(/(\d+)\s*\/\s*(\d+)/g, '($1/$2)'); // 1/2 -> (1/2)
 
-    if(!isFinite(x0) || !isFinite(h) || h <= 0){ resD.innerHTML = 'x₀ y h deben ser números válidos (h>0).'; return; }
+    // If pattern like (1/2)x or (1/2) x => ensure (1/2)*x
+    s = s.replace(/\)\s*(?=[a-zA-Z\(])/g, ')*');
 
-    const fn = makeFunction(expr);
+    // Cases like (1/2)x without space were converted to (1/2)x -> add *
+    s = s.replace(/\)\s*([a-zA-Z\(])/g, ')*$1');
 
-    const f_x0 = fn(x0); // check nan?
-    if(!isFinite(f_x0)) { resD.innerHTML = 'La función no es válida en x₀.'; return; }
+    // Cases like 2x => 2*x (add multiplication between number and variable/parenthesis)
+    s = s.replace(/(\d)(?=\s*[a-zA-Z\(])/g, '$1*');
 
-    const forward = (fn(x0 + h) - fn(x0)) / h;
-    const backward = (fn(x0) - fn(x0 - h)) / h;
-    const central = (fn(x0 + h) - fn(x0 - h)) / (2 * h);
+    // Replace caret with exponent
+    s = s.replace(/\^/g, '**');
 
-    resD.innerHTML = `Forward: ${forward.toFixed(8)}<br>Backward: ${backward.toFixed(8)}<br>Central: ${central.toFixed(8)}`;
+    // Replace common functions and constants (case-insensitive)
+    s = s.replace(/\bpi\b/gi, 'Math.PI');
+    s = s.replace(/\be\^/gi, 'Math.exp('); // e^(
+    // If user wrote e^x (without parenthesis), convert e^x -> Math.exp(x)
+    s = s.replace(/\bMath\.exp\(\s*([^\)]+)\s*\)/g, 'Math.exp($1)'); // already ok
+    // convert functions
+    s = s.replace(/\bsin\b/gi, 'Math.sin');
+    s = s.replace(/\bcos\b/gi, 'Math.cos');
+    s = s.replace(/\btan\b/gi, 'Math.tan');
+    s = s.replace(/\bsqrt\b/gi, 'Math.sqrt');
+    s = s.replace(/\bln\b/gi, 'Math.log');
+    s = s.replace(/\blog\b/gi, 'Math.log');
 
-    // build plot
-    const xs = Array.from({length:300}, (_,i) => x0 - 6 + i * 0.04);
-    const ys = xs.map(xx => {
-      const v = fn(xx);
-      return (Number.isFinite(v) ? v : NaN);
-    });
-    const slope = central;
-    const tangent = xs.map(xx => fn(x0) + slope * (xx - x0));
-
-    if(chartDInstance) chartDInstance.destroy();
-    chartDInstance = new Chart(document.getElementById('chartD').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: xs,
-        datasets: [
-          { label: 'f(x)', data: ys, borderWidth: 2, pointRadius: 0, tension: 0.2 },
-          { label: 'Tangente (aprox)', data: tangent, borderDash: [6,4], borderWidth: 2, pointRadius: 0 }
-        ]
-      },
-      options: { responsive: true, scales: { x: { title: { display: true, text: 'x' } }, y: { title: { display: true, text: 'f(x)' } } } }
-    });
-
-  } catch(err){
-    resD.innerHTML = 'Error: ' + (err.message || err);
+    // Close unmatched Math.exp( if user wrote e^(...) we try to keep as Math.exp(...)
+    // (user should write e^(x) or exp(x) ideally)
+    // Ensure single '*' doesn't remain false
+    return s;
   }
-}
 
-/* -----------------------
-   EXPLAIN DERIV STEP-BY-STEP with MathJax
-   ----------------------- */
-function explainDeriv() {
-  try {
-    const expr = document.getElementById('exprD').value.trim();
-    if (!expr) { alert('Ingresa una función'); return; }
-
-    const x0 = Number(String(document.getElementById('x0').value).replace(/,/g,'.'));
-    const h  = Number(String(document.getElementById('h').value).replace(/,/g,'.'));
-
-    if (!isFinite(x0) || !isFinite(h) || h <= 0){
-      alert('Valores inválidos. Asegúrate de que x₀ sea numérico y h > 0');
-      return;
-    }
-
-    let fn;
+  function makeFunction(expr){
+    const parsed = parseExpr(expr || '');
     try{
-      fn = makeFunction(expr);
-    }catch(e){
-      alert("Error interpretando la función. Revisa la sintaxis.");
-      return;
+      // use with(Math) to have math functions available without Math prefix in some cases
+      return new Function('x', `with(Math){ return ${parsed}; }`);
+    } catch(e){
+      // throw error upwards
+      throw new Error('Expresión inválida: ' + e.message);
     }
-
-    const f0  = fn(x0);
-    const fph = fn(x0 + h);
-    const fmh = fn(x0 - h);
-
-    const forward  = (fph - f0) / h;
-    const backward = (f0 - fmh) / h;
-    const central  = (fph - fmh) / (2*h);
-
-    const steps = [
-      `<b>Algoritmo paso a paso</b><br><br>`,
-      `<b>Función:</b> \\( f(x) = ${expr} \\)`,
-      `<b>Datos iniciales:</b> \\( x_0 = ${x0},\\; h = ${h} \\)<br><br>`,
-
-      `<b>Paso 1.</b> Sustituimos en la función:`,
-      `\\[ f(${x0}) = ${expr.replace(/x/g,`(${x0})`)} \\]`,
-      `\\[ f(${x0}+${h}) = ${expr.replace(/x/g,`(${x0}+${h})`)} \\]`,
-      `\\[ f(${x0}-${h}) = ${expr.replace(/x/g,`(${x0}-${h})`)} \\]<br>`,
-
-      `<b>Evaluamos:</b>`,
-      `\\[ f(${x0}) = ${f0.toFixed(8)} \\]`,
-      `\\[ f(${x0}+${h}) = ${fph.toFixed(8)} \\]`,
-      `\\[ f(${x0}-${h}) = ${fmh.toFixed(8)} \\]<br><br>`,
-
-      `<b>Paso 2.</b> Diferencia hacia adelante:`,
-      `\\[ f'(x_0) \\approx \\frac{${fph.toFixed(8)} - ${f0.toFixed(8)}}{${h}} = ${forward.toFixed(8)} \\]<br><br>`,
-
-      `<b>Paso 3.</b> Diferencia hacia atrás:`,
-      `\\[ f'(x_0) \\approx \\frac{${f0.toFixed(8)} - ${fmh.toFixed(8)}}{${h}} = ${backward.toFixed(8)} \\]<br><br>`,
-
-      `<b>Paso 4.</b> Diferencia centrada:</b>`,
-      `\\[ f'(x_0) \\approx \\frac{${fph.toFixed(8)} - ${fmh.toFixed(8)}}{2\\cdot${h}} = ${central.toFixed(8)} \\]<br><br>`,
-
-      `<b>Resultado final:</b> \\( f'(x_0) \\approx ${central.toFixed(8)} \\)`
-    ];
-
-    openTutorial('', steps);
-
-    if (window.MathJax) {
-      MathJax.typesetPromise?.() || MathJax.typeset();
-    }
-
-  } catch(e){
-    alert('Error en explicación: ' + e.message);
   }
-}
 
-
-
-/* -----------------------
-   LOAD TEACHER EXERCISE
-   f(x) = ((3x-1)/(x^2+3))^2
-   exact derivative provided:
-   f'(x) = (-18 + 50x + 18x^2 - 18x^3) / (x^2 + 3)^3
-   ----------------------- */
-function loadTeacherExercise(){
-  const expr = '((3*x - 1)/(x^2 + 3))^2';
-  document.getElementById('exprD').value = expr;
-  document.getElementById('x0').value = '1';
-  document.getElementById('h').value = '0.1';
-  // compute
-  calcDeriv();
-  // compute exact derivative and show error table
-  try{
-    const fn = makeFunction(expr);
-    const dexpr = '(-18 + 50*x + 18*x^2 - 18*x^3) / (x^2 + 3)**3';
-    const dfn = makeFunction(dexpr);
-    const x0 = 1;
-    const h = 0.1;
-    const forward = (fn(x0 + h) - fn(x0)) / h;
-    const backward = (fn(x0) - fn(x0 - h)) / h;
-    const central = (fn(x0 + h) - fn(x0 - h)) / (2 * h);
-    const exact = dfn(x0);
-    const errF = Math.abs(forward - exact);
-    const errB = Math.abs(backward - exact);
-    const errC = Math.abs(central - exact);
-
-    const tableHtml = `
-      <table class="w-full text-sm">
-        <thead><tr><th class="text-left">Método</th><th>Valor</th><th>Error abs.</th></tr></thead>
-        <tbody>
-          <tr><td>Forward</td><td>${forward.toFixed(8)}</td><td>${errF.toExponential(3)}</td></tr>
-          <tr><td>Backward</td><td>${backward.toFixed(8)}</td><td>${errB.toExponential(3)}</td></tr>
-          <tr><td>Central</td><td>${central.toFixed(8)}</td><td>${errC.toExponential(3)}</td></tr>
-          <tr class="bg-gray-50"><td>Derivada exacta</td><td colspan="2">${exact.toFixed(8)}</td></tr>
-        </tbody>
-      </table>
-    `;
-    document.getElementById('tableD').innerHTML = tableHtml;
-    // Also open step-by-step automatically
-    explainDeriv();
-  } catch(e){
-    document.getElementById('tableD').innerText = 'Error al evaluar ejercicio: ' + e.message;
+  /* -----------------------
+    UTIL: normalize numeric inputs (commas -> dots)
+    ----------------------- */
+  function normNumInput(id){
+    const el = document.getElementById(id);
+    if(!el) return null;
+    const v = String(el.value).trim();
+    if(v === '') return NaN;
+    // replace comma decimals
+    const v2 = v.replace(/,/g, '.');
+    return Number(v2);
   }
-}
 
-/* -----------------------
-   INTEGRACIÓN
-   ----------------------- */
-let chartIInstance = null;
-function calcInt(){
-  try{
-    const expr = document.getElementById('exprI').value;
-    if(!expr){ resI.innerHTML = 'Introduce una función.'; return; }
-    const a = Number(String(document.getElementById('a').value).replace(/,/g,'.'));
-    const b = Number(String(document.getElementById('b').value).replace(/,/g,'.'));
-    let n = parseInt(document.getElementById('n').value);
-    if(!(isFinite(a) && isFinite(b) && n > 0 && a < b)){ resI.innerHTML = 'Entradas inválidas (a < b, n entero >0).'; return; }
-    const fn = makeFunction(expr);
+  /* -----------------------
+    DERIVADAS
+    ----------------------- */
+  let chartDInstance = null;
+  function calcDeriv(){
+    try{
+      const expr = document.getElementById('exprD').value;
+      if(!expr){ resD.innerHTML = 'Introduce una función.'; return; }
 
-    const h = (b - a) / n;
-    // trapecio
-    let trap = 0.5 * (fn(a) + fn(b));
-    for(let i=1;i<n;i++) trap += fn(a + i*h);
-    trap *= h;
-    // simpson (use n2 even)
-    let n2 = n; if(n2 % 2 === 1) n2++;
-    const h2 = (b - a) / n2;
-    let simp = fn(a) + fn(b);
-    for(let i=1;i<n2;i++) simp += (i % 2 === 0 ? 2*fn(a + i*h2) : 4*fn(a + i*h2));
-    simp *= h2/3;
+      const x0raw = document.getElementById('x0').value;
+      const hraw = document.getElementById('h').value;
+      // normalize comma -> dot and support pi, e, π
+      let x0str = String(x0raw).trim().replace(/,/g,'.').replace(/\bpi\b/gi, Math.PI.toString()).replace(/π/g, Math.PI.toString()).replace(/\be\b/gi, Math.E.toString());
+      let hstr = String(hraw).trim().replace(/,/g,'.').replace(/\bpi\b/gi, Math.PI.toString()).replace(/π/g, Math.PI.toString()).replace(/\be\b/gi, Math.E.toString());
+      const x0 = Number(x0str);
+      const h = Number(hstr);
 
-    resI.innerHTML = `Trapecio: ${trap.toFixed(8)}<br>Simpson: ${simp.toFixed(8)}`;
+      if(!isFinite(x0) || !isFinite(h) || h <= 0){ resD.innerHTML = 'x₀ y h deben ser números válidos (h>0).'; return; }
 
-    const xs = Array.from({length:320}, (_,i) => a + i*(b-a)/319);
-    const ys = xs.map(xx => { const v = fn(xx); return Number.isFinite(v) ? v : NaN; });
+      const fn = makeFunction(expr);
 
-    if(chartIInstance) chartIInstance.destroy();
-    chartIInstance = new Chart(document.getElementById('chartI').getContext('2d'), {
-      type: 'line',
-      data: { labels: xs, datasets: [{ label: 'f(x)', data: ys, borderWidth:2, pointRadius:0 }] },
-      options: { responsive:true }
-    });
+      const f_x0 = fn(x0); // check nan?
+      if(!isFinite(f_x0)) { resD.innerHTML = 'La función no es válida en x₀.'; return; }
 
-    // build a small table for trapecios (optional)
-    const rows = [];
-    for(let i=0;i<=n;i++){
-      const xi = a + i*h;
-      rows.push(`<tr><td class="border border-gray-300 p-2 text-center">${i}</td><td class="border border-gray-300 p-2 text-center">${xi.toFixed(6)}</td><td class="border border-gray-300 p-2 text-center">${fn(xi).toFixed(6)}</td></tr>`);
+      const forward = (fn(x0 + h) - fn(x0)) / h;
+      const backward = (fn(x0) - fn(x0 - h)) / h;
+      const central = (fn(x0 + h) - fn(x0 - h)) / (2 * h);
+
+      resD.innerHTML = `Forward: ${forward.toFixed(8)}<br>Backward: ${backward.toFixed(8)}<br>Central: ${central.toFixed(8)}`;
+
+      // build plot
+      const xs = Array.from({length:300}, (_,i) => x0 - 6 + i * 0.04);
+      const ys = xs.map(xx => {
+        const v = fn(xx);
+        return (Number.isFinite(v) ? v : NaN);
+      });
+      const slope = central;
+      const tangent = xs.map(xx => fn(x0) + slope * (xx - x0));
+
+      if(chartDInstance) chartDInstance.destroy();
+      chartDInstance = new Chart(document.getElementById('chartD').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: xs,
+          datasets: [
+            { label: 'f(x)', data: ys, borderWidth: 2, pointRadius: 0, tension: 0.2 },
+            { label: 'Tangente (aprox)', data: tangent, borderDash: [6,4], borderWidth: 2, pointRadius: 0 }
+          ]
+        },
+        options: { responsive: true, scales: { x: { title: { display: true, text: 'x' } }, y: { title: { display: true, text: 'f(x)' } } } }
+      });
+
+    } catch(err){
+      resD.innerHTML = 'Error: ' + (err.message || err);
     }
-    document.getElementById('areaTable').innerHTML = `<div class="overflow-x-auto"><table class="w-full text-sm border-collapse border border-gray-300"><thead><tr class="bg-gray-100"><th class="border border-gray-300 p-2 font-semibold">#</th><th class="border border-gray-300 p-2 font-semibold">x</th><th class="border border-gray-300 p-2 font-semibold">f(x)</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
-
-  } catch(err){
-    resI.innerHTML = 'Error: ' + (err.message || err);
   }
-}
 
-/* -----------------------
-   STEP-BY-STEP modal logic (LaTeX)
-   ----------------------- */
-function openTutorial(title, steps){
-  document.getElementById('tutorialTitle').innerText = title || '';
-  const processedSteps = steps.map(step => step.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\* /g, '<em>$1</em>'));
-  const content = processedSteps.map(step => `<p style="margin-bottom: 1rem;">${step}</p>`).join('');
-  document.getElementById('tutorialContent').innerHTML = content;
-  document.getElementById('tutorialModal').classList.remove('hidden');
-  setTimeout(() => {
-    if (window.MathJax) {
-      MathJax.typesetPromise([document.getElementById('tutorialContent')]);
-    }
-  }, 100);
-}
-document.getElementById('btnClose').onclick = ()=> document.getElementById('tutorialModal').classList.add('hidden');
-
-function openTutorialIntro(){ document.getElementById('tutorialIntro').classList.remove('hidden'); }
-function closeTutorialIntro(){ document.getElementById('tutorialIntro').classList.add('hidden'); localStorage.setItem('tutorialShown','1'); }
-// Tutorial intro removed - no longer appears on first load
-
-/* -----------------------
-   EXPLAIN INT STEP-BY-STEP with MathJax
-   ----------------------- */
-function explainInt() {
-  try {
-    const expr = document.getElementById('exprI').value.trim();
-    if (!expr) { alert('Ingresa una función'); return; }
-
-    const a = Number(String(document.getElementById('a').value).replace(/,/g,'.'));
-    const b = Number(String(document.getElementById('b').value).replace(/,/g,'.'));
-    const nInput = document.getElementById('n').value;
-    const n = parseInt(nInput);
-
-    if (!isFinite(a) || !isFinite(b) || !isFinite(n) || n <= 0 || a >= b) {
-      alert('Valores inválidos. Asegúrate: a<b y n>0');
-      return;
-    }
-
-    let fn;
+  /* -----------------------
+    EXPLAIN DERIV STEP-BY-STEP with MathJax
+    ----------------------- */
+  function explainDeriv() {
     try {
-      fn = makeFunction(expr);
-    } catch {
-      alert("Error interpretando la función. Revisa la sintaxis.");
-      return;
+      const expr = document.getElementById('exprD').value.trim();
+      if (!expr) { alert('Ingresa una función'); return; }
+
+      const x0 = Number(String(document.getElementById('x0').value).replace(/,/g,'.'));
+      const h  = Number(String(document.getElementById('h').value).replace(/,/g,'.'));
+
+      if (!isFinite(x0) || !isFinite(h) || h <= 0){
+        alert('Valores inválidos. Asegúrate de que x₀ sea numérico y h > 0');
+        return;
+      }
+
+      let fn;
+      try{
+        fn = makeFunction(expr);
+      }catch(e){
+        alert("Error interpretando la función. Revisa la sintaxis.");
+        return;
+      }
+
+      const f0  = fn(x0);
+      const fph = fn(x0 + h);
+      const fmh = fn(x0 - h);
+
+      const forward  = (fph - f0) / h;
+      const backward = (f0 - fmh) / h;
+      const central  = (fph - fmh) / (2*h);
+
+      const steps = [
+        `<b>Algoritmo paso a paso</b><br><br>`,
+        `<b>Función:</b> \\( f(x) = ${expr} \\)`,
+        `<b>Datos iniciales:</b> \\( x_0 = ${x0},\\; h = ${h} \\)<br><br>`,
+
+        `<b>Paso 1.</b> Sustituimos en la función:`,
+        `\\[ f(${x0}) = ${expr.replace(/x/g,`(${x0})`)} \\]`,
+        `\\[ f(${x0}+${h}) = ${expr.replace(/x/g,`(${x0}+${h})`)} \\]`,
+        `\\[ f(${x0}-${h}) = ${expr.replace(/x/g,`(${x0}-${h})`)} \\]<br>`,
+
+        `<b>Evaluamos:</b>`,
+        `\\[ f(${x0}) = ${f0.toFixed(8)} \\]`,
+        `\\[ f(${x0}+${h}) = ${fph.toFixed(8)} \\]`,
+        `\\[ f(${x0}-${h}) = ${fmh.toFixed(8)} \\]<br><br>`,
+
+        `<b>Paso 2.</b> Diferencia hacia adelante:`,
+        `\\[ f'(x_0) \\approx \\frac{${fph.toFixed(8)} - ${f0.toFixed(8)}}{${h}} = ${forward.toFixed(8)} \\]<br><br>`,
+
+        `<b>Paso 3.</b> Diferencia hacia atrás:`,
+        `\\[ f'(x_0) \\approx \\frac{${f0.toFixed(8)} - ${fmh.toFixed(8)}}{${h}} = ${backward.toFixed(8)} \\]<br><br>`,
+
+        `<b>Paso 4.</b> Diferencia centrada:</b>`,
+        `\\[ f'(x_0) \\approx \\frac{${fph.toFixed(8)} - ${fmh.toFixed(8)}}{2\\cdot${h}} = ${central.toFixed(8)} \\]<br><br>`,
+
+        `<b>Resultado final:</b> \\( f'(x_0) \\approx ${central.toFixed(8)} \\)`
+      ];
+
+      openTutorial('', steps);
+
+      if (window.MathJax) {
+        MathJax.typesetPromise?.() || MathJax.typeset();
+      }
+
+    } catch(e){
+      alert('Error en explicación: ' + e.message);
     }
-
-    // Paso del método
-    const h = (b - a) / n;
-
-    // Puntos
-    const points = [];
-    for (let i = 0; i <= n; i++) {
-      const xi = a + i * h;
-      points.push({ i, xi, fxi: fn(xi) });
-    }
-
-    // Trapecio
-    let trapSum = 0.5 * (points[0].fxi + points[n].fxi);
-    for (let i = 1; i < n; i++) trapSum += points[i].fxi;
-    const trapResult = trapSum * h;
-
-    // Simpson — n debe ser par
-    let nS = n;
-    if (nS % 2 === 1) nS++; // Ajuste si n es impar
-    const hS = (b - a) / nS;
-
-    let simpsonSum = fn(a) + fn(b);
-    for (let i = 1; i < nS; i++) {
-      const coeff = (i % 2 === 0) ? 2 : 4;
-      simpsonSum += coeff * fn(a + i * hS);
-    }
-    const simpsonResult = simpsonSum * hS / 3;
-
-    // Construcción de pasos
-    const steps = [
-      `<b>Algoritmo paso a paso</b><br><br>`,
-
-      `<b>Función:</b> \\( f(x) = ${expr} \\)`,
-      `<b>Datos iniciales:</b> \\( a=${a},\\; b=${b},\\; n=${n} \\)<br><br>`,
-
-      `<b>Paso 1.</b> Sustituimos en la función:`,
-      `\\[ f(x) = ${expr} \\]`,
-      `\\[ f(a) = f(${a}) = ${expr.replace(/x/g, "(" + a + ")")} \\]`,
-      `\\[ f(b) = f(${b}) = ${expr.replace(/x/g, "(" + b + ")")} \\]<br>`,
-
-      `<b>Paso 2.</b> Calculamos el tamaño del subintervalo:`,
-      `\\[ h = \\frac{b-a}{n} = \\frac{${b}-${a}}{${n}} = ${h.toFixed(6)} \\]<br>`,
-
-      `<b>Paso 3.</b> Construimos la tabla de valores:</b><br>`,
-
-      `\\[
-        \\begin{array}{c|c|c}
-        i & x_i & f(x_i) \\\\ \\hline
-        ${points.map(p => `${p.i} & ${p.xi.toFixed(6)} & ${p.fxi.toFixed(8)}`).join(' \\\\ ')}
-        \\end{array}
-      \\]<br><br>`,
-
-      `<b>Paso 4.</b> Regla del trapecio:</b>`,
-      `\\[
-        \\int_a^b f(x) dx \\approx
-        h \\left[
-          \\frac{f(a)+f(b)}{2}
-          + \\sum_{i=1}^{n-1} f(x_i)
-        \\right]
-      \\]`,
-      `\\[
-        = ${h.toFixed(6)} \\left[
-        \\frac{${points[0].fxi.toFixed(8)} + ${points[n].fxi.toFixed(8)}}{2}
-        + (${points.slice(1,n).map(p=>p.fxi.toFixed(8)).join(" + ")})
-        \\right]
-        = ${trapResult.toFixed(8)}
-      \\]<br><br>`,
-
-      `<b>Paso 5.</b> Regla de Simpson (1/3):</b>`,
-      `\\[
-        \\int_a^b f(x) dx \\approx
-        \\frac{h}{3}\\left[
-          f(a)+f(b)
-          +4\\sum_{i \\text{ impar}} f(x_i)
-          +2\\sum_{i \\text{ par}} f(x_i)
-        \\right]
-      \\]`,
-      `<i>Nota:</i> Se ajusta n a ${nS} para que sea par.<br>`,
-      `\\[
-        = \\frac{${hS.toFixed(6)}}{3}
-        \\left[
-          ${fn(a).toFixed(8)} + ${fn(b).toFixed(8)}
-          + (${Array.from({length:nS},(_,i)=>i)
-               .filter(i=>i%2===1)
-               .map(i=>`4(${fn(a+i*hS).toFixed(8)})`).join(" + ")})
-          + (${Array.from({length:nS},(_,i)=>i)
-               .filter(i=>i%2===0 && i!==0 && i!==nS)
-               .map(i=>`2(${fn(a+i*hS).toFixed(8)})`).join(" + ")})
-        \\right]
-        = ${simpsonResult.toFixed(8)}
-      \\]<br><br>`,
-
-      `<b>Resultado final aproximado:</b><br>`,
-      `\\[ \\text{Trapecio: } \\, ${trapResult.toFixed(8)} \\]`,
-      `\\[ \\text{Simpson: } \\, ${simpsonResult.toFixed(8)} \\]`
-    ];
-
-    openTutorial('', steps);
-
-    if (window.MathJax) MathJax.typesetPromise?.() || MathJax.typeset();
-
-  } catch (e) {
-    alert("Error en explicación: " + e.message);
   }
-}
 
 
-/* -----------------------
-   Init: set some sensible defaults
-   ----------------------- */
-window.addEventListener('load', () => {
-  // sensible defaults
-  document.getElementById('exprD').value = 'sin(x)';
-  document.getElementById('exprI').value = 'x^2+3*x';
-  document.getElementById('a').value = '0';
-  document.getElementById('b').value = '2';
-  document.getElementById('n').value = '4';
-  // render initial plots
-  try{ calcDeriv(); calcInt(); } catch(e){ /* ignore on first load */ }
-});
 
-</script>
+  /* -----------------------
+    LOAD TEACHER EXERCISE
+    f(x) = ((3x-1)/(x^2+3))^2
+    exact derivative provided:
+    f'(x) = (-18 + 50x + 18x^2 - 18x^3) / (x^2 + 3)^3
+    ----------------------- */
+  function loadTeacherExercise(){
+    const expr = '((3*x - 1)/(x^2 + 3))^2';
+    document.getElementById('exprD').value = expr;
+    document.getElementById('x0').value = '1';
+    document.getElementById('h').value = '0.1';
+    // compute
+    calcDeriv();
+    // compute exact derivative and show error table
+    try{
+      const fn = makeFunction(expr);
+      const dexpr = '(-18 + 50*x + 18*x^2 - 18*x^3) / (x^2 + 3)**3';
+      const dfn = makeFunction(dexpr);
+      const x0 = 1;
+      const h = 0.1;
+      const forward = (fn(x0 + h) - fn(x0)) / h;
+      const backward = (fn(x0) - fn(x0 - h)) / h;
+      const central = (fn(x0 + h) - fn(x0 - h)) / (2 * h);
+      const exact = dfn(x0);
+      const errF = Math.abs(forward - exact);
+      const errB = Math.abs(backward - exact);
+      const errC = Math.abs(central - exact);
 
-<script src="tutorial.js"></script>
+      const tableHtml = `
+        <table class="w-full text-sm">
+          <thead><tr><th class="text-left">Método</th><th>Valor</th><th>Error abs.</th></tr></thead>
+          <tbody>
+            <tr><td>Forward</td><td>${forward.toFixed(8)}</td><td>${errF.toExponential(3)}</td></tr>
+            <tr><td>Backward</td><td>${backward.toFixed(8)}</td><td>${errB.toExponential(3)}</td></tr>
+            <tr><td>Central</td><td>${central.toFixed(8)}</td><td>${errC.toExponential(3)}</td></tr>
+            <tr class="bg-gray-50"><td>Derivada exacta</td><td colspan="2">${exact.toFixed(8)}</td></tr>
+          </tbody>
+        </table>
+      `;
+      document.getElementById('tableD').innerHTML = tableHtml;
+      // Also open step-by-step automatically
+      explainDeriv();
+    } catch(e){
+      document.getElementById('tableD').innerText = 'Error al evaluar ejercicio: ' + e.message;
+    }
+  }
 
-</body>
-</html>
+  /* -----------------------
+    INTEGRACIÓN
+    ----------------------- */
+  let chartIInstance = null;
+  function calcInt(){
+    try{
+      const expr = document.getElementById('exprI').value;
+      if(!expr){ resI.innerHTML = 'Introduce una función.'; return; }
+      const a = Number(String(document.getElementById('a').value).replace(/,/g,'.'));
+      const b = Number(String(document.getElementById('b').value).replace(/,/g,'.'));
+      let n = parseInt(document.getElementById('n').value);
+      if(!(isFinite(a) && isFinite(b) && n > 0 && a < b)){ resI.innerHTML = 'Entradas inválidas (a < b, n entero >0).'; return; }
+      const fn = makeFunction(expr);
+
+      const h = (b - a) / n;
+      // trapecio
+      let trap = 0.5 * (fn(a) + fn(b));
+      for(let i=1;i<n;i++) trap += fn(a + i*h);
+      trap *= h;
+      // simpson (use n2 even)
+      let n2 = n; if(n2 % 2 === 1) n2++;
+      const h2 = (b - a) / n2;
+      let simp = fn(a) + fn(b);
+      for(let i=1;i<n2;i++) simp += (i % 2 === 0 ? 2*fn(a + i*h2) : 4*fn(a + i*h2));
+      simp *= h2/3;
+
+      resI.innerHTML = `Trapecio: ${trap.toFixed(8)}<br>Simpson: ${simp.toFixed(8)}`;
+
+      const xs = Array.from({length:320}, (_,i) => a + i*(b-a)/319);
+      const ys = xs.map(xx => { const v = fn(xx); return Number.isFinite(v) ? v : NaN; });
+
+      if(chartIInstance) chartIInstance.destroy();
+      chartIInstance = new Chart(document.getElementById('chartI').getContext('2d'), {
+        type: 'line',
+        data: { labels: xs, datasets: [{ label: 'f(x)', data: ys, borderWidth:2, pointRadius:0 }] },
+        options: { responsive:true }
+      });
+
+      // build a small table for trapecios (optional)
+      const rows = [];
+      for(let i=0;i<=n;i++){
+        const xi = a + i*h;
+        rows.push(`<tr><td class="border border-gray-300 p-2 text-center">${i}</td><td class="border border-gray-300 p-2 text-center">${xi.toFixed(6)}</td><td class="border border-gray-300 p-2 text-center">${fn(xi).toFixed(6)}</td></tr>`);
+      }
+      document.getElementById('areaTable').innerHTML = `<div class="overflow-x-auto"><table class="w-full text-sm border-collapse border border-gray-300"><thead><tr class="bg-gray-100"><th class="border border-gray-300 p-2 font-semibold">#</th><th class="border border-gray-300 p-2 font-semibold">x</th><th class="border border-gray-300 p-2 font-semibold">f(x)</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+
+    } catch(err){
+      resI.innerHTML = 'Error: ' + (err.message || err);
+    }
+  }
+
+  /* -----------------------
+    STEP-BY-STEP modal logic (LaTeX)
+    ----------------------- */
+  function openTutorial(title, steps){
+    document.getElementById('tutorialTitle').innerText = title || '';
+    const processedSteps = steps.map(step => step.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\* /g, '<em>$1</em>'));
+    const content = processedSteps.map(step => `<p style="margin-bottom: 1rem;">${step}</p>`).join('');
+    document.getElementById('tutorialContent').innerHTML = content;
+    document.getElementById('tutorialModal').classList.remove('hidden');
+    setTimeout(() => {
+      if (window.MathJax) {
+        MathJax.typesetPromise([document.getElementById('tutorialContent')]);
+      }
+    }, 100);
+  }
+  document.getElementById('btnClose').onclick = ()=> document.getElementById('tutorialModal').classList.add('hidden');
+
+  function openTutorialIntro(){ document.getElementById('tutorialIntro').classList.remove('hidden'); }
+  function closeTutorialIntro(){ document.getElementById('tutorialIntro').classList.add('hidden'); localStorage.setItem('tutorialShown','1'); }
+  // Tutorial intro removed - no longer appears on first load
+
+  /* -----------------------
+    EXPLAIN INT STEP-BY-STEP with MathJax
+    ----------------------- */
+  function explainInt() {
+    try {
+      const expr = document.getElementById('exprI').value.trim();
+      if (!expr) { alert('Ingresa una función'); return; }
+
+      const a = Number(String(document.getElementById('a').value).replace(/,/g,'.'));
+      const b = Number(String(document.getElementById('b').value).replace(/,/g,'.'));
+      const nInput = document.getElementById('n').value;
+      const n = parseInt(nInput);
+
+      if (!isFinite(a) || !isFinite(b) || !isFinite(n) || n <= 0 || a >= b) {
+        alert('Valores inválidos. Asegúrate: a<b y n>0');
+        return;
+      }
+
+      let fn;
+      try {
+        fn = makeFunction(expr);
+      } catch {
+        alert("Error interpretando la función. Revisa la sintaxis.");
+        return;
+      }
+
+      // Paso del método
+      const h = (b - a) / n;
+
+      // Puntos
+      const points = [];
+      for (let i = 0; i <= n; i++) {
+        const xi = a + i * h;
+        points.push({ i, xi, fxi: fn(xi) });
+      }
+
+      // Trapecio
+      let trapSum = 0.5 * (points[0].fxi + points[n].fxi);
+      for (let i = 1; i < n; i++) trapSum += points[i].fxi;
+      const trapResult = trapSum * h;
+
+      // Simpson — n debe ser par
+      let nS = n;
+      if (nS % 2 === 1) nS++; // Ajuste si n es impar
+      const hS = (b - a) / nS;
+
+      let simpsonSum = fn(a) + fn(b);
+      for (let i = 1; i < nS; i++) {
+        const coeff = (i % 2 === 0) ? 2 : 4;
+        simpsonSum += coeff * fn(a + i * hS);
+      }
+      const simpsonResult = simpsonSum * hS / 3;
+
+      // Construcción de pasos
+      const steps = [
+        `<b>Algoritmo paso a paso</b><br><br>`,
+
+        `<b>Función:</b> \\( f(x) = ${expr} \\)`,
+        `<b>Datos iniciales:</b> \\( a=${a},\\; b=${b},\\; n=${n} \\)<br><br>`,
+
+        `<b>Paso 1.</b> Sustituimos en la función:`,
+        `\\[ f(x) = ${expr} \\]`,
+        `\\[ f(a) = f(${a}) = ${expr.replace(/x/g, "(" + a + ")")} \\]`,
+        `\\[ f(b) = f(${b}) = ${expr.replace(/x/g, "(" + b + ")")} \\]<br>`,
+
+        `<b>Paso 2.</b> Calculamos el tamaño del subintervalo:`,
+        `\\[ h = \\frac{b-a}{n} = \\frac{${b}-${a}}{${n}} = ${h.toFixed(6)} \\]<br>`,
+
+        `<b>Paso 3.</b> Construimos la tabla de valores:</b><br>`,
+
+        `\\[
+          \\begin{array}{c|c|c}
+          i & x_i & f(x_i) \\\\ \\hline
+          ${points.map(p => `${p.i} & ${p.xi.toFixed(6)} & ${p.fxi.toFixed(8)}`).join(' \\\\ ')}
+          \\end{array}
+        \\]<br><br>`,
+
+        `<b>Paso 4.</b> Regla del trapecio:</b>`,
+        `\\[
+          \\int_a^b f(x) dx \\approx
+          h \\left[
+            \\frac{f(a)+f(b)}{2}
+            + \\sum_{i=1}^{n-1} f(x_i)
+          \\right]
+        \\]`,
+        `\\[
+          = ${h.toFixed(6)} \\left[
+          \\frac{${points[0].fxi.toFixed(8)} + ${points[n].fxi.toFixed(8)}}{2}
+          + (${points.slice(1,n).map(p=>p.fxi.toFixed(8)).join(" + ")})
+          \\right]
+          = ${trapResult.toFixed(8)}
+        \\]<br><br>`,
+
+        `<b>Paso 5.</b> Regla de Simpson (1/3):</b>`,
+        `\\[
+          \\int_a^b f(x) dx \\approx
+          \\frac{h}{3}\\left[
+            f(a)+f(b)
+            +4\\sum_{i \\text{ impar}} f(x_i)
+            +2\\sum_{i \\text{ par}} f(x_i)
+          \\right]
+        \\]`,
+        `<i>Nota:</i> Se ajusta n a ${nS} para que sea par.<br>`,
+        `\\[
+          = \\frac{${hS.toFixed(6)}}{3}
+          \\left[
+            ${fn(a).toFixed(8)} + ${fn(b).toFixed(8)}
+            + (${Array.from({length:nS},(_,i)=>i)
+                .filter(i=>i%2===1)
+                .map(i=>`4(${fn(a+i*hS).toFixed(8)})`).join(" + ")})
+            + (${Array.from({length:nS},(_,i)=>i)
+                .filter(i=>i%2===0 && i!==0 && i!==nS)
+                .map(i=>`2(${fn(a+i*hS).toFixed(8)})`).join(" + ")})
+          \\right]
+          = ${simpsonResult.toFixed(8)}
+        \\]<br><br>`,
+
+        `<b>Resultado final aproximado:</b><br>`,
+        `\\[ \\text{Trapecio: } \\, ${trapResult.toFixed(8)} \\]`,
+        `\\[ \\text{Simpson: } \\, ${simpsonResult.toFixed(8)} \\]`
+      ];
+
+      openTutorial('', steps);
+
+      if (window.MathJax) MathJax.typesetPromise?.() || MathJax.typeset();
+
+    } catch (e) {
+      alert("Error en explicación: " + e.message);
+    }
+  }
+
+
+  /* -----------------------
+    Init: set some sensible defaults
+    ----------------------- */
+  window.addEventListener('load', () => {
+    // sensible defaults
+    document.getElementById('exprD').value = 'sin(x)';
+    document.getElementById('exprI').value = 'x^2+3*x';
+    document.getElementById('a').value = '0';
+    document.getElementById('b').value = '2';
+    document.getElementById('n').value = '4';
+    // render initial plots
+    try{ calcDeriv(); calcInt(); } catch(e){ /* ignore on first load */ }
+  });
+
+  </script>
+
+  <script src="tutorial.js"></script>
+
+  </body>
+  </html>
