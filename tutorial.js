@@ -146,9 +146,9 @@ function createOverlay() {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.72)', // oscuridad general
+    backgroundColor: 'transparent', // Sin opacidad
     zIndex: '10000',
-    pointerEvents: 'auto',
+    pointerEvents: 'none', // Permite hacer clic a través de la capa
     transition: 'clip-path 0.25s ease'
   });
 
@@ -309,18 +309,3 @@ function closeTutorial() {
 
 window.startTutorial = startTutorial;
 
-// Add event listeners to tutorial buttons after DOM loads
-document.addEventListener('DOMContentLoaded', function() {
-  // Find and update derivatives tutorial button
-  const derivBtn = document.querySelector('button[onclick*="startTutorial(\'deriv\'"]');
-  if (derivBtn) {
-    derivBtn.addEventListener('click', function() { startTutorial('deriv'); });
-    derivBtn.removeAttribute('onclick');
-  }
-  // Find and update integration tutorial button
-  const intBtn = document.querySelector('button[onclick*="startTutorial(\'int\'"]');
-  if (intBtn) {
-    intBtn.addEventListener('click', function() { startTutorial('int'); });
-    intBtn.removeAttribute('onclick');
-  }
-});
