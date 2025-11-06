@@ -59,7 +59,7 @@ window.MathJax = {
   <button class="nav-btn text-left py-2 w-full" data-page="sec-int">Integración Numérica</button>
 </nav>
     <section id="sec-deriv" class="page active max-w-4xl mx-auto">
-  <h2 class="text-2xl font-semibold mb-4">diferenciación Numérica</h2>
+  <h2 class="text-2xl font-semibold mb-4">Diferenciación Numérica</h2>
 
 <div class="mb-6">
 
@@ -226,79 +226,33 @@ industriales basadas en datos reales.
 
   </div>
 </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div>
-        <div class="bg-white p-4 rounded shadow mb-4">
-          <button onclick="startTutorial('deriv')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
-          <label class="block text-sm font-medium mb-1">f(x)</label>
-          <input id="exprD" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
-
-          <!-- Math keyboard -->
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="deriv-keyboard">
-            <div class="keybtn" onclick="insertKey('exprD','sin(')">sin</div>
-            <div class="keybtn" onclick="insertKey('exprD','cos(')">cos</div>
-            <div class="keybtn" onclick="insertKey('exprD','tan(')">tan</div>
-            <div class="keybtn" onclick="insertKey('exprD','ln(')">ln</div>
-            <div class="keybtn" onclick="insertKey('exprD','sqrt(')">√</div>
-            <div class="keybtn" onclick="insertKey('exprD','^')">^</div>
-
-            <div class="keybtn" onclick="insertKey('exprD','x')">x</div>
-            <div class="keybtn" onclick="insertKey('exprD','(')">(</div>
-            <div class="keybtn" onclick="insertKey('exprD',')')">)</div>
-            <div class="keybtn" onclick="insertKey('exprD','pi')">π</div>
-            <div class="keybtn" onclick="insertKey('exprD','e')">e</div>
-            <div class="keybtn" onclick="insertKey('exprD','-')">-</div>
-          </div>
-
-          <label class="block text-sm font-medium">x₀</label>
-          <input id="x0" type="text" class="w-full p-2 border rounded mb-2" value="1" />
-
-          <label class="block text-sm font-medium">h</label>
-          <input id="h" type="text" class="w-full p-2 border rounded mb-3" value="0.1" />
-
-          <div class="flex gap-2">
-            <button id="calcDeriv" onclick="calcDeriv()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
-            <button id="explainDeriv" onclick="explainDeriv()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
-          </div>
-
-          <button id="loadTeacherExercise" onclick="loadTeacherExercise()" class="mt-3 w-full bg-gray-200 py-2 rounded">Ejercicio de ejemplo</button>
-          <div id="resD" class="mt-3 text-sm font-mono text-gray-700"></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="bg-white p-4 rounded shadow mb-4">
-          <h3 class="font-semibold mb-2">Visualización</h3>
-          <p class="text-sm text-gray-600 mb-2">Gráfica de la función y la recta tangente aproximada (derivada central).</p>
-          <canvas id="chartD" style="max-height:360px"></canvas>
-        </div>
-      </div>
-    </div>
-</div>
   </section>
 
+
   <!-- ========== INTEGRACIÓN ========== -->
-  <section id="sec-int" class="page">
-    <h2 class="text-2xl font-semibold mb-4">Integración Numérica</h2>
+  <section id="sec-int" class="page max-w-4xl mx-auto p-4">
+  <h2 class="text-2xl font-semibold mb-4">Integración Numérica</h2>
 
-    <!-- Contextualización teórica -->
-    <div class="mb-6">
-      <div class="bg-white p-4 rounded shadow">
-        <h3 class="font-semibold mb-2">Integración</h3>
-        <p class="text-sm text-gray-700">
-          La integración numérica aproxima el área bajo una curva en un intervalo $[a,b]$ cuando no es posible
-          obtener la integral analíticamente o cuando sólo se cuentan con datos discretos. Entre los métodos
-          más comunes están la regla del trapecio y la regla de Simpson; la primera aproxima por segmentos
-          lineales, la segunda por polinomios cuadráticos y suele ser más precisa si la función es suave.
-        </p>
-      </div>
+  <!-- Contextualización teórica -->
+  <div class="mb-6">
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-2">Concepto general</h3>
+      <p class="text-sm text-gray-700">
+        La <strong>integración numérica</strong> es un procedimiento que permite estimar el valor de una integral definida
+        cuando no se puede resolver de manera analítica o se dispone únicamente de datos discretos. Consiste en
+        aproximar el área bajo una curva dentro de un intervalo <code>[a,b]</code> mediante la suma de áreas más simples,
+        como trapecios o parábolas. Entre los métodos más utilizados están:
+        <strong>la regla del trapecio</strong> (aproximación lineal) y <strong>la regla de Simpson</strong> (aproximación
+        cuadrática o cúbica según el caso).
+      </p>
     </div>
+  </div>
 
-    <!-- Cuadro comparativo de métodos -->
-    <div class="bg-white p-4 rounded shadow mb-6">
-      <h4 class="font-semibold mb-2">Cuadro comparativo de métodos</h4>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm border border-gray-300">
+  <!-- Métodos principales -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h4 class="font-semibold mb-2">Principales métodos de integración numérica</h4>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-gray-300">
         <thead class="bg-slate-100">
           <tr>
             <th class="border p-1">Método</th>
@@ -316,50 +270,132 @@ industriales basadas en datos reales.
         <tbody>
           <tr>
             <td class="border p-1">Trapecio</td>
-            <td class="border p-1">Reemplaza la curva por líneas rectas entre puntos.</td>
+            <td class="border p-1">Aproxima la curva mediante segmentos de línea recta.</td>
             <td class="border p-1">1 (lineal)</td>
             <td class="border p-1">Cualquiera</td>
-            <td class="border p-1">\( I \approx \frac{h}{2}[f(a)+2Σf(x_i)+f(b)] \)</td>
+            <td class="border p-1">\( T = \frac{h}{2}[f(x_0)+2Σf(x_i)+f(x_n)] \)</td>
             <td class="border p-1">1, 2, 2, …, 2, 1</td>
-            <td class="border p-1">Muy fácil de aplicar. Útil con datos experimentales.</td>
-            <td class="border p-1">Menos precisa que las de Simpson.</td>
-            <td class="border p-1">Cuando se necesita simplicidad o cálculo rápido.</td>
-            <td class="border p-1">Error ∝ h²</td>
+            <td class="border p-1">Fácil de aplicar, útil con datos experimentales o tablas discretas.</td>
+            <td class="border p-1">Menor precisión; converge lentamente.</td>
+            <td class="border p-1">Cuando se busca simplicidad y rapidez de cálculo.</td>
+            <td class="border p-1">Error proporcional a \(h^2\)</td>
           </tr>
           <tr>
             <td class="border p-1">Simpson 1/3</td>
-            <td class="border p-1">Usa parábolas (grado 2) para aproximar la curva.</td>
+            <td class="border p-1">Aproxima la curva mediante parábolas en pares de intervalos.</td>
             <td class="border p-1">2 (cuadrático)</td>
             <td class="border p-1">Par</td>
-            <td class="border p-1">\( I \approx \frac{h}{3}[f(a)+4Σ_{impares}f(x_i)+2Σ_{pares}f(x_i)+f(b)] \)</td>
+            <td class="border p-1">\( S = \frac{h}{3}[f(x_0)+4Σ_{impares}f(x_i)+2Σ_{pares}f(x_i)+f(x_n)] \)</td>
             <td class="border p-1">1, 4, 2, 4, …, 4, 1</td>
-            <td class="border p-1">Más precisa que trapecio con pocas particiones.</td>
-            <td class="border p-1">Solo válida si n es par.</td>
-            <td class="border p-1">Cuando se busca buena precisión sin mucho cálculo.</td>
-            <td class="border p-1">Error ∝ h⁴</td>
+            <td class="border p-1">Alta precisión con pocas subdivisiones.</td>
+            <td class="border p-1">Solo válido si n es par.</td>
+            <td class="border p-1">Cuando se requiere buena precisión y la función es suave.</td>
+            <td class="border p-1">Error proporcional a \(h^4\)</td>
           </tr>
           <tr>
             <td class="border p-1">Simpson 3/8</td>
-            <td class="border p-1">Usa polinomios cúbicos (grado 3).</td>
+            <td class="border p-1">Aproxima la curva con polinomios cúbicos cada tres subintervalos.</td>
             <td class="border p-1">3 (cúbico)</td>
             <td class="border p-1">Múltiplo de 3</td>
-            <td class="border p-1">\( I \approx \frac{3h}{8}[f(a)+3f(x_1)+3f(x_2)+f(x_3)] \)</td>
-            <td class="border p-1">1, 3, 3, 2, 3, 3, 2, …, 3, 1</td>
-            <td class="border p-1">Alta precisión en curvas irregulares.</td>
-            <td class="border p-1">Requiere n múltiplo de 3, más trabajo manual.</td>
+            <td class="border p-1">\( I = \frac{3h}{8}[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)] \)</td>
+            <td class="border p-1">1, 3, 3, 2, …, 3, 1</td>
+            <td class="border p-1">Buena precisión en funciones con variaciones bruscas.</td>
+            <td class="border p-1">Requiere n múltiplo de 3, más cálculo.</td>
             <td class="border p-1">Cuando Simpson 1/3 no aplica (n impar).</td>
-            <td class="border p-1">Error ∝ h⁴</td>
+            <td class="border p-1">Error proporcional a \(h^4\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Ejemplo práctico del PDF -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <!-- Infografía: Estimación del consumo energético -->
+<div class="flex justify-center mb-6">
+  <img src="infografia-integracion.jpeg" alt="Estimación del consumo energético" class="rounded shadow-md w-full md:w-3/4">
+</div>
+
+    <h4 class="font-semibold mb-2">Ejemplo práctico: comparación entre Trapecio y Simpson 1/3</h4>
+    <p class="text-sm text-gray-700 mb-2">
+      A continuación se presenta un caso de estudio basado en la comparación numérica de los métodos del
+      Trapecio y Simpson 1/3 para la integral:
+    </p>
+    <p class="text-center italic text-gray-800 mb-2">
+      \( \int_0^6 ( 2e^{-0.5t} + 0.4t^2 ) \, dt \)
+    </p>
+    <p class="text-sm text-gray-700 mb-4">
+      El objetivo fue evaluar la eficiencia y precisión de ambos métodos a diferentes números de subintervalos <em>n</em>.
+    </p>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-gray-300">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="border p-1">n</th>
+            <th class="border p-1">Trapecio (Aprox.)</th>
+            <th class="border p-1">Simpson 1/3 (Aprox.)</th>
+            <th class="border p-1">Error Trapecio</th>
+            <th class="border p-1">Error Simpson</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border p-1 text-center">4</td>
+            <td class="border p-1 text-center">33.6774</td>
+            <td class="border p-1 text-center">32.6071</td>
+            <td class="border p-1 text-center">1.0765</td>
+            <td class="border p-1 text-center">0.0063</td>
+          </tr>
+          <tr>
+            <td class="border p-1 text-center">6</td>
+            <td class="border p-1 text-center">33.0797</td>
+            <td class="border p-1 text-center">32.6021</td>
+            <td class="border p-1 text-center">0.4789</td>
+            <td class="border p-1 text-center">0.0013</td>
+          </tr>
+          <tr>
+            <td class="border p-1 text-center">8</td>
+            <td class="border p-1 text-center">32.8703</td>
+            <td class="border p-1 text-center">32.6013</td>
+            <td class="border p-1 text-center">0.2694</td>
+            <td class="border p-1 text-center">0.0004</td>
+          </tr>
+          <tr>
+            <td class="border p-1 text-center">10</td>
+            <td class="border p-1 text-center">32.7733</td>
+            <td class="border p-1 text-center">32.6010</td>
+            <td class="border p-1 text-center">0.1725</td>
+            <td class="border p-1 text-center">0.0002</td>
+          </tr>
+          <tr>
+            <td class="border p-1 text-center">12</td>
+            <td class="border p-1 text-center">32.7206</td>
+            <td class="border p-1 text-center">32.6009</td>
+            <td class="border p-1 text-center">0.1198</td>
+            <td class="border p-1 text-center">0.0001</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Bottom row: Visualization and Calculator -->
+    <p class="text-sm text-gray-700 mt-4">
+      <strong>Conclusiones:</strong> El método del Trapecio presenta errores relativamente altos y converge de forma más
+      lenta hacia el valor real de la integral. Por otro lado, el método de Simpson 1/3 logra una excelente precisión
+      incluso con un número pequeño de subintervalos, siendo más eficiente para funciones suaves y continuas.
+    </p>
+  </div>
+</section>
+
+<section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
     <div class="grid md:grid-cols-2 gap-6">
       <div>
         <div class="bg-white p-4 rounded shadow mb-4">
           <h3 class="font-semibold mb-2">Visualización</h3>
           <canvas id="chartI" style="max-height:360px"></canvas>
+        </div>
+        <div class="mb-4">
+          <button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
         </div>
       </div>
 
@@ -411,16 +447,75 @@ industriales basadas en datos reales.
     </div>
 
     <!-- Caso práctico -->
-    <div class="bg-white p-4 rounded shadow mb-6">
+    <div class="bg-white p-4 rounded shadow mb-6 mt-6">
       <h4 class="font-semibold mb-2">Caso práctico (trapecio)</h4>
       <div id="areaTable" class="text-sm text-gray-700">—</div>
     </div>
+</section>
+
+    <!-- Bottom row: Visualization and Calculator -->
+    <!-- This section was moved into sec-int-calc -->
+
+    <!-- Caso práctico -->
+    <!-- This section was moved into sec-int-calc -->
+
+  <!-- ========== DERIVADAS (CALCULADORA) ========== -->
+  <section id="sec-deriv-calc" class="page active max-w-4xl mx-auto p-4">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <div class="bg-white p-4 rounded shadow mb-4">
+          <button onclick="startTutorial('deriv')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
+          <label class="block text-sm font-medium mb-1">f(x)</label>
+          <input id="exprD" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
+
+          <!-- Math keyboard -->
+          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="deriv-keyboard">
+            <div class="keybtn" onclick="insertKey('exprD','sin(')">sin</div>
+            <div class="keybtn" onclick="insertKey('exprD','cos(')">cos</div>
+            <div class="keybtn" onclick="insertKey('exprD','tan(')">tan</div>
+            <div class="keybtn" onclick="insertKey('exprD','ln(')">ln</div>
+            <div class="keybtn" onclick="insertKey('exprD','sqrt(')">√</div>
+            <div class="keybtn" onclick="insertKey('exprD','^')">^</div>
+
+            <div class="keybtn" onclick="insertKey('exprD','x')">x</div>
+            <div class="keybtn" onclick="insertKey('exprD','(')">(</div>
+            <div class="keybtn" onclick="insertKey('exprD',')')">)</div>
+            <div class="keybtn" onclick="insertKey('exprD','pi')">π</div>
+            <div class="keybtn" onclick="insertKey('exprD','e')">e</div>
+            <div class="keybtn" onclick="insertKey('exprD','-')">-</div>
+          </div>
+
+          <label class="block text-sm font-medium">x₀</label>
+          <input id="x0" type="text" class="w-full p-2 border rounded mb-2" value="1" />
+
+          <label class="block text-sm font-medium">h</label>
+          <input id="h" type="text" class="w-full p-2 border rounded mb-3" value="0.1" />
+
+          <div class="flex gap-2">
+            <button id="calcDeriv" onclick="calcDeriv()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
+            <button id="explainDeriv" onclick="explainDeriv()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
+          </div>
+
+          <button id="loadTeacherExercise" onclick="loadTeacherExercise()" class="mt-3 w-full bg-gray-200 py-2 rounded">Ejercicio de ejemplo</button>
+          <div id="resD" class="mt-3 text-sm font-mono text-gray-700"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="bg-white p-4 rounded shadow mb-4">
+          <h3 class="font-semibold mb-2">Visualización</h3>
+          <p class="text-sm text-gray-600 mb-2">Gráfica de la función y la recta tangente aproximada (derivada central).</p>
+          <canvas id="chartD" style="max-height:360px"></canvas>
+        </div>
+        <div class="mb-4">
+          <button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
+        </div>
+      </div>
+    </div>
   </section>
 
-</div>
-
 <!-- TUTORIAL INTRO (modal) -->
-<div id="tutorialIntro" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+<div id="tutorialIntro" class="hidden fixed inset-0 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded max-w-lg">
     <h3 class="text-xl font-bold mb-2">Tutorial rápido</h3>
     <p class="text-sm mb-3">
@@ -437,7 +532,7 @@ industriales basadas en datos reales.
 </div>
 
 <!-- STEP-BY-STEP MODAL -->
-<div id="tutorialModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+<div id="tutorialModal" class="hidden fixed inset-0 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded w-full max-w-xl relative">
     <button id="btnClose" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">×</button>
     <h3 id="tutorialTitle" class="text-xl font-bold mb-3"></h3>
@@ -450,15 +545,45 @@ industriales basadas en datos reales.
    UTIL: Navigation SPA
    ----------------------- */
 const pages = document.querySelectorAll('.page');
-document.querySelectorAll('.nav-btn').forEach(b => {
+const navBtns = document.querySelectorAll('.nav-btn');
+
+navBtns.forEach(b => {
   b.addEventListener('click', () => {
-    pages.forEach(p => p.classList.remove('active'));
     const id = b.dataset.page;
-    document.getElementById(id).classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
+    const isDeriv = id === 'sec-deriv';
+    const isInt = id === 'sec-int';
+
+    // Ocultar todas las secciones
+    pages.forEach(p => {
+      p.classList.remove('active');
+      p.style.display = 'none';
+    });
+    
+    // Mostrar las secciones correspondientes
+    if (isDeriv) {
+      document.getElementById('sec-deriv').style.display = 'block';
+      document.getElementById('sec-deriv-calc').style.display = 'block';
+    } else if (isInt) {
+      document.getElementById('sec-int').style.display = 'block';
+      document.getElementById('sec-int-calc').style.display = 'block';
+    }
+    
+    // Cierra el menú móvil si está abierto
+    document.getElementById('menuMobile').classList.add('hidden');
+
+    // Vuelve arriba de la página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
-document.getElementById('menuBtn').onclick = () => document.getElementById('menuMobile').classList.toggle('hidden');
+
+// Mostrar solo la primera sección al cargar
+document.querySelectorAll('.page:not(.active)').forEach(p => p.style.display = 'none');
+document.getElementById('sec-deriv').style.display = 'block';
+document.getElementById('sec-deriv-calc').style.display = 'block';
+
+// Menú móvil toggle
+document.getElementById('menuBtn').onclick = () =>
+  document.getElementById('menuMobile').classList.toggle('hidden');
 
 /* -----------------------
    UTIL: Insert keyboard keys
@@ -763,7 +888,7 @@ function calcInt(){
    ----------------------- */
 function openTutorial(title, steps){
   document.getElementById('tutorialTitle').innerText = title || '';
-  const processedSteps = steps.map(step => step.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>'));
+  const processedSteps = steps.map(step => step.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\* /g, '<em>$1</em>'));
   const content = processedSteps.map(step => `<p style="margin-bottom: 1rem;">${step}</p>`).join('');
   document.getElementById('tutorialContent').innerHTML = content;
   document.getElementById('tutorialModal').classList.remove('hidden');
@@ -881,4 +1006,3 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
-
