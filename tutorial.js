@@ -21,11 +21,13 @@ const derivSteps = [
   },
   {
     element: '#exprD',
+    element: '#sec-caso-deriv #exprD',
     text: 'Aquí escribe la función f(x), por ejemplo sin(x) + x^2.',
     position: 'right'
   },
   {
     element: '.grid.grid-cols-6',
+    element: '#deriv-keyboard',
     text: 'Usa este teclado virtual para insertar símbolos como sin, cos, π, ^ para potencias, etc.',
     position: 'bottom',
     avatar: 'arriba.png'
@@ -33,16 +35,19 @@ const derivSteps = [
   },
   {
     element: '#x0',
+    element: '#sec-caso-deriv #x0',
     text: 'Ingresa el punto x₀ donde quieres calcular la derivada.',
     position: 'right'
   },
   {
     element: '#h',
+    element: '#sec-caso-deriv #h',
     text: 'Ingresa el paso h, un valor pequeño como 0.1 para buena precisión.',
     position: 'right'
   },
   {
     element: '#calcDeriv',
+    element: '#sec-caso-deriv #calcDeriv',
     text: 'Pulsa "Calcular" para obtener los valores numéricos de las derivadas forward, backward y central.',
     position: 'bottom',
     avatar: 'arriba.png'
@@ -50,6 +55,7 @@ const derivSteps = [
   },
   {
     element: '#explainDeriv',
+    element: '#sec-caso-deriv #explainDeriv',
     text: 'Luego, pulsa "Paso a paso" para ver la explicación detallada con fórmulas.',
     position: 'bottom',
     avatar: 'arriba.png'
@@ -57,12 +63,14 @@ const derivSteps = [
   },
   {
     element: '#loadTeacherExercise',
+    element: '#sec-caso-deriv #loadTeacherExercise',
     text: 'Carga el ejercicio de ejemplo para que te sirva como guía.',
     position: 'bottom',
     avatar: 'arriba.png'
   },
   {
     element: '#chartD',
+    element: '#sec-caso-deriv #chartD',
     text: 'Aquí ves la gráfica de la función y la tangente aproximada.',
     position: 'right'
   }
@@ -78,27 +86,32 @@ const intSteps = [
   },
   {
     element: '#exprI',
+    element: '#sec-caso-int #exprI',
     text: 'Escribe la función f(x) aquí.',
     position: 'right'
   },
   {
     element: '#int-keyboard',
+    element: '#sec-caso-int #int-keyboard',
     text: 'Usa el teclado para símbolos.',
     position: 'bottom',
     avatar: 'arriba.png'
   },
   {
     element: '.flex.gap-2.mb-3',
+    element: '#sec-caso-int .flex.gap-2.mb-3',
     text: 'Ingresa el intervalo [a, b].',
     position: 'right'
   },
   {
     element: '#n',
+    element: '#sec-caso-int #n',
     text: 'Ingresa n, el número de subintervalos.',
     position: 'right'
   },
   {
     element: '#calcInt',
+    element: '#sec-caso-int #calcInt',
     text: 'Pulsa "Calcular" para obtener trapecio y Simpson.',
     position: 'bottom',
     avatar: 'arriba.png'
@@ -106,6 +119,7 @@ const intSteps = [
   },
   {
     element: '#explainInt',
+    element: '#sec-caso-int #explainInt',
     text: 'Pulsa "Paso a paso" para la explicación.',
     position: 'bottom',
     avatar: 'arriba.png'
@@ -113,6 +127,7 @@ const intSteps = [
   },
   {
     element: '#chartI',
+    element: '#sec-caso-int #chartI',
     text: 'Gráfica de la función.',
     position: 'right'
   }
@@ -146,20 +161,14 @@ function createOverlay() {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'transparent', // Sin opacidad
+    backgroundColor: 'transparent',
     zIndex: '10000',
     pointerEvents: 'none', // Permite hacer clic a través de la capa
     transition: 'clip-path 0.25s ease'
   });
 
-  // Prevent clicks on shaded area
-  overlay.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  });
-
   // Prevent scrolling
-  const preventScroll = (e) => e.preventDefault();
+  const preventScroll = (e) => { if (e.target === overlay) e.preventDefault(); };
   overlay.addEventListener('wheel', preventScroll, { passive: false });
   overlay.addEventListener('touchmove', preventScroll, { passive: false });
 
@@ -178,13 +187,14 @@ function createOverlay() {
   textBox = document.createElement('div');
   Object.assign(textBox.style, {
     position: 'absolute',
-    backgroundColor: '#fff',
-    padding: '10px',
+    backgroundColor: '#2d3748', // Fondo oscuro
+    color: '#fff', // Texto blanco
+    padding: '15px',
     borderRadius: '8px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
     maxWidth: '300px',
     fontSize: '14px',
-    pointerEvents: 'auto'
+    pointerEvents: 'auto',
   });
   overlay.appendChild(textBox);
 
@@ -210,20 +220,31 @@ function createOverlay() {
 
   prevBtn = document.createElement('button');
   prevBtn.textContent = 'Anterior';
-  prevBtn.style.marginRight = '10px';
+  Object.assign(prevBtn.style, {
+    marginRight: '10px',
+    padding: '5px 10px',
+    border: '1px solid #4a5568',
+    borderRadius: '4px',
+    cursor: 'pointer'
+  });
   prevBtn.onclick = prevStep;
   btnContainer.appendChild(prevBtn);
 
   nextBtn = document.createElement('button');
   nextBtn.textContent = 'Siguiente';
+  Object.assign(nextBtn.style, {
+    padding: '5px 10px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#3b82f6',
+    color: 'white',
+    cursor: 'pointer'
+  });
   nextBtn.onclick = nextStep;
   btnContainer.appendChild(nextBtn);
 
-  closeBtn = document.createElement('button');
-  closeBtn.textContent = 'Cerrar';
-  closeBtn.style.marginLeft = '10px';
-  closeBtn.onclick = closeTutorial;
-  btnContainer.appendChild(closeBtn);
+  // Se elimina el botón "Cerrar" para simplificar la interfaz,
+  // ya que el último paso es "Finalizar".
 
   document.body.appendChild(overlay);
 }
@@ -308,4 +329,3 @@ function closeTutorial() {
 }
 
 window.startTutorial = startTutorial;
-
