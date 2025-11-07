@@ -45,20 +45,27 @@
   <header class="bg-slate-800 text-white p-4 flex justify-between items-center shadow">
     <h1 class="font-bold text-lg flex items-center gap-2"><i class="bi bi-calculator"></i> Métodos Numéricos</h1>
     <div class="flex items-center gap-4">
-      <nav class="hidden md:flex gap-4">
-        <button class="nav-btn px-2 py-1" data-page="sec-deriv">Derivadas Numéricas</button>
-        <button class="nav-btn px-2 py-1" data-page="sec-int">Integración Numérica</button>
+      <nav class="hidden md:flex gap-3">
+        <button class="nav-btn px-2 py-1" data-page="sec-inicio">Inicio</button>
+        <button class="nav-btn px-2 py-1" data-page="sec-teoria">Teoría</button>
+        <button class="nav-btn px-2 py-1" data-page="sec-caso-deriv">Caso Derivadas</button>
+        <button class="nav-btn px-2 py-1" data-page="sec-caso-int">Caso Integración</button>
+        <button class="nav-btn px-2 py-1" data-page="sec-recursos">Recursos</button>
       </nav>
       <button id="menuBtn" class="md:hidden text-2xl"><i class="bi bi-list"></i></button>
     </div>
   </header>
 
   <!-- MOBILE MENU -->
-  <nav id="menuMobile" class="hidden bg-slate-900 text-white flex-col p-3 md:hidden gap-2">
-    <button class="nav-btn text-left py-2 w-full" data-page="sec-deriv">Derivadas Numéricas</button>
-    <button class="nav-btn text-left py-2 w-full" data-page="sec-int">Integración Numérica</button>
+  <nav id="menuMobile" class="hidden bg-slate-900 text-white flex-col p-3 md:hidden gap-1">
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-inicio">Inicio</button>
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-teoria">Teoría</button>
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-caso-deriv">Caso Derivadas</button>
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-caso-int">Caso Integración</button>
+    <button class="nav-btn text-left py-2 w-full" data-page="sec-recursos">Recursos</button>
   </nav>
-      <section id="sec-deriv" class="page active max-w-4xl mx-auto p-4">
+
+  <section id="sec-teoria" class="page max-w-4xl mx-auto p-4">
     <h2 class="text-2xl font-semibold mb-4">Diferenciación Numérica</h2>
 
   <!-- ===================== TEORÍA ===================== -->
@@ -162,6 +169,123 @@
       <ul class="list-disc list-inside text-sm text-gray-700"><li>Sensible al tamaño de paso h</li><li>Afectada por ruido en los datos</li><li>No adecuada para discontinuidades bruscas</li></ul>
     </div>
   </div>
+
+  <h2 class="text-2xl font-semibold mb-4 mt-8">Integración Numérica</h2>
+
+  <!-- Contenedor principal para toda la teoría -->
+  <div class="mb-6">
+    <!-- ===================== TEORÍA GENERAL ===================== -->
+    <div class="bg-white p-4 rounded shadow leading-relaxed text-gray-800 mb-6">
+      <h3 class="text-xl font-semibold mb-2">¿Qué es la integración numérica?</h3>
+      <p>
+        La integración numérica es un conjunto de métodos utilizados para calcular
+        el área bajo una curva de forma aproximada, cuando no es posible obtener
+        la integral exacta analíticamente.
+      </p>
+      <p class="mt-2">Se utiliza cuando:</p>
+      <ul class="list-disc ml-6">
+        <li>La función es complicada o no tiene solución exacta.</li>
+        <li>Solo se cuentan con valores experimentales \((x_n, y_n)\).</li>
+      </ul>
+      <h3 class="text-lg font-semibold mt-4">Importancia en ingeniería</h3>
+      <p>
+        Permite obtener resultados para áreas, fuerzas, energía, calor, consumo energético
+        y muchos procesos físicos usando datos reales o funciones complejas.
+      </p>
+      <h3 class="text-lg font-semibold mt-4">Ventajas</h3>
+      <ul class="list-disc ml-6">
+        <li>Funciona con funciones complejas o sin expresión exacta.</li>
+        <li>Útil con datos medidos en puntos discretos.</li>
+        <li>Métodos sencillos como el trapecio o Simpson.</li>
+        <li>Mayor precisión con más puntos.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mt-4">Desventajas</h3>
+      <ul class="list-disc ml-6 mb-4">
+        <li>Es una aproximación.</li>
+        <li>Pierde precisión si la función cambia bruscamente.</li>
+        <li>Más precisión requiere más cálculos.</li>
+        <li>Función debe ser continua.</li>
+      </ul>
+    </div>
+
+    <!-- ===================== REGLA DEL TRAPECIO ===================== -->
+    <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-semibold mb-2">Regla del Trapecio</h3>
+        <img src="Imagen-trapecio.png" alt="Ilustración de la Regla del Trapecio" class="w-1/2 md:w-1/3 rounded shadow-md float-right ml-4">
+        <p>Aproxima el área bajo la curva usando trapecios. Reemplaza la curva por líneas rectas entre puntos conocidos.</p>
+        <p class="mt-2 font-semibold">Fórmula general:</p>
+        <p class="math">\[ \int_a^b f(x)\,dx \approx \frac{h}{2} \left[f(x_0) + 2 \sum_{i=1}^{n-1} f(x_i) + f(x_n)\right] \]</p>
+        <p class="font-semibold mt-2">Donde:</p>
+        <ul class="list-disc ml-6">
+          <li>\(h = \frac{b-a}{n}\)</li>
+          <li>\(x_0, x_1, \ldots, x_n\) son los puntos del intervalo</li>
+          <li>Se suman los valores intermedios multiplicados por 2</li>
+        </ul>
+        
+        <!-- ===================== EJEMPLO  ===================== -->
+        <div class="bg-gray-50 p-4 rounded shadow my-6 border border-gray-200">
+          <h3 class="text-xl font-semibold mb-2">Ejemplo aplicado</h3>
+        
+          <p>Consideremos la integral:</p>
+          <p class="math">\[ \int_0^6 (x^2 + 1) \,dx \]</p>
+        
+          <p>Intervalo:</p>
+          <p class="math">\[ a = 0,\quad b = 6,\quad n = 6 \]</p>
+        
+          <p>Calculamos \(h\):</p>
+          <p class="math">\[
+            h = \frac{6 - 0}{6} = 1
+          \]</p>
+        
+          <p>Completamos la tabla:</p>
+        
+          <table class="table-auto border w-full text-center">
+            <tr><td class="math">\( f(x_0)=f(a)=f(0)=1 \)</td></tr>
+            <tr><td class="math">\( f(x_1)=f(a+h)=f(0+1)=f(1) \)</td></tr>
+            <tr><td class="math">\( f(x_2)=f(a+2h)=f(0+2)=f(2) \)</td></tr>
+            <tr><td class="math">\( f(x_3)=f(a+3h)=f(0+3)=f(3) \)</td></tr>
+            <tr><td class="math">\( f(x_4)=f(a+4h)=f(0+4)=f(4) \)</td></tr>
+            <tr><td class="math">\( f(x_5)=f(a+5h)=f(0+5)=f(5) \)</td></tr>
+            <tr><td class="math">\( f(x_6)=f(b)=f(6) \)</td></tr>
+          </table>
+        
+          <br>
+        
+          <p>La última columna se halla reemplazando el valor que nos da “x” en la tercera columna en la función:</p>
+        
+          <p class="math">\[
+            e^{-x^2}
+          \]</p>
+        
+          <p>El siguiente paso es hallar el área total con la fórmula:</p>
+        
+          <p class="math">\[
+          \frac{h}{2} \left[\, f(x_0) + 2\sum_{i=1}^{n-1} f(x_0 + ih) + f(x_n) \,\right]
+          \]</p>
+        
+          <p>
+            Esto se resume en sumar todos los términos de la mitad, multiplicarlos por 2 y agregar
+            \(f(x_0)\) y \(f(x_n)\), obteniendo:
+          </p>
+        
+          <p class="math">\[
+            A_T = \frac{1}{2}
+                  \left[
+                    1 + 2(2.13136) + 0.01832
+                  \right]
+          \]</p>
+        
+          <p class="math">\[
+            A_T = \frac{5.28104}{6} \approx 0.88017333
+          \]</p>
+        
+          <p class="font-bold text-green-700">Resultado final: \(A_T \approx 0.88017\)</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-caso-deriv" class="page max-w-4xl mx-auto p-4">
   <!-- ================= CASO DE ESTUDIO ================= -->
   <div class="mb-6">
     <div class="bg-white p-4 rounded shadow mb-6">
@@ -219,127 +343,61 @@
   </p>
     </div>
   </div>
-    </section><section id="sec-int" class="page max-w-4xl mx-auto p-4">
-  <h2 class="text-2xl font-semibold mb-4">Integración Numérica</h2>
 
-  <!-- Contenedor principal para toda la teoría -->
-  <div class="mb-6">
-    <!-- ===================== TEORÍA GENERAL ===================== -->
-    <div class="bg-white p-4 rounded shadow leading-relaxed text-gray-800 mb-6">
-      <h3 class="text-xl font-semibold mb-2">¿Qué es la integración numérica?</h3>
-      <p>
-        La integración numérica es un conjunto de métodos utilizados para calcular
-        el área bajo una curva de forma aproximada, cuando no es posible obtener
-        la integral exacta analíticamente.
-      </p>
-      <p class="mt-2">Se utiliza cuando:</p>
-      <ul class="list-disc ml-6">
-        <li>La función es complicada o no tiene solución exacta.</li>
-        <li>Solo se cuentan con valores experimentales \((x_n, y_n)\).</li>
-      </ul>
-      <h3 class="text-lg font-semibold mt-4">Importancia en ingeniería</h3>
-      <p>
-        Permite obtener resultados para áreas, fuerzas, energía, calor, consumo energético
-        y muchos procesos físicos usando datos reales o funciones complejas.
-      </p>
-      <h3 class="text-lg font-semibold mt-4">Ventajas</h3>
-      <ul class="list-disc ml-6">
-        <li>Funciona con funciones complejas o sin expresión exacta.</li>
-        <li>Útil con datos medidos en puntos discretos.</li>
-        <li>Métodos sencillos como el trapecio o Simpson.</li>
-        <li>Mayor precisión con más puntos.</li>
-      </ul>
-      <h3 class="text-lg font-semibold mt-4">Desventajas</h3>
-      <ul class="list-disc ml-6 mb-4">
-        <li>Es una aproximación.</li>
-        <li>Pierde precisión si la función cambia bruscamente.</li>
-        <li>Más precisión requiere más cálculos.</li>
-        <li>Función debe ser continua.</li>
-      </ul>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div>
+      <div class="bg-white p-4 rounded shadow mb-4">
+        <button onclick="startTutorial('deriv')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
+        <label class="block text-sm font-medium mb-1">f(x)</label>
+        <input id="exprD" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
+
+        <!-- Math keyboard -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="deriv-keyboard">
+          <div class="keybtn" onclick="insertKey('exprD','sin(')">sin</div>
+          <div class="keybtn" onclick="insertKey('exprD','cos(')">cos</div>
+          <div class="keybtn" onclick="insertKey('exprD','tan(')">tan</div>
+          <div class="keybtn" onclick="insertKey('exprD','ln(')">ln</div>
+          <div class="keybtn" onclick="insertKey('exprD','sqrt(')">√</div>
+          <div class="keybtn" onclick="insertKey('exprD','^')">^</div>
+
+          <div class="keybtn" onclick="insertKey('exprD','x')">x</div>
+          <div class="keybtn" onclick="insertKey('exprD','(')">(</div>
+          <div class="keybtn" onclick="insertKey('exprD',')')">)</div>
+          <div class="keybtn" onclick="insertKey('exprD','pi')">π</div>
+          <div class="keybtn" onclick="insertKey('exprD','e')">e</div>
+          <div class="keybtn" onclick="insertKey('exprD','-')">-</div>
+        </div>
+
+        <label class="block text-sm font-medium">x₀</label>
+        <input id="x0" type="text" class="w-full p-2 border rounded mb-2" value="1" />
+
+        <label class="block text-sm font-medium">h</label>
+        <input id="h" type="text" class="w-full p-2 border rounded mb-3" value="0.1" />
+
+        <div class="flex gap-2">
+          <button id="calcDeriv" onclick="calcDeriv()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
+          <button id="explainDeriv" onclick="explainDeriv()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
+        </div>
+
+        <button id="loadTeacherExercise" onclick="loadTeacherExercise()" class="mt-3 w-full bg-gray-200 py-2 rounded">Ejercicio de ejemplo</button>
+        <div id="resD" class="mt-3 text-sm font-mono text-gray-700"></div>
+      </div>
     </div>
 
-    <!-- ===================== REGLA DEL TRAPECIO + IMAGEN ===================== -->
-    <div class="bg-white p-4 rounded shadow">
-      <div class="flex md:flex-row flex-col gap-6">
-        <div class="flex-1">
-          <h3 class="text-xl font-semibold mb-2">Regla del Trapecio</h3>
-          <p>Aproxima el área bajo la curva usando trapecios. Reemplaza la curva por líneas rectas entre puntos conocidos.</p>
-          <p class="mt-2 font-semibold">Fórmula general:</p>
-          <p class="math">\[ \int_a^b f(x)\,dx \approx \frac{h}{2} \left[f(x_0) + 2 \sum_{i=1}^{n-1} f(x_i) + f(x_n)\right] \]</p>
-          <p class="font-semibold mt-2">Donde:</p>
-          <ul class="list-disc ml-6">
-            <li>\(h = \frac{b-a}{n}\)</li>
-            <li>\(x_0, x_1, \ldots, x_n\) son los puntos del intervalo</li>
-            <li>Se suman los valores intermedios multiplicados por 2</li>
-          </ul>
-        </div>
-        <div class="flex-1 text-center">
-          <p class="text-sm text-gray-600 mb-2">Imagen ilustrativa del método del trapecio:</p>
-          <img src="Imagen-trapecio.png" alt="Regla del trapecio ilustración" class="w-full rounded">
-        </div>
+    <div>
+      <div class="bg-white p-4 rounded shadow mb-4">
+        <h3 class="font-semibold mb-2">Visualización</h3>
+        <p class="text-sm text-gray-600 mb-2">Gráfica de la función y la recta tangente aproximada (derivada central).</p>
+        <canvas id="chartD" style="max-height:360px"></canvas>
+      </div>
+      <div class="mb-4">
+        <div id="tableD"></div>
       </div>
     </div>
   </div>
+</section>
 
-<!-- ===================== EJEMPLO  ===================== -->
-<div class="bg-white p-4 rounded shadow mb-6">
-  <h3 class="text-xl font-semibold mb-2">Ejemplo aplicado</h3>
-
-  <p>Consideremos la integral:</p>
-  <p class="math">\[ \int_0^6 (x^2 + 1) \,dx \]</p>
-
-  <p>Intervalo:</p>
-  <p class="math">\[ a = 0,\quad b = 6,\quad n = 6 \]</p>
-
-  <p>Calculamos \(h\):</p>
-  <p class="math">\[
-    h = \frac{6 - 0}{6} = 1
-  \]</p>
-
-  <p>Completamos la tabla:</p>
-
-  <table class="table-auto border w-full text-center">
-    <tr><td class="math">\( f(x_0)=f(a)=f(0)=1 \)</td></tr>
-    <tr><td class="math">\( f(x_1)=f(a+h)=f(0+1)=f(1) \)</td></tr>
-    <tr><td class="math">\( f(x_2)=f(a+2h)=f(0+2)=f(2) \)</td></tr>
-    <tr><td class="math">\( f(x_3)=f(a+3h)=f(0+3)=f(3) \)</td></tr>
-    <tr><td class="math">\( f(x_4)=f(a+4h)=f(0+4)=f(4) \)</td></tr>
-    <tr><td class="math">\( f(x_5)=f(a+5h)=f(0+5)=f(5) \)</td></tr>
-    <tr><td class="math">\( f(x_6)=f(b)=f(6) \)</td></tr>
-  </table>
-
-  <br>
-
-  <p>La última columna se halla reemplazando el valor que nos da “x” en la tercera columna en la función:</p>
-
-  <p class="math">\[
-    e^{-x^2}
-  \]</p>
-
-  <p>El siguiente paso es hallar el área total con la fórmula:</p>
-
-  <p class="math">\[
-  \frac{h}{2} \left[\, f(x_0) + 2\sum_{i=1}^{n-1} f(x_0 + ih) + f(x_n) \,\right]
-  \]</p>
-
-  <p>
-    Esto se resume en sumar todos los términos de la mitad, multiplicarlos por 2 y agregar
-    \(f(x_0)\) y \(f(x_n)\), obteniendo:
-  </p>
-
-  <p class="math">\[
-    A_T = \frac{1}{2}
-          \left[
-            1 + 2(2.13136) + 0.01832
-          \right]
-  \]</p>
-
-  <p class="math">\[
-    A_T = \frac{5.28104}{6} \approx 0.88017333
-  \]</p>
-
-  <p class="font-bold text-green-700">Resultado final: \(A_T \approx 0.88017\)</p>
-</div>
+<section id="sec-caso-int" class="page max-w-4xl mx-auto p-4">
 
 
   <!-- ===================== CASO DE ESTUDIO INDUSTRIAL ===================== -->
@@ -477,103 +535,89 @@
     <li>Este resultado puede utilizarse para planificar la operación de la línea de producción, anticipando la energía que se consumirá durante la jornada y optimizando el uso de recursos eléctricos.</li>
   </ul>
 </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <div>
+      <div class="bg-white p-4 rounded shadow mb-4">
+        <button onclick="startTutorial('int')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
+        <label class="block text-sm font-medium mb-1">f(x)</label>
+        <input id="exprI" class="w-full p-2 border rounded mb-3" placeholder="Ej: x^2 + 1" />
+
+        <!-- Math keyboard -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="int-keyboard">
+          <div class="keybtn" onclick="insertKey('exprI','sin(')">sin</div>
+          <div class="keybtn" onclick="insertKey('exprI','cos(')">cos</div>
+          <div class="keybtn" onclick="insertKey('exprI','tan(')">tan</div>
+          <div class="keybtn" onclick="insertKey('exprI','ln(')">ln</div>
+          <div class="keybtn" onclick="insertKey('exprI','sqrt(')">√</div>
+          <div class="keybtn" onclick="insertKey('exprI','^')">^</div>
+          <div class="keybtn" onclick="insertKey('exprI','x')">x</div>
+          <div class="keybtn" onclick="insertKey('exprI','(')">(</div>
+          <div class="keybtn" onclick="insertKey('exprI',')')">)</div>
+          <div class="keybtn" onclick="insertKey('exprI','pi')">π</div>
+          <div class="keybtn" onclick="insertKey('exprI','e')">e</div>
+          <div class="keybtn" onclick="insertKey('exprI','-')">-</div>
+        </div>
+
+        <div class="flex gap-2 mb-3">
+          <div><label class="block text-sm font-medium">a</label><input id="a" type="text" class="w-full p-2 border rounded" value="0" /></div>
+          <div><label class="block text-sm font-medium">b</label><input id="b" type="text" class="w-full p-2 border rounded" value="1" /></div>
+        </div>
+        <label class="block text-sm font-medium">n (subintervalos)</label>
+        <input id="n" type="text" class="w-full p-2 border rounded mb-3" value="10" />
+
+        <div class="flex gap-2">
+          <button id="calcInt" onclick="calcInt()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
+          <button id="explainInt" onclick="explainInt()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
+        </div>
+        <div id="resI" class="mt-3 text-sm font-mono text-gray-700"></div>
+      </div>
+    </div>
+    <div>
+      <div class="bg-white p-4 rounded shadow mb-4"><h3 class="font-semibold mb-2">Visualización</h3><p class="text-sm text-gray-600 mb-2">Gráfica de la función integrada.</p><canvas id="chartI" style="max-height:360px"></canvas></div>
+      <div id="areaTable" class="bg-white p-4 rounded shadow mb-4"></div>
+    </div>
+  </div>
 </section>
 
-    <section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <div class="bg-white p-4 rounded shadow mb-4">
-            <button onclick="startTutorial('int')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
-            <label class="block text-sm font-medium mb-1">f(x)</label>
-            <input id="exprI" class="w-full p-2 border rounded mb-3" placeholder="Ej: x^2 + 1" />
+<section id="sec-inicio" class="page active max-w-4xl mx-auto p-4">
+  <div class="bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-semibold mb-4">Bienvenido a la Aplicación de Métodos Numéricos</h2>
+    <p class="text-gray-700 leading-relaxed">
+      Esta es una herramienta interactiva diseñada para ayudarte a aprender y practicar conceptos fundamentales de métodos numéricos, como la diferenciación y la integración.
+      <br><br>
+      Navega a través de las secciones usando el menú superior para explorar la teoría, ver casos de estudio aplicados y utilizar las calculadoras interactivas.
+      <br><br>
+      <b>¡Comienza a explorar y a aprender!</b>
+    </p>
+  </div>
+</section>
 
-            <!-- Math keyboard -->
-            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="int-keyboard">
-              <div class="keybtn" onclick="insertKey('exprI','sin(')">sin</div>
-              <div class="keybtn" onclick="insertKey('exprI','cos(')">cos</div>
-              <div class="keybtn" onclick="insertKey('exprI','tan(')">tan</div>
-              <div class="keybtn" onclick="insertKey('exprI','ln(')">ln</div>
-              <div class="keybtn" onclick="insertKey('exprI','sqrt(')">√</div>
-              <div class="keybtn" onclick="insertKey('exprI','^')">^</div>
-              <div class="keybtn" onclick="insertKey('exprI','x')">x</div>
-              <div class="keybtn" onclick="insertKey('exprI','(')">(</div>
-              <div class="keybtn" onclick="insertKey('exprI',')')">)</div>
-              <div class="keybtn" onclick="insertKey('exprI','pi')">π</div>
-              <div class="keybtn" onclick="insertKey('exprI','e')">e</div>
-              <div class="keybtn" onclick="insertKey('exprI','-')">-</div>
-            </div>
+<section id="sec-recursos" class="page max-w-4xl mx-auto p-4">
+  <h2 class="text-2xl font-semibold mb-4">Recursos Adicionales</h2>
 
-            <div class="flex gap-2 mb-3">
-              <div><label class="block text-sm font-medium">a</label><input id="a" type="text" class="w-full p-2 border rounded" value="0" /></div>
-              <div><label class="block text-sm font-medium">b</label><input id="b" type="text" class="w-full p-2 border rounded" value="1" /></div>
-            </div>
-            <label class="block text-sm font-medium">n (subintervalos)</label>
-            <input id="n" type="text" class="w-full p-2 border rounded mb-3" value="10" />
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-3">Algoritmos en Línea</h3>
+    <div class="grid md:grid-cols-2 gap-4">
+      <button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Algoritmo de Diferenciación</button>
+      <button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Algoritmo de Integración</button>
+    </div>
+  </div>
 
-            <div class="flex gap-2">
-              <button id="calcInt" onclick="calcInt()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
-              <button id="explainInt" onclick="explainInt()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
-            </div>
-            <div id="resI" class="mt-3 text-sm font-mono text-gray-700"></div>
-          </div>
-        </div>
-        <div><div class="bg-white p-4 rounded shadow mb-4"><h3 class="font-semibold mb-2">Visualización</h3><p class="text-sm text-gray-600 mb-2">Gráfica de la función integrada.</p><canvas id="chartI" style="max-height:360px"></canvas></div><div id="areaTable" class="bg-white p-4 rounded shadow mb-4"></div><div class="mb-4"><button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button></div></div>
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-3">Videos Explicativos</h3>
+    <p class="text-sm text-gray-600 mb-4">Aquí puedes añadir videos de YouTube. Simplemente reemplaza `ID_DEL_VIDEO` en el código con el ID del video que quieres mostrar.</p>
+    
+    <!-- Ejemplo de Video de YouTube -->
+    <div class="aspect-w-16 aspect-h-9">
+      <!-- <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded"></iframe> -->
+      <div class="bg-gray-200 w-full h-full rounded flex items-center justify-center">
+        <p class="text-gray-500">Video de ejemplo (descomentar iframe para activar)</p>
       </div>
-    </section>
+    </div>
 
-    <section id="sec-deriv-calc" class="page active max-w-4xl mx-auto p-4">
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <div class="bg-white p-4 rounded shadow mb-4">
-            <button onclick="startTutorial('deriv')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
-            <label class="block text-sm font-medium mb-1">f(x)</label>
-            <input id="exprD" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
-
-            <!-- Math keyboard -->
-            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="deriv-keyboard">
-              <div class="keybtn" onclick="insertKey('exprD','sin(')">sin</div>
-              <div class="keybtn" onclick="insertKey('exprD','cos(')">cos</div>
-              <div class="keybtn" onclick="insertKey('exprD','tan(')">tan</div>
-              <div class="keybtn" onclick="insertKey('exprD','ln(')">ln</div>
-              <div class="keybtn" onclick="insertKey('exprD','sqrt(')">√</div>
-              <div class="keybtn" onclick="insertKey('exprD','^')">^</div>
-
-              <div class="keybtn" onclick="insertKey('exprD','x')">x</div>
-              <div class="keybtn" onclick="insertKey('exprD','(')">(</div>
-              <div class="keybtn" onclick="insertKey('exprD',')')">)</div>
-              <div class="keybtn" onclick="insertKey('exprD','pi')">π</div>
-              <div class="keybtn" onclick="insertKey('exprD','e')">e</div>
-              <div class="keybtn" onclick="insertKey('exprD','-')">-</div>
-            </div>
-
-            <label class="block text-sm font-medium">x₀</label>
-            <input id="x0" type="text" class="w-full p-2 border rounded mb-2" value="1" />
-
-            <label class="block text-sm font-medium">h</label>
-            <input id="h" type="text" class="w-full p-2 border rounded mb-3" value="0.1" />
-
-            <div class="flex gap-2">
-              <button id="calcDeriv" onclick="calcDeriv()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
-              <button id="explainDeriv" onclick="explainDeriv()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
-            </div>
-
-            <button id="loadTeacherExercise" onclick="loadTeacherExercise()" class="mt-3 w-full bg-gray-200 py-2 rounded">Ejercicio de ejemplo</button>
-            <div id="resD" class="mt-3 text-sm font-mono text-gray-700"></div>
-          </div>
-        </div>
-
-        <div>
-          <div class="bg-white p-4 rounded shadow mb-4">
-            <h3 class="font-semibold mb-2">Visualización</h3>
-            <p class="text-sm text-gray-600 mb-2">Gráfica de la función y la recta tangente aproximada (derivada central).</p>
-            <canvas id="chartD" style="max-height:360px"></canvas>
-          </div>
-          <div class="mb-4">
-            <div id="tableD"></div><button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
-          </div>
-        </div>
-      </div>
-    </section>
+  </div>
+</section>
 
   <!-- TUTORIAL INTRO (modal) -->
   <div id="tutorialIntro" class="hidden fixed inset-0 flex items-center justify-center z-50">
@@ -611,23 +655,14 @@
   navBtns.forEach(b => {
     b.addEventListener('click', () => {
       const id = b.dataset.page;
-      const isDeriv = id === 'sec-deriv';
-      const isInt = id === 'sec-int';
+      const targetPage = document.getElementById(id);
 
       // Ocultar todas las secciones
-      pages.forEach(p => {
-        p.classList.remove('active');
-        p.style.display = 'none';
-      });
+      pages.forEach(p => p.classList.remove('active'));
       
+
       // Mostrar las secciones correspondientes
-      if (isDeriv) {
-        document.getElementById('sec-deriv').style.display = 'block';
-        document.getElementById('sec-deriv-calc').style.display = 'block';
-      } else if (isInt) {
-        document.getElementById('sec-int').style.display = 'block';
-        document.getElementById('sec-int-calc').style.display = 'block';
-      }
+      if (targetPage) { targetPage.classList.add('active'); }
       
       // Cierra el menú móvil si está abierto
       document.getElementById('menuMobile').classList.add('hidden');
@@ -637,10 +672,6 @@
     });
   });
 
-  // Mostrar solo la primera sección al cargar
-  document.querySelectorAll('.page:not(.active)').forEach(p => p.style.display = 'none');
-  document.getElementById('sec-deriv').style.display = 'block';
-  document.getElementById('sec-deriv-calc').style.display = 'block';
 
   // Menú móvil toggle
   document.getElementById('menuBtn').onclick = () =>
@@ -1119,7 +1150,7 @@
     document.getElementById('a').value = '0';
     document.getElementById('b').value = '2';
     document.getElementById('n').value = '4';
-    // render initial plots
+    // render initial plots (optional, can be removed if not needed on load)
     try{ calcDeriv(); calcInt(); } catch(e){ /* ignore on first load */ }
   });
 
