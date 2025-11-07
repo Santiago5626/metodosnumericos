@@ -21,26 +21,22 @@ const derivSteps = [
   },
   {
     element: '#exprD',
-    element: '#sec-caso-deriv #exprD',
     text: 'Aquí escribe la función f(x), por ejemplo sin(x) + x^2.',
     position: 'right'
   },
   {
     element: '.grid.grid-cols-6',
-    element: '#deriv-keyboard',
     text: 'Usa este teclado virtual para insertar símbolos como sin, cos, π, ^ para potencias, etc.',
     position: 'bottom',
     avatar: 'arriba.png'
 
   },
   {
-    element: '#x0',
     element: '#sec-caso-deriv #x0',
     text: 'Ingresa el punto x₀ donde quieres calcular la derivada.',
     position: 'right'
   },
   {
-    element: '#h',
     element: '#sec-caso-deriv #h',
     text: 'Ingresa el paso h, un valor pequeño como 0.1 para buena precisión.',
     position: 'right'
@@ -54,7 +50,6 @@ const derivSteps = [
 
   },
   {
-    element: '#explainDeriv',
     element: '#sec-caso-deriv #explainDeriv',
     text: 'Luego, pulsa "Paso a paso" para ver la explicación detallada con fórmulas.',
     position: 'bottom',
@@ -62,14 +57,12 @@ const derivSteps = [
 
   },
   {
-    element: '#loadTeacherExercise',
     element: '#sec-caso-deriv #loadTeacherExercise',
     text: 'Carga el ejercicio de ejemplo para que te sirva como guía.',
     position: 'bottom',
     avatar: 'arriba.png'
   },
   {
-    element: '#chartD',
     element: '#sec-caso-deriv #chartD',
     text: 'Aquí ves la gráfica de la función y la tangente aproximada.',
     position: 'right'
@@ -86,25 +79,21 @@ const intSteps = [
   },
   {
     element: '#exprI',
-    element: '#sec-caso-int #exprI',
     text: 'Escribe la función f(x) aquí.',
     position: 'right'
   },
   {
     element: '#int-keyboard',
-    element: '#sec-caso-int #int-keyboard',
     text: 'Usa el teclado para símbolos.',
     position: 'bottom',
     avatar: 'arriba.png'
   },
   {
     element: '.flex.gap-2.mb-3',
-    element: '#sec-caso-int .flex.gap-2.mb-3',
     text: 'Ingresa el intervalo [a, b].',
     position: 'right'
   },
   {
-    element: '#n',
     element: '#sec-caso-int #n',
     text: 'Ingresa n, el número de subintervalos.',
     position: 'right'
@@ -118,7 +107,6 @@ const intSteps = [
 
   },
   {
-    element: '#explainInt',
     element: '#sec-caso-int #explainInt',
     text: 'Pulsa "Paso a paso" para la explicación.',
     position: 'bottom',
@@ -126,7 +114,6 @@ const intSteps = [
 
   },
   {
-    element: '#chartI',
     element: '#sec-caso-int #chartI',
     text: 'Gráfica de la función.',
     position: 'right'
@@ -145,6 +132,7 @@ function startTutorial(section) {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
 
+  document.getElementById('helpButton').style.display = 'none';
   createOverlay();
   showStep();
 }
@@ -187,13 +175,14 @@ function createOverlay() {
   textBox = document.createElement('div');
   Object.assign(textBox.style, {
     position: 'absolute',
-    backgroundColor: '#2d3748', // Fondo oscuro
-    color: '#fff', // Texto blanco
-    padding: '15px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-    maxWidth: '300px',
-    fontSize: '14px',
+    background: '#1e293b',
+    color: 'white',
+    padding: '18px 20px',
+    borderRadius: '10px',
+    maxWidth: '320px',
+    boxShadow: '0 4px 14px rgba(0,0,0,0.6)',
+    fontSize: '15px',
+    lineHeight: '1.5',
     pointerEvents: 'auto',
   });
   overlay.appendChild(textBox);
@@ -201,30 +190,37 @@ function createOverlay() {
   // avatar (sin volteo)
   avatar = document.createElement('img');
   avatar.alt = 'Nick';
-  avatar.style.width = '60px';
-  avatar.style.height = '60px';
-  avatar.style.position = 'absolute';
-  avatar.style.left = '5px';
-  avatar.style.top = '5px';
+  Object.assign(avatar.style, {
+    position: 'absolute',
+    width: '60px',
+    height: '60px',
+    left: '10px',
+    top: '10px'
+  });
   textBox.appendChild(avatar);
 
   const text = document.createElement('p');
   text.id = 'tutorial-text';
-  text.style.margin = '0 0 0 70px';
+  text.style.marginLeft = '65px';
   textBox.appendChild(text);
 
   const btnContainer = document.createElement('div');
-  btnContainer.style.marginTop = '10px';
-  btnContainer.style.textAlign = 'right';
+  Object.assign(btnContainer.style, {
+    marginTop: '12px',
+    textAlign: 'right',
+    marginLeft: '65px'
+  });
   textBox.appendChild(btnContainer);
 
   prevBtn = document.createElement('button');
   prevBtn.textContent = 'Anterior';
   Object.assign(prevBtn.style, {
     marginRight: '10px',
-    padding: '5px 10px',
-    border: '1px solid #4a5568',
-    borderRadius: '4px',
+    padding: '6px 14px',
+    border: '1px solid #4a5568', // Borde para diferenciarlo
+    borderRadius: '6px',
+    background: 'transparent',
+    color: 'white',
     cursor: 'pointer'
   });
   prevBtn.onclick = prevStep;
@@ -233,9 +229,9 @@ function createOverlay() {
   nextBtn = document.createElement('button');
   nextBtn.textContent = 'Siguiente';
   Object.assign(nextBtn.style, {
-    padding: '5px 10px',
+    padding: '6px 14px',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '6px',
     backgroundColor: '#3b82f6',
     color: 'white',
     cursor: 'pointer'
@@ -325,6 +321,12 @@ function closeTutorial() {
   if (overlay) {
     overlay.remove();
     overlay = null;
+
+    // Show help button again, but only if on a tutorial-compatible page
+    const activePage = document.querySelector('.page.active');
+    if (activePage && ['sec-caso-deriv', 'sec-caso-int'].includes(activePage.id)) {
+      document.getElementById('helpButton').style.display = 'flex';
+    }
   }
 }
 
