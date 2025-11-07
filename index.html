@@ -58,15 +58,11 @@
     <button class="nav-btn text-left py-2 w-full" data-page="sec-deriv">Derivadas Numéricas</button>
     <button class="nav-btn text-left py-2 w-full" data-page="sec-int">Integración Numérica</button>
   </nav>
-      <section id="sec-deriv" class="page active max-w-4xl mx-auto">
+      <section id="sec-deriv" class="page active max-w-4xl mx-auto p-4">
     <h2 class="text-2xl font-semibold mb-4">Diferenciación Numérica</h2>
 
-  <div class="mb-6">
-
   <!-- ===================== TEORÍA ===================== -->
-  <div>
-    <div class="bg-white p-4 rounded shadow">
-
+  <div class="bg-white p-4 rounded shadow mb-6">
       <h3 class="font-semibold mb-2">Concepto</h3>
       <p class="text-sm text-gray-700">
         La <strong>derivación numérica</strong> es una técnica empleada para aproximar la derivada de una función 
@@ -79,8 +75,9 @@
         <li>Cálculos complejos o costosos</li>
         <li>Sistemas discretos en ingeniería</li>
       </ul>
+  </div>
 
-      <hr class="my-3">
+  <div class="bg-white p-4 rounded shadow mb-6">
 
       <h3 class="font-semibold mb-2">Definición Formal</h3>
       <p class="text-sm text-gray-700">
@@ -122,17 +119,19 @@
           </p>
         </div>
 
-
       </div>
-
-      <hr class="my-3">
-
+  </div>
+  
+  <div class="bg-white p-4 rounded shadow mb-6">
       <h3 class="font-semibold mb-2">Importancia</h3>
       <p class="text-sm text-gray-700">
         Permite estudiar tasas de cambio cuando solo se cuenta con datos discretos.
         Fundamental en optimización, simulación, análisis científico e ingeniería.
       </p>
-
+  </div>
+  
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
+    <div class="bg-white p-4 rounded shadow">
       <h3 class="font-semibold mt-3">Características</h3>
       <ul class="list-disc list-inside text-sm text-gray-700">
         <li>Aproxima derivadas reales</li>
@@ -141,7 +140,8 @@
         <li>Error disminuye al reducir h</li>
         <li>Implementación sencilla en software</li>
       </ul>
-
+    </div>
+    <div class="bg-white p-4 rounded shadow">
       <h3 class="font-semibold mt-3">Aplicaciones</h3>
       <ul class="list-disc list-inside text-sm text-gray-700">
         <li>Control y automatización industrial</li>
@@ -149,31 +149,22 @@
         <li>Finanzas y estimación de riesgo</li>
         <li>Aprendizaje automático (gradiente)</li>
       </ul>
-
-      <h3 class="font-semibold mt-3">Ventajas</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>Fácil implementación</li>
-        <li>Útil con datos experimentales</li>
-      </ul>
-
-      <h3 class="font-semibold mt-3">Desventajas</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>Sensible al tamaño de paso h</li>
-        <li>Afectada por ruido en los datos</li>
-        <li>No adecuada para discontinuidades bruscas</li>
-      </ul>
-
     </div>
   </div>
-
-  <!-- Infografía arriba del caso de estudio -->
-  <div class="flex justify-center mb-6">
-    <img src="infografia-diferenciacion.jpeg" alt="Infografía de Diferenciación Numérica" class="rounded shadow-md w-full md:w-3/4">
-  </div>
-
-  <!-- ================= CASO DE ESTUDIO ================= -->
-  <div>
+  
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
     <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mt-3">Ventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700"><li>Fácil implementación</li><li>Útil con datos experimentales</li></ul>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mt-3">Desventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700"><li>Sensible al tamaño de paso h</li><li>Afectada por ruido en los datos</li><li>No adecuada para discontinuidades bruscas</li></ul>
+    </div>
+  </div>
+  <!-- ================= CASO DE ESTUDIO ================= -->
+  <div class="mb-6">
+    <div class="bg-white p-4 rounded shadow mb-6">
 
   <h3 class="font-semibold mb-2">Caso de Estudio: Producción de Botellas</h3>
   <p class="text-sm text-gray-700">
@@ -226,224 +217,184 @@
   La diferenciación numérica permite evaluar la eficiencia del proceso y tomar decisiones 
   industriales basadas en datos reales.
   </p>
-
     </div>
   </div>
-    </section>
-<!-- ========== INTEGRACIÓN ========== -->
-<section id="sec-int" class="page max-w-4xl mx-auto p-4">
+    </section><section id="sec-int" class="page max-w-4xl mx-auto p-4">
   <h2 class="text-2xl font-semibold mb-4">Integración Numérica</h2>
 
-  <!-- Concepto -->
-  <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">¿Qué es la integración numérica?</h3>
-    <p class="text-sm text-gray-700">
-      La <strong>integración numérica</strong> permite aproximar integrales definidas cuando no puede hallarse la solución analítica,
-      o cuando se cuenta con datos discretos medidos experimentalmente. Su objetivo es calcular el área bajo la curva 
-      de una función en un intervalo \([a,b]\).
-    </p>
+  <!-- Contenedor principal para toda la teoría -->
+  <div class="mb-6">
+    <!-- ===================== TEORÍA GENERAL ===================== -->
+    <div class="bg-white p-4 rounded shadow leading-relaxed text-gray-800 mb-6">
+      <h3 class="text-xl font-semibold mb-2">¿Qué es la integración numérica?</h3>
+      <p>
+        La integración numérica es un conjunto de métodos utilizados para calcular
+        el área bajo una curva de forma aproximada, cuando no es posible obtener
+        la integral exacta analíticamente.
+      </p>
+      <p class="mt-2">Se utiliza cuando:</p>
+      <ul class="list-disc ml-6">
+        <li>La función es complicada o no tiene solución exacta.</li>
+        <li>Solo se cuentan con valores experimentales \((x_n, y_n)\).</li>
+      </ul>
+      <h3 class="text-lg font-semibold mt-4">Importancia en ingeniería</h3>
+      <p>
+        Permite obtener resultados para áreas, fuerzas, energía, calor, consumo energético
+        y muchos procesos físicos usando datos reales o funciones complejas.
+      </p>
+      <h3 class="text-lg font-semibold mt-4">Ventajas</h3>
+      <ul class="list-disc ml-6">
+        <li>Funciona con funciones complejas o sin expresión exacta.</li>
+        <li>Útil con datos medidos en puntos discretos.</li>
+        <li>Métodos sencillos como el trapecio o Simpson.</li>
+        <li>Mayor precisión con más puntos.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mt-4">Desventajas</h3>
+      <ul class="list-disc ml-6 mb-4">
+        <li>Es una aproximación.</li>
+        <li>Pierde precisión si la función cambia bruscamente.</li>
+        <li>Más precisión requiere más cálculos.</li>
+        <li>Función debe ser continua.</li>
+      </ul>
+    </div>
+
+    <!-- ===================== REGLA DEL TRAPECIO + IMAGEN ===================== -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-semibold mb-2">Regla del Trapecio</h3>
+        <p>Aproxima el área bajo la curva usando trapecios. Reemplaza la curva por líneas rectas entre puntos conocidos.</p>
+        <p class="mt-2 font-semibold">Fórmula general:</p>
+        <p class="math">\[ \int_a^b f(x)\,dx \approx \frac{h}{2} \left[f(x_0) + 2 \sum_{i=1}^{n-1} f(x_i) + f(x_n)\right] \]</p>
+        <p class="font-semibold mt-2">Donde:</p>
+        <ul class="list-disc ml-6">
+          <li>\(h = \frac{b-a}{n}\)</li>
+          <li>\(x_0, x_1, \ldots, x_n\) son los puntos del intervalo</li>
+          <li>Se suman los valores intermedios multiplicados por 2</li>
+        </ul>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-600 mb-2">Imagen ilustrativa del método del trapecio:</p><img src="Imagen-trapecio.png" alt="Regla del trapecio ilustración" class="w-full rounded"><p class="text-xs text-gray-500 mt-1">Luego la reemplazas en tu proyecto</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Cuándo se usa -->
+<!-- ===================== EJEMPLO PDF ===================== -->
+<div class="bg-white p-4 rounded shadow mb-6">
+  <h3 class="text-xl font-semibold mb-2">Ejemplo aplicado</h3>
+
+  <p>Consideremos la integral:</p>
+  <p class="math">\[ \int_0^6 (x^2 + 1) \,dx \]</p>
+
+  <p>Intervalo:</p>
+  <p class="math">\[ a = 0,\quad b = 6,\quad n = 6 \]</p>
+
+  <p>Calculamos \(h\):</p>
+  <p class="math">\[
+    h = \frac{6 - 0}{6} = 1
+  \]</p>
+
+  <p>Completamos la tabla:</p>
+
+  <table class="table-auto border w-full text-center">
+    <tr><td class="math">\( f(x_0)=f(a)=f(0)=1 \)</td></tr>
+    <tr><td class="math">\( f(x_1)=f(a+h)=f(0+1)=f(1) \)</td></tr>
+    <tr><td class="math">\( f(x_2)=f(a+2h)=f(0+2)=f(2) \)</td></tr>
+    <tr><td class="math">\( f(x_3)=f(a+3h)=f(0+3)=f(3) \)</td></tr>
+    <tr><td class="math">\( f(x_4)=f(a+4h)=f(0+4)=f(4) \)</td></tr>
+    <tr><td class="math">\( f(x_5)=f(a+5h)=f(0+5)=f(5) \)</td></tr>
+    <tr><td class="math">\( f(x_6)=f(b)=f(6) \)</td></tr>
+  </table>
+
+  <br>
+
+  <p>La última columna se halla reemplazando el valor que nos da “x” en la tercera columna en la función:</p>
+
+  <p class="math">\[
+    e^{-x^2}
+  \]</p>
+
+  <p>El siguiente paso es hallar el área total con la fórmula:</p>
+
+  <p class="math">\[
+  \frac{h}{2} \left[\, f(x_0) + 2\sum_{i=1}^{n-1} f(x_0 + ih) + f(x_n) \,\right]
+  \]</p>
+
+  <p>
+    Esto se resume en sumar todos los términos de la mitad, multiplicarlos por 2 y agregar
+    \(f(x_0)\) y \(f(x_n)\), obteniendo:
+  </p>
+
+  <p class="math">\[
+    A_T = \frac{1}{2}
+          \left[
+            1 + 2(2.13136) + 0.01832
+          \right]
+  \]</p>
+
+  <p class="math">\[
+    A_T = \frac{5.28104}{6} \approx 0.88017333
+  \]</p>
+
+  <p class="font-bold text-green-700">Resultado final: \(A_T \approx 0.88017\)</p>
+</div>
+
+
+  <!-- ===================== CASO DE ESTUDIO INDUSTRIAL ===================== -->
   <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">¿Cuándo se utiliza?</h3>
-    <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Cuando no existe una solución cerrada de la integral.</li>
-      <li>Cuando se tienen datos experimentales medidos.</li>
-      <li>En cálculos de energía, fluidos, fuerzas, señales e industria.</li>
+    <h3 class="text-xl font-semibold mb-2">Caso de Estudio: Consumo energético en una planta industrial</h3>
+
+    <p>
+      Se desea estimar el consumo total de energía en una línea de producción durante 6 horas. 
+      El consumo varía según la carga de trabajo.
+    </p>
+
+    <p class="math mt-2">
+      \[
+      E = \int_0^6 (e^{0.1t} + t^2) \, dt
+      \]
+    </p>
+
+    <p><b>Datos:</b> mediciones cada 1 hora → \(n = 6\), \(h = 1\)</p>
+
+    <p class="font-semibold mt-2">Tabla de valores:</p>
+
+    <table class="table-auto border w-full text-center">
+      <tr class="bg-gray-100"><th>t (h)</th><th>f(t)</th></tr>
+      <tr><td>0</td><td>1</td></tr>
+      <tr><td>1</td><td>1.10517 + 1</td></tr>
+      <tr><td>2</td><td>1.22140 + 4</td></tr>
+      <tr><td>3</td><td>1.34986 + 9</td></tr>
+      <tr><td>4</td><td>1.49182 + 16</td></tr>
+      <tr><td>5</td><td>1.64872 + 25</td></tr>
+      <tr><td>6</td><td>1.82212 + 36</td></tr>
+    </table>
+
+    <p class="mt-2 font-semibold">Resultado final ≈ 33.0797 kWh</p>
+
+    <h3 class="font-semibold mt-3">Análisis</h3>
+    <ul class="list-disc ml-6">
+      <li>El consumo aumenta progresivamente durante la jornada.</li>
+      <li>La parte cuadrática domina al final, aumentando el consumo.</li>
+      <li>La regla del trapecio permite estimar usando datos reales.</li>
+      <li>Útil para planificación energética y eficiencia industrial.</li>
     </ul>
   </div>
 
-  <!-- Ventajas y desventajas -->
-  <div class="grid md:grid-cols-2 gap-4 mb-6">
-    <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mb-2">Ventajas</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>Útil con datos reales discretos.</li>
-        <li>Implementación sencilla.</li>
-        <li>Mejora la precisión aumentando subdivisiones.</li>
-      </ul>
-    </div>
-
-    <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mb-2">Desventajas</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>Siempre es aproximado.</li>
-        <li>Puede perder precisión si hay variaciones bruscas entre mediciones.</li>
-        <li>Más precisión suele implicar más cálculo.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Fórmulas generales -->
-  <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">Fórmulas Generales</h3>
-
-    <p class="text-sm font-medium text-gray-700 mt-2">Regla del Trapecio</p>
-    <p class="text-center text-sm my-2">
-      $$\int_a^b f(x)\,dx \approx \frac{h}{2}\Big[f(x_0)+2\sum_{i=1}^{n-1}f(x_i)+f(x_n)\Big]$$
-    </p>
-
-    <p class="text-sm font-medium text-gray-700 mt-4">Regla de Simpson 3/8</p>
-    <p class="text-center text-sm my-2">
-      $$\int_a^b f(x)\,dx \approx \frac{3h}{8}\Big[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)+\cdots+f(x_n)\Big]$$
-    </p>
-
-    <p class="text-xs italic text-gray-600 mt-3">
-      Nota: Simpson 1/3 requiere \(n\) par; Simpson 3/8 requiere \(n\) múltiplo de 3.
-    </p>
-  </div>
-
-  <!-- Infografía -->
+  <!-- Infografía movida aquí -->
   <div class="flex justify-center mb-6">
-    <img src="infografia-integracion.jpeg" alt="Infografía integración" class="rounded shadow-md w-full md:w-3/4">
-  </div>
-
-  <!-- Datos del caso práctico (tabla) -->
-  <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">Datos del caso práctico</h3>
-<p class="text-sm text-gray-700 mb-3">
-  Mediciones horarias de la función \( f(t_i) \) durante una jornada de 6 horas.
-</p>
-
-
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm border border-gray-300">
-        <thead class="bg-slate-100">
-          <tr>
-            <th class="border p-1">i</th>
-            <th class="border p-1">tᵢ (h)</th>
-            <th class="border p-1">f(tᵢ) (kW)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="border p-1">0</td><td class="border p-1">0</td><td class="border p-1">2.00000</td></tr>
-          <tr><td class="border p-1">1</td><td class="border p-1">1</td><td class="border p-1">1.61306</td></tr>
-          <tr><td class="border p-1">2</td><td class="border p-1">2</td><td class="border p-1">2.33576</td></tr>
-          <tr><td class="border p-1">3</td><td class="border p-1">3</td><td class="border p-1">4.04628</td></tr>
-          <tr><td class="border p-1">4</td><td class="border p-1">4</td><td class="border p-1">6.67067</td></tr>
-          <tr><td class="border p-1">5</td><td class="border p-1">5</td><td class="border p-1">10.16416</td></tr>
-          <tr><td class="border p-1">6</td><td class="border p-1">6</td><td class="border p-1">14.49957</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="text-xs text-gray-600 mt-2">*Los valores muestran la tasa de consumo (kW) en cada hora.*</p>
-  </div>
-
-  <!-- Método del Trapecio: procedimiento -->
-  <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">Método del Trapecio</h3>
-
-    <p class="text-sm text-gray-700">Integral a estimar:</p>
-    <p class="text-center my-2 text-sm">
-      $$\int_0^6\big(2e^{-0.5t}+0.4t^2\big)\,dt$$
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 1. Datos</p>
-    <p class="text-sm text-gray-700">
-      Se tiene \(n=6\) subintervalos, \(h=\dfrac{b-a}{n}=\dfrac{6-0}{6}=1\). Los valores \(f(t_i)\) están en la tabla anterior.
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 2. Fórmula del Trapecio (compuesto)</p>
-    <p class="text-center text-sm my-2">
-      $$I_T \approx \frac{h}{2}\Big[f(t_0)+2\sum_{i=1}^{5} f(t_i) + f(t_6)\Big]$$
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 3. Sustituir los valores</p>
-    <p class="text-center text-sm my-2">
-      $$\begin{aligned}
-      \sum_{i=1}^{5} f(t_i) &= f(1)+f(2)+f(3)+f(4)+f(5) \\
-      &= 1.61306 + 2.33576 + 4.04628 + 6.67067 + 10.16416 \\
-      &= 24.82993
-      \end{aligned}$$
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Paso 4. Calcular</p>
-    <p class="text-center text-sm my-2">
-      $$I_T \approx \frac{1}{2}\Big[ f(0) + 2(24.82993) + f(6) \Big]$$
-      $$= \frac{1}{2}\Big[ 2.00000 + 49.65986 + 14.49957 \Big]$$
-      $$= \frac{1}{2}\big[66.15943\big] = 33.079715 \ (\text{kWh})$$
-    </p>
-
-    <p class="text-sm text-gray-700 mt-2"><strong>Resultado:</strong> \(33.079695\) kWh</p>
-    <p class="text-xs italic text-gray-600">(pequeñas diferencias son por redondeo de los valores intermedios)</p>
-  </div>
-
-  <!-- Método Simpson 3/8: procedimiento -->
-  <div class="bg-white p-4 rounded shadow mb-6">
-    <h3 class="font-semibold mb-2">Método Simpson 3/8</h3>
-
-    <p class="text-sm text-gray-700">Usamos los mismos datos de la tabla y \(h=1\).</p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Fórmula general (compuesta por bloques de 3 subintervalos)</p>
-    <p class="text-center my-2 text-sm">
-      $$I_{3/8} \approx \frac{3h}{8}\Big[f(t_0)+f(t_n) + 3\sum_{\substack{i=1\\ i\not\equiv 0\pmod{3}}}^{n-1} f(t_i) + 2\sum_{\substack{i=1\\ i\equiv 0\pmod{3}}}^{n-1} f(t_i)\Big]$$
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Reducido para \(n=6\) y \(h=1\)</p>
-    <p class="text-center my-2 text-sm">
-      $$I_{3/8} = \frac{3}{8}\Big[f(0)+f(6) + 3\big(f(1)+f(2)+f(4)+f(5)\big) + 2f(3)\Big]$$
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Sustituyendo los valores</p>
-
-    <p class="text-sm my-2 text-gray-700">
-      <strong>1)</strong> \(f(0)+f(6) = 2.00000 + 14.49957 = 16.49957\)
-    </p>
-
-    <p class="text-sm my-2 text-gray-700">
-      <strong>2)</strong> \(f(1)+f(2)+f(4)+f(5) = 1.61306 + 2.33576 + 6.67067 + 10.16416 = 20.78365\)
-    </p>
-
-    <p class="text-sm my-2 text-gray-700">
-      <strong>3)</strong> \(3\cdot (f(1)+f(2)+f(4)+f(5)) = 3 \times 20.78365 = 62.35095\)
-    </p>
-
-    <p class="text-sm my-2 text-gray-700">
-      <strong>4)</strong> \(2\cdot f(3) = 2 \times 4.04628 = 8.09252\)
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Sumando los términos interiores (S)</p>
-    <p class="text-center my-2 text-sm">
-      $$S = 16.49957 \;+\; 62.35095 \;+\; 8.09252 \;=\; 86.94304$$
-    </p>
-
-    <p class="text-sm font-semibold text-gray-700 mt-3">Finalmente (multiplicando por \(3/8\))</p>
-    <p class="text-center my-2 text-sm">
-      $$I_{3/8} = \frac{3}{8}\,S = \frac{3}{8}\times 86.94304 = 32.60364\ \text{kWh}$$
-    </p>
-
-    <h4 class="font-semibold mt-3 mb-1">Resultados comparativos</h4>
-    <ul class="list-disc list-inside text-sm text-gray-700">
-      <li>Método Trapecio: \(33.079695\) kWh</li>
-      <li>Método Simpson 3/8: \(32.60364\) kWh</li>
-      <li>Diferencia absoluta: \(|33.079695 - 32.60364| \approx 0.47606\ \text{kWh}\) (~1.44%)</li>
-    </ul>
+    <img src="infografia-diferenciacion.jpeg" alt="Infografía de Diferenciación Numérica" class="rounded shadow-md w-full md:w-3/4">
   </div>
 </section>
 
-
-  <section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
+    <section id="sec-int-calc" class="page max-w-4xl mx-auto p-4">
       <div class="grid md:grid-cols-2 gap-6">
         <div>
           <div class="bg-white p-4 rounded shadow mb-4">
-            <h3 class="font-semibold mb-2">Visualización</h3>
-            <canvas id="chartI" style="max-height:360px"></canvas>
-          </div>
-          <div class="mb-4">
-            <button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
-          </div>
-        </div>
-
-        <div>
-          <!-- Inputs -->
-          <div class="bg-white p-4 rounded shadow mb-4">
             <button onclick="startTutorial('int')" class="mb-2 bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"><i class="bi bi-play-circle"></i> Tutorial</button>
             <label class="block text-sm font-medium mb-1">f(x)</label>
-            <input id="exprI" class="w-full p-2 border rounded mb-3" placeholder="Ej: sin(x) + x^2" />
+            <input id="exprI" class="w-full p-2 border rounded mb-3" placeholder="Ej: x^2 + 1" />
 
-            <!-- keyboard -->
+            <!-- Math keyboard -->
             <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-3" id="int-keyboard">
               <div class="keybtn" onclick="insertKey('exprI','sin(')">sin</div>
               <div class="keybtn" onclick="insertKey('exprI','cos(')">cos</div>
@@ -459,44 +410,24 @@
               <div class="keybtn" onclick="insertKey('exprI','-')">-</div>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-2 mb-3">
-              <div class="flex-1">
-                <label class="text-sm font-medium">a</label>
-                <input id="a" class="w-full p-2 border rounded" value="0" />
-              </div>
-              <div class="flex-1">
-                <label class="text-sm font-medium">b</label>
-                <input id="b" class="w-full p-2 border rounded" value="2" />
-              </div>
+            <div class="flex gap-2 mb-3">
+              <div><label class="block text-sm font-medium">a</label><input id="a" type="text" class="w-full p-2 border rounded" value="0" /></div>
+              <div><label class="block text-sm font-medium">b</label><input id="b" type="text" class="w-full p-2 border rounded" value="1" /></div>
             </div>
-
-            <label class="text-sm font-medium">n (subintervalos)</label>
-            <input id="n" class="w-full p-2 border rounded mb-3" value="4" />
+            <label class="block text-sm font-medium">n (subintervalos)</label>
+            <input id="n" type="text" class="w-full p-2 border rounded mb-3" value="10" />
 
             <div class="flex gap-2">
-              <button id="calcInt" onclick="calcInt()" class="flex-1 bg-green-600 text-white py-2 rounded">Calcular</button>
-              <button id="explainInt" onclick="explainInt()" class="flex-1 bg-emerald-100 text-emerald-800 py-2 rounded">Paso a paso</button>
+              <button id="calcInt" onclick="calcInt()" class="flex-1 bg-blue-600 text-white py-2 rounded">Calcular</button>
+              <button id="explainInt" onclick="explainInt()" class="flex-1 bg-indigo-100 text-indigo-800 py-2 rounded">Paso a paso</button>
             </div>
-
             <div id="resI" class="mt-3 text-sm font-mono text-gray-700"></div>
           </div>
         </div>
+        <div><div class="bg-white p-4 rounded shadow mb-4"><h3 class="font-semibold mb-2">Visualización</h3><p class="text-sm text-gray-600 mb-2">Gráfica de la función integrada.</p><canvas id="chartI" style="max-height:360px"></canvas></div><div id="areaTable" class="bg-white p-4 rounded shadow mb-4"></div><div class="mb-4"><button onclick="window.open('https://onlinegdb.com/iqQ__bnp1J', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button></div></div>
       </div>
+    </section>
 
-      <!-- Caso práctico -->
-      <div class="bg-white p-4 rounded shadow mb-6 mt-6">
-        <h4 class="font-semibold mb-2">Tabla dinamica para trapecio </h4>
-        <div id="areaTable" class="text-sm text-gray-700 overflow-x-auto">—</div>
-      </div>
-  </section>
-
-      <!-- Bottom row: Visualization and Calculator -->
-      <!-- This section was moved into sec-int-calc -->
-
-      <!-- Caso práctico -->
-      <!-- This section was moved into sec-int-calc -->
-
-    <!-- ========== DERIVADAS (CALCULADORA) ========== -->
     <section id="sec-deriv-calc" class="page active max-w-4xl mx-auto p-4">
       <div class="grid md:grid-cols-2 gap-6">
         <div>
@@ -545,7 +476,7 @@
             <canvas id="chartD" style="max-height:360px"></canvas>
           </div>
           <div class="mb-4">
-            <button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
+            <div id="tableD"></div><button onclick="window.open('https://onlinegdb.com/SsSY13vTC', '_blank')" class="w-full bg-blue-600 text-white py-3 px-6 rounded text-lg font-semibold">Ver Algoritmo</button>
           </div>
         </div>
       </div>
