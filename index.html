@@ -79,106 +79,212 @@
   <section id="sec-teoria" class="page max-w-4xl mx-auto p-4">
     <h2 class="text-2xl font-semibold mb-4">Diferenciación Numérica</h2>
 
-  <!-- ===================== TEORÍA ===================== -->
+  <!-- ===================== TEORÍA — CONCEPTO ===================== -->
   <div class="bg-white p-4 rounded shadow mb-6">
-      <h3 class="font-semibold mb-2">Concepto</h3>
-      <p class="text-sm text-gray-700">
-        La <strong>derivación numérica</strong> es una técnica empleada para aproximar la derivada de una función 
-        cuando esta no se conoce de forma analítica o sus datos solo están disponibles en puntos discretos.
-      </p>
+    <h3 class="font-semibold mb-2">Concepto</h3>
 
-      <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
-        <li>Funciones sin fórmula explícita</li>
-        <li>Modelos experimentales y registros de sensores</li>
-        <li>Cálculos complejos o costosos</li>
-        <li>Sistemas discretos en ingeniería</li>
-      </ul>
+    <p class="text-sm text-gray-700">
+      La derivación numérica es una técnica de análisis numérico para calcular una aproximación
+      a la derivada de una función en un punto utilizando los valores y propiedades de la misma.
+    </p>
+
+    <p class="text-sm text-gray-700 mt-2">
+      Principalmente se utiliza para realizar derivadas que no tienen una solución conocida o que
+      su desarrollo sea muy complicado o largo. Además, es menos costoso calcular la aproximación
+      que el valor exacto. También se usa cuando solo conocemos los valores de \(f\) en un número
+      finito de puntos \(x\).
+    </p>
+
+    <ul class="list-disc list-inside text-sm text-gray-700 mt-3">
+      <li>Funciones sin fórmula explícita</li>
+      <li>Modelos experimentales y registros de sensores</li>
+      <li>Cálculos complejos o costosos</li>
+      <li>Sistemas discretos en ingeniería</li>
+      <li>Datos disponibles solo en puntos aislados</li>
+    </ul>
   </div>
 
+  <!-- ===================== DIFERENCIAS FINITAS ===================== -->
   <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-2">Diferencias Finitas</h3>
 
-      <h3 class="font-semibold mb-2">Definición Formal</h3>
-      <p class="text-sm text-gray-700">
-        La derivada de una función se define como el límite:
-      </p>
-      <p class="text-sm text-gray-700">
-        $$
-        f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
-        $$
-      </p>
+    <p class="text-sm text-gray-700">
+      Cuando se habla en diferenciación numérica de diferencias finitas, se habla de la fórmula
+      de diferencias finitas. Esta es una expresión matemática cuya forma es:
+    </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="font-semibold mb-2">Aproximaciones por Diferencias Finitas</h3>
+    <p class="text-center text-sm text-gray-700 mt-2 font-mono">
+      \( f(x + b) - f(x + a) \)
+    </p>
 
-          <p class="text-sm text-gray-700 font-medium mt-2">Diferencia hacia adelante (Forward):</p>
-          <p class="text-sm text-gray-700">
-            $$
-            f'(x) \approx \frac{f(x+h) - f(x)}{h}
-            $$
-          </p>
+    <p class="text-sm text-gray-700 mt-2">
+      Su significado es equivalente al conocido en cálculo diferencial.
+      Un ejemplo fundamental es que la aproximación de las derivadas por diferencias finitas,
+      que es el papel fundamental de la diferenciación numérica, juega un papel esencial dentro
+      del análisis numérico para la resolución de problemas relacionados con ecuaciones diferenciales,
+      entre otros.
+    </p>
+  </div>
 
-          <p class="text-sm text-gray-700 font-medium mt-2">Diferencia hacia atrás (Backward):</p>
-          <p class="text-sm text-gray-700">
-            $$
-            f'(x) \approx \frac{f(x) - f(x-h)}{h}
-            $$
-          </p>
+  <!-- ===================== DERIVADA FORMAL ===================== -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-2">Definición Formal de la Derivada</h3>
 
-          <p class="text-sm text-gray-700 font-medium mt-2">Diferencia centrada (Central):</p>
-          <p class="text-sm text-gray-700">
-            $$
-            f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
-            $$
-          </p>
+    <p class="text-sm text-gray-700">
+      La derivada de una función \( f(x) \) es:
+    </p>
 
-          <p class="text-xs text-gray-600 mt-2">
-            La fórmula centrada es más precisa:  \( O(h^2) \) vs \( O(h) \) para las demás.
-          </p>
-        </div>
+    <p class="text-center text-sm text-gray-700 font-mono mt-2">
+      \( f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \)
+    </p>
 
+    <h3 class="font-semibold mt-4">Fórmulas para Derivadas de Primer Orden</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
+
+      <!-- Hacia adelante -->
+      <div>
+        <h4 class="font-semibold mb-1">Derivada hacia adelante</h4>
+        <p class="text-center text-sm font-mono text-gray-700">
+          \( f'(x) \approx \frac{f(x+h)-f(x)}{h} \)
+        </p>
       </div>
+
+      <!-- Hacia atrás -->
+      <div>
+        <h4 class="font-semibold mb-1">Derivada hacia atrás</h4>
+        <p class="text-center text-sm font-mono text-gray-700">
+          \( f'(x) \approx \frac{f(x)-f(x-h)}{h} \)
+        </p>
+      </div>
+
+      <!-- Centrada -->
+      <div>
+        <h4 class="font-semibold mb-1">Derivada centrada</h4>
+        <p class="text-center text-sm font-mono text-gray-700">
+          \( f'(x) \approx \frac{f(x+h)-f(x-h)}{2h} \)
+        </p>
+      </div>
+    </div>
+
+    <p class="text-xs text-gray-600 mt-3">
+      La fórmula centrada es más precisa (error \(O(h^2)\)), mientras que las fórmulas hacia adelante
+      y hacia atrás tienen error de orden \(O(h)\).
+    </p>
+
   </div>
-  
+
+  <!-- ===================== DETALLE DE LOS MÉTODOS ===================== -->
   <div class="bg-white p-4 rounded shadow mb-6">
-      <h3 class="font-semibold mb-2">Importancia</h3>
-      <p class="text-sm text-gray-700">
-        Permite estudiar tasas de cambio cuando solo se cuenta con datos discretos.
-        Fundamental en optimización, simulación, análisis científico e ingeniería.
-      </p>
+
+    <h3 class="font-semibold mb-2">Diferencias hacia adelante</h3>
+    <p class="text-sm text-gray-700">
+      La diferenciación hacia adelante es un concepto utilizado en cálculo diferencial para aproximar
+      la derivada usando un incremento hacia la derecha del punto evaluado.
+    </p>
+
+    <p class="text-center text-sm font-mono text-gray-700 mt-2">
+      \( f'(x) \approx \frac{f(x+h)-f(x)}{h} \)
+    </p>
+
+    <h3 class="font-semibold mt-4 mb-2">Diferencias hacia atrás</h3>
+    <p class="text-sm text-gray-700">
+      La diferenciación hacia atrás utiliza valores pasados de la función para calcular la derivada.
+      Es útil cuando no se puede acceder a valores futuros.
+    </p>
+
+    <p class="text-center text-sm font-mono text-gray-700 mt-2">
+      \( f'(x) \approx \frac{f(x)-f(x-h)}{h} \)
+    </p>
+
+    <p class="text-sm text-gray-700 mt-2">
+      La aproximación entrega buenos resultados con cierto error. Para minimizar el error se estima
+      que el promedio entre adelante y atrás entrega la mejor aproximación:
+    </p>
+
+    <p class="text-center text-sm font-mono text-gray-700 mt-2">
+      \( f'(x)\approx \frac{1}{2}\left( \frac{f(x+h)-f(x)}{h} + \frac{f(x)-f(x-h)}{h} \right) \)
+    </p>
+
+    <h3 class="font-semibold mt-4 mb-2">Diferencias centrales</h3>
+    <p class="text-sm text-gray-700">
+      La diferenciación numérica central aproxima la derivada utilizando valores a la izquierda y derecha
+      del punto dado. Es más precisa que los otros dos métodos.
+    </p>
+
+    <p class="text-center text-sm font-mono text-gray-700 mt-2">
+      \( f'(x)\approx \frac{f(x+h)-f(x-h)}{2h} \)
+    </p>
+
   </div>
-  
+
+  <!-- ===================== IMPORTANCIA ===================== -->
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-2">Importancia de la Diferenciación Numérica</h3>
+    <p class="text-sm text-gray-700">
+      La importancia de la diferenciación numérica radica en su capacidad de proporcionar información
+      sobre el comportamiento de las funciones cuando no se dispone de fórmulas explícitas. Permite a los
+      investigadores comprender tendencias, pendientes y tasas de cambio en los datos, lo cual es crucial
+      para tomar decisiones informadas.
+    </p>
+
+    <p class="text-sm text-gray-700 mt-2">
+      En aplicaciones prácticas se usa en problemas de optimización, donde entender el gradiente puede
+      llevar a encontrar valores máximos o mínimos de manera eficaz.
+    </p>
+  </div>
+
+  <!-- ===================== CARACTERÍSTICAS ===================== -->
   <div class="grid md:grid-cols-2 gap-4 mb-6">
+
     <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mt-3">Características</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>Aproxima derivadas reales</li>
-        <li>Uso de puntos separados por paso h</li>
-        <li>Basada en diferencias finitas</li>
-        <li>Error disminuye al reducir h</li>
-        <li>Implementación sencilla en software</li>
+      <h3 class="font-semibold mb-3">Características de la Diferenciación Numérica</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+        <li>Aproxima la derivada de una función.</li>
+        <li>Usa valores separados por un intervalo \(h\).</li>
+        <li>Se basa en métodos de diferencias finitas.</li>
+        <li>Los resultados son aproximados.</li>
+        <li>El error disminuye con pasos pequeños.</li>
+        <li>Permite trabajar con datos reales.</li>
+        <li>Puede aplicarse para derivadas de mayor orden.</li>
+        <li>Es fácil de programar en software.</li>
+        <li>Amplias aplicaciones en ingeniería.</li>
       </ul>
     </div>
+
     <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mt-3">Aplicaciones</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
-        <li>Control y automatización industrial</li>
-        <li>Análisis de señales y sensores</li>
-        <li>Finanzas y estimación de riesgo</li>
-        <li>Aprendizaje automático (gradiente)</li>
+      <h3 class="font-semibold mb-3">Aplicaciones</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+        <li>Física (movimiento y fuerzas).</li>
+        <li>Ingeniería y simulaciones.</li>
+        <li>Finanzas (precio de opciones, riesgo).</li>
+        <li>Aprendizaje automático (descenso de gradiente).</li>
+        <li>Análisis numérico general.</li>
       </ul>
     </div>
+
   </div>
-  
+
+  <!-- ===================== VENTAJAS Y DESVENTAJAS ===================== -->
   <div class="grid md:grid-cols-2 gap-4 mb-6">
+
     <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mt-3">Ventajas</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700"><li>Fácil implementación</li><li>Útil con datos experimentales</li></ul>
+      <h3 class="font-semibold mb-3">Ventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>Método simple y eficiente.</li>
+        <li>Estimación en cualquier punto con pocos datos.</li>
+      </ul>
     </div>
+
     <div class="bg-white p-4 rounded shadow">
-      <h3 class="font-semibold mt-3">Desventajas</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700"><li>Sensible al tamaño de paso h</li><li>Afectada por ruido en los datos</li><li>No adecuada para discontinuidades bruscas</li></ul>
+      <h3 class="font-semibold mb-3">Desventajas</h3>
+      <ul class="list-disc list-inside text-sm text-gray-700">
+        <li>La precisión depende del tamaño de paso \(h\).</li>
+        <li>No es adecuado para funciones con discontinuidades.</li>
+        <li>Sensible al ruido en los datos.</li>
+      </ul>
     </div>
+
   </div>
 
   <h2 class="text-2xl font-semibold mb-4 mt-8">Integración Numérica</h2>
