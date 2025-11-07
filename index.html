@@ -305,59 +305,194 @@
 <section id="sec-caso-deriv" class="page max-w-4xl mx-auto p-4">
   <!-- ================= CASO DE ESTUDIO ================= -->
   <div class="mb-6">
-    <div class="bg-white p-4 rounded shadow mb-6">
+      <div class="bg-white p-4 rounded shadow mb-6">
+    <h3 class="font-semibold mb-2">CASO DE ESTUDIO: Estimación de la Tasa de Cambio de Producción en una Línea de Ensamble</h3>
+    <p class="text-sm text-gray-700">
+      En una planta de bebidas gaseosas, los ingenieros industriales necesitan analizar la eficiencia de la línea de producción.
+      Durante el proceso, se mide cuántas botellas se producen cada cierto tiempo. Sin embargo, el interés no es solo saber cuántas
+      botellas se fabrican, sino qué tan rápido cambia la producción en el tiempo, es decir, la <em>tasa de variación instantánea</em>.
+    </p>
 
-  <h3 class="font-semibold mb-2">Caso de Estudio: Producción de Botellas</h3>
-  <p class="text-sm text-gray-700">
-    En una planta de bebidas se mide la producción acumulada para estimar la tasa de producción
-    (botellas/minuto) utilizando diferencias finitas.
-  </p>
+    <p class="text-sm text-gray-700 mt-2">
+      Matemáticamente, este cambio se puede expresar como la derivada de la producción respecto al tiempo:
+      <span class="font-mono">\(V(t)=\dfrac{dP}{dt}\)</span>
+    </p>
+    <ul class="text-sm text-gray-700 list-disc list-inside mt-1">
+      <li>\(V(t)\) es la tasa de producción (botellas/minuto)</li>
+      <li>\(P\) es la cantidad acumulada de botellas producidas</li>
+      <li>\(t\) es el tiempo en minutos</li>
+    </ul>
+    <p class="text-sm text-gray-700 mt-1">
+      En este estudio, como los datos provienen de mediciones experimentales, se aplica <strong>diferenciación numérica</strong> para aproximar la derivada.
+    </p>
 
-  <p class="font-medium text-sm mt-2 text-gray-700">Datos discretos observados:</p>
-  <p class="text-xs text-gray-700">P(t) = [0, 480, 1020, 1570, 2100, 2610, 3100]</p>
-  <p class="text-xs text-gray-700">t (min)= [0, 10, 20, 30, 40, 50, 60]</p>
+    <h4 class="font-semibold mt-4">Métodos de diferenciación numérica</h4>
+    <p class="text-sm text-gray-700">
+      En muchas situaciones de la industria, los datos de producción se obtienen de sensores o registros discretos en el tiempo, por lo que no se cuenta con una función continua.
+      En tales casos, se utilizan métodos numéricos para aproximar la derivada, entre ellos:
+    </p>
 
+    <ul class="text-sm text-gray-700 list-disc list-inside mt-2 space-y-1">
+      <li>
+        <strong>Diferencia hacia adelante (progresiva)</strong>:
+        <span class="font-mono">\(\displaystyle V(t_i)\approx \frac{P_{i+1}-P_i}{h}\)</span>
+      </li>
+      <li>
+        <strong>Diferencia hacia atrás (regresiva)</strong>:
+        <span class="font-mono">\(\displaystyle V(t_i)\approx \frac{P_i-P_{i-1}}{h}\)</span>
+      </li>
+      <li>
+        <strong>Diferencia centrada</strong>:
+        <span class="font-mono">\(\displaystyle V(t_i)\approx \frac{P_{i+1}-P_{i-1}}{2h}\)</span>
+      </li>
+    </ul>
 
-  <h4 class="font-semibold mt-4">Cálculo de tasas de cambio</h4>
+    <p class="text-xs text-gray-600 mt-2">
+      El método centrado ofrece mayor precisión al considerar puntos hacia adelante y hacia atrás del valor estudiado (error de orden \(h^2\) frente a \(h\) de los otros dos).
+    </p>
 
-  <div class="overflow-x-auto">
-  <table class="w-full text-sm border mt-2">
-  <thead class="bg-gray-100 text-gray-800">
-  <tr>
-    <th class="border p-2">t (min)</th>
-    <th class="border p-2">Adelante</th>
-    <th class="border p-2">Centrada</th>
-    <th class="border p-2">Atrás</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr><td class="border p-2">0</td><td class="border p-2">48.0</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td></tr>
-  <tr><td class="border p-2">10</td><td class="border p-2">54.0</td><td class="border p-2">51.0</td><td class="border p-2">48.0</td></tr>
-  <tr><td class="border p-2">20</td><td class="border p-2">55.0</td><td class="border p-2">54.5</td><td class="border p-2">54.0</td></tr>
-  <tr><td class="border p-2">30</td><td class="border p-2">53.0</td><td class="border p-2">54.0</td><td class="border p-2">55.0</td></tr>
-  <tr><td class="border p-2">40</td><td class="border p-2">51.0</td><td class="border p-2">52.0</td><td class="border p-2">53.0</td></tr>
-  <tr><td class="border p-2">50</td><td class="border p-2">49.0</td><td class="border p-2">50.0</td><td class="border p-2">51.0</td></tr>
-  <tr><td class="border p-2">60</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td><td class="border p-2">49.0</td></tr>
-  </tbody>
-  </table>
+    <h4 class="font-semibold mt-4">Datos del problema</h4>
+    <p class="text-sm text-gray-700">Durante una observación de 60 minutos, se registró el número acumulado de botellas producidas:</p>
+    <p class="text-xs text-gray-700">P(t) = [0, 480, 1020, 1570, 2100, 2610, 3100]</p>
+    <p class="text-xs text-gray-700">t (min) = [0, 10, 20, 30, 40, 50, 60]</p>
+    <p class="text-xs text-gray-700">Paso temporal uniforme: \(h = 10\ \text{min}\).</p>
+
+    <h4 class="font-semibold mt-4">Cálculo de la tasa de cambio por punto</h4>
+    <div class="text-sm text-gray-700 space-y-2">
+      <p><strong>(t = 0 min)</strong> — Aplicamos diferencia hacia adelante.<br>
+        \(\displaystyle V(0)\approx \frac{P(10)-P(0)}{10}=\frac{480-0}{10}=48.0\ \text{botellas/min}\).<br>
+        Para este caso no se puede usar diferencia hacia atrás ni centrada, ya que no hay datos previos.
+      </p>
+
+      <p><strong>(t = 10 min)</strong> — Aplicamos los tres métodos.<br>
+        Adelante: \(\displaystyle \frac{P(20)-P(10)}{10}=\frac{1020-480}{10}=54.0\).<br>
+        Centrada: \(\displaystyle \frac{P(20)-P(0)}{20}=\frac{1020-0}{20}=51.0\).<br>
+        Atrás: \(\displaystyle \frac{P(10)-P(0)}{10}=\frac{480-0}{10}=48.0\).
+      </p>
+
+      <p><strong>(t = 20 min)</strong> — Aplicamos los tres métodos.<br>
+        Adelante: \(\displaystyle \frac{1570-1020}{10}=55.0\).<br>
+        Centrada: \(\displaystyle \frac{1570-480}{20}=54.5\).<br>
+        Atrás: \(\displaystyle \frac{1020-480}{10}=54.0\).
+      </p>
+
+      <p><strong>(t = 30 min)</strong> — Aplicamos los tres métodos.<br>
+        Adelante: \(\displaystyle \frac{2100-1570}{10}=53.0\).<br>
+        Centrada: \(\displaystyle \frac{2100-1020}{20}=54.0\).<br>
+        Atrás: \(\displaystyle \frac{1570-1020}{10}=55.0\).
+      </p>
+
+      <p><strong>(t = 40 min)</strong> — Aplicamos los tres métodos.<br>
+        Adelante: \(\displaystyle \frac{2610-2100}{10}=51.0\).<br>
+        Centrada: \(\displaystyle \frac{2610-1570}{20}=52.0\).<br>
+        Atrás: \(\displaystyle \frac{2100-1570}{10}=53.0\).
+      </p>
+
+      <p><strong>(t = 50 min)</strong> — Aplicamos los tres métodos.<br>
+        Adelante: \(\displaystyle \frac{3100-2610}{10}=49.0\).<br>
+        Centrada: \(\displaystyle \frac{3100-2100}{20}=50.0\).<br>
+        Atrás: \(\displaystyle \frac{2610-2100}{10}=51.0\).
+      </p>
+
+      <p><strong>(t = 60 min)</strong> — Aplicamos diferencia hacia atrás.<br>
+        \(\displaystyle V(60)\approx \frac{P(60)-P(50)}{10}=\frac{3100-2610}{10}=49.0\).<br>
+        Para este punto no se puede usar diferencia hacia adelante ni centrada.
+      </p>
+    </div>
+
+    <h4 class="font-semibold mt-4">Tabla de comparación</h4>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border mt-2">
+        <thead class="bg-gray-100 text-gray-800">
+          <tr>
+            <th class="border p-2">t (min)</th>
+            <th class="border p-2">Adelante</th>
+            <th class="border p-2">Centrada</th>
+            <th class="border p-2">Atrás</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="border p-2">0</td><td class="border p-2">\((480-0)/10=48.0\)</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td></tr>
+          <tr><td class="border p-2">10</td><td class="border p-2">\((1020-480)/10=54.0\)</td><td class="border p-2">\((1020-0)/20=51.0\)</td><td class="border p-2">\((480-0)/10=48.0\)</td></tr>
+          <tr><td class="border p-2">20</td><td class="border p-2">\((1570-1020)/10=55.0\)</td><td class="border p-2">\((1570-480)/20=54.5\)</td><td class="border p-2">\((1020-480)/10=54.0\)</td></tr>
+          <tr><td class="border p-2">30</td><td class="border p-2">\((2100-1570)/10=53.0\)</td><td class="border p-2">\((2100-1020)/20=54.0\)</td><td class="border p-2">\((1570-1020)/10=55.0\)</td></tr>
+          <tr><td class="border p-2">40</td><td class="border p-2">\((2610-2100)/10=51.0\)</td><td class="border p-2">\((2610-1570)/20=52.0\)</td><td class="border p-2">\((2100-1570)/10=53.0\)</td></tr>
+          <tr><td class="border p-2">50</td><td class="border p-2">\((3100-2610)/10=49.0\)</td><td class="border p-2">\((3100-2100)/20=50.0\)</td><td class="border p-2">\((2610-2100)/10=51.0\)</td></tr>
+          <tr><td class="border p-2">60</td><td class="border p-2">N/A</td><td class="border p-2">N/A</td><td class="border p-2">\((3100-2610)/10=49.0\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="my-3">
+
+    <h4 class="font-semibold">Análisis de datos</h4>
+    <p class="text-sm text-gray-700">
+      La gráfica de la tasa de cambio muestra cómo la producción aumenta al inicio, alcanza su punto máximo alrededor de los 30&nbsp;min
+      y luego disminuye ligeramente, indicando un proceso de estabilización o posible desgaste del sistema.
+      En los extremos (t = 0 y t = 60) solo es aplicable adelante (en 0) o atrás (en 60) porque falta un punto anterior o siguiente.
+    </p>
+    <p class="text-sm text-gray-700">
+      La columna “Adelante – Centrada” muestra cuánto sobreestima (positivo) o subestima (negativo) el método hacia adelante respecto a la centrada.
+      Al igual para “Atrás – Centrada”.
+      La velocidad de producción aumenta rápidamente al inicio; se mantiene estable entre los 20 y 40 minutos (zona de máxima eficiencia);
+      luego presenta una ligera disminución. Esto indica que el sistema alcanza un régimen óptimo de operación a mitad del ciclo y luego se estabiliza.
+      Este tipo de análisis permite al ingeniero industrial identificar los intervalos de mayor productividad y planificar mantenimientos o ajustes en la línea.
+    </p>
+
+    <h4 class="font-semibold mt-3">Interpretación práctica</h4>
+    <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
+      <li>En general, la diferencia centrada queda entre las dos (adelante y atrás).</li>
+      <li>Para \(t = 10\) y \(t = 20\) el método adelante sobreestima la tasa frente a la centrada (<span class="font-mono">+3.0</span> y <span class="font-mono">+0.5</span>), mientras que el método atrás subestima (<span class="font-mono">−3.0</span> y <span class="font-mono">−0.5</span>).</li>
+      <li>Para \(t = 30, 40, 50\) observamos lo opuesto: el método atrás da valores mayores que la centrada (<span class="font-mono">+1.0</span>) y el método adelante suele subestimar (<span class="font-mono">−1.0</span>).
+        Esto refleja cómo las pendientes locales cambian según la curvatura de los datos.</li>
+      <li>La centrada es el promedio de adelante y atrás cuando los puntos están igualmente espaciados, por eso suele considerarse la más precisa (error de orden \(h^2\) frente a \(h\) para los otros dos).</li>
+    </ul>
+
+    <h4 class="font-semibold mt-3">¿Qué nos indican los resultados?</h4>
+    <p class="text-sm text-gray-700">
+      <strong>Diferencia hacia adelante:</strong> este método toma el valor actual y el siguiente para estimar la tasa de cambio. En este caso,
+      los resultados fueron útiles para obtener una idea rápida del aumento inicial en la producción (por ejemplo, al pasar de 0 a 10 minutos la tasa fue
+      de 48 botellas/minuto). Sin embargo, a medida que avanzó el tiempo, el método mostró una ligera sobreestimación en los puntos intermedios, debido a que no considera la tendencia previa.
+    </p>
+    <p class="text-sm text-gray-700">
+      <strong>Diferencia hacia atrás:</strong> en contraste, este método utiliza el valor actual y el anterior. Los resultados tienden a ser un poco más conservadores.
+      Por ejemplo, al llegar a los 20 minutos la tasa fue de 54 botellas/minuto, muy cercana a la real. Este método es más estable cuando se analizan datos ya recolectados
+      (no proyectados hacia el futuro), pero puede retrasar la detección de cambios bruscos en la producción.
+    </p>
+    <p class="text-sm text-gray-700">
+      <strong>Diferencia centrada:</strong> el método centrado combina ambos lados del punto, logrando una mayor precisión. En la gráfica, se observa que sus valores se mantienen más
+      equilibrados entre los métodos hacia adelante y hacia atrás, sin picos pronunciados. Por ejemplo, en el minuto 30 la tasa fue de 54 botellas/minuto, lo cual representa
+      una aproximación muy cercana al comportamiento real de la línea de producción.
+    </p>
+
+    <h4 class="font-semibold mt-3">La importancia del análisis de datos</h4>
+    <p class="text-sm text-gray-700">
+      El análisis realizado en el caso de estudio sobre la producción de botellas resulta fundamental porque permite comprender cómo varía la eficiencia del proceso a lo largo del tiempo.
+      Mediante la aplicación de los métodos de diferencias hacia adelante, hacia atrás y centradas, se logra estimar la tasa de cambio en la producción,
+      es decir, cuántas botellas por minuto se fabrican en distintos momentos del proceso. Esta información es clave en la ingeniería industrial, ya que ayuda a:
+    </p>
+    <ul class="text-sm text-gray-700 list-disc list-inside">
+      <li>Detectar puntos de mejora en la línea de producción.</li>
+      <li>Identificar momentos de mayor y menor rendimiento.</li>
+      <li>Tomar decisiones basadas en datos reales y no suposiciones.</li>
+      <li>Optimizar los recursos, reduciendo tiempos muertos y aumentando la productividad.</li>
+    </ul>
+
+    <h4 class="font-semibold mt-3">Gráfica</h4>
+    <p class="text-sm text-gray-700">La gráfica de la tasa de cambio mencionada en el documento (ilustrativa):</p>
+    <img src="image.png" alt="Gráfica tasa de cambio (ilustrativa)" class="rounded shadow-md mt-2">
+
+    <h4 class="font-semibold mt-3">Conclusión</h4>
+    <p class="text-sm text-gray-700">
+      La diferenciación numérica se consolida como una herramienta fundamental en la ingeniería para analizar y comprender el comportamiento de sistemas donde los datos son discretos
+      o no existe una función analítica exacta. A través del estudio realizado sobre la tasa de cambio en una línea de producción de botellas, se evidenció cómo los métodos de diferencias
+      hacia adelante, hacia atrás y centradas permiten estimar de manera efectiva la velocidad de producción y detectar variaciones en la eficiencia del proceso. Los resultados obtenidos
+      demostraron que el método centrado ofrece una mayor precisión al considerar puntos anteriores y posteriores, reflejando con mayor fidelidad el comportamiento real del sistema. En conjunto,
+      este análisis reafirma la importancia de los métodos numéricos como apoyo al diseño, control y optimización de procesos industriales, fortaleciendo la toma de decisiones basadas en datos
+      reales y contribuyendo al mejoramiento continuo de la productividad.
+    </p>
+
   </div>
-
-  <hr class="my-3">
-
-  <p class="font-medium text-sm">Interpretación de resultados</p>
-  <ul class="text-sm text-gray-700 list-disc list-inside">
-    <li>La producción aumenta hasta ~30 min y luego se estabiliza ligeramente.</li>
-    <li>El método centrado proporciona valores más equilibrados y precisos.</li>
-    <li>Forward tiende a sobreestimar y backward a subestimar.</li>
-  </ul>
-
-  <img src="image.png"class="rounded shadow-md mt-3">
-
-  <p class="font-medium mt-3">Conclusión</p>
-  <p class="text-sm text-gray-700">
-  La diferenciación numérica permite evaluar la eficiencia del proceso y tomar decisiones 
-  industriales basadas en datos reales.
-  </p>
     </div>
   </div>
 
