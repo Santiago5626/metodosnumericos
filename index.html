@@ -1050,14 +1050,24 @@
   <div class="bg-white p-4 rounded shadow mb-6">
     <h3 class="font-semibold mb-3">Videos Explicativos</h3>
     <p class="text-sm text-gray-600 mb-4">Aquí puedes visualizar videos de YouTube. </p>
-    
-    <!-- Ejemplo de Video de YouTube -->
-    <div class="aspect-w-16 aspect-h-9">
-      <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded"></iframe>
-      <div class="bg-gray-200 w-full h-full rounded flex items-center justify-center">
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Video 1: Pega tu video aqui -->
+      <div class="aspect-w-16 aspect-h-9">
+        <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO_1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded"></iframe>
+        <div class="bg-gray-200 w-full h-full rounded flex items-center justify-center">
+          <!-- Placeholder por si el video no carga -->
+        </div>
+      </div>
+
+      <!-- Video 2: Pega tu video aqui -->
+      <div class="aspect-w-16 aspect-h-9">
+        <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded"></iframe>
+        <div class="bg-gray-200 w-full h-full rounded flex items-center justify-center">
+          <!-- Placeholder por si el video no carga -->
+        </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1614,6 +1624,12 @@
         rows.push(`<tr><td class="border border-gray-300 p-2 text-center">${i}</td><td class="border border-gray-300 p-2 text-center">${xi.toFixed(6)}</td><td class="border border-gray-300 p-2 text-center">${fn(xi).toFixed(6)}</td></tr>`);
       }
       document.getElementById('areaTable').innerHTML = `<div class="overflow-x-auto"><table class="w-full text-sm border-collapse border border-gray-300"><thead><tr class="bg-gray-100"><th class="border border-gray-300 p-2 font-semibold">#</th><th class="border border-gray-300 p-2 font-semibold">x</th><th class="border border-gray-300 p-2 font-semibold">f(x)</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+      document.getElementById('areaTable').innerHTML = `
+        <h3 class="font-semibold mb-2 text-sm">Tabla de puntos que usamos para evaluar la función \\(f(x)\\) en cada \\(x_i\\) del intervalo \\([a,b]\\)</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse border border-gray-300"><thead><tr class="bg-gray-100"><th class="border border-gray-300 p-2 font-semibold">#</th><th class="border border-gray-300 p-2 font-semibold">x</th><th class="border border-gray-300 p-2 font-semibold">f(x)</th></tr></thead><tbody>${rows.join('')}</tbody></table>
+        </div>
+      `;
 
     } catch(err){
       resI.innerHTML = 'Error: ' + (err.message || err);
@@ -1777,10 +1793,13 @@
     ----------------------- */
   function loadIntegrationCaseStudy() {
     // Carga los datos del caso de estudio de consumo energético
-    document.getElementById('exprI').value = 'e^(0.1*x) + x^2';
+    document.getElementById('exprI').value = '2*e^(-0.5*x) + 0.4*x^2';
+    document.getElementById('exprI').value = 'x^2';
     document.getElementById('a').value = '0';
     document.getElementById('b').value = '6';
     document.getElementById('n').value = '6';
+    document.getElementById('b').value = '2';
+    document.getElementById('n').value = '4';
     try {
       calcInt();
     } catch (e) {
@@ -1794,7 +1813,7 @@
   window.addEventListener('load', () => {
     // sensible defaults
     document.getElementById('exprD').value = 'sin(x)';
-    document.getElementById('exprI').value = 'x^2+3*x';
+    document.getElementById('exprI').value = 'x^2';
     document.getElementById('a').value = '0';
     document.getElementById('b').value = '2';
     document.getElementById('n').value = '4';
