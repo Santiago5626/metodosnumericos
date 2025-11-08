@@ -350,14 +350,14 @@
           <h3 class="text-xl font-semibold mb-2">Ejemplo aplicado</h3>
         
           <p>Consideremos la integral:</p>
-          <p class="math">\[ \int_0^2 e-^x2  \,dx \]</p>
+          <p class="math">\[ \int_0^2 e^{-x^2}  \,dx \]</p>
         
           <p>Intervalo:</p>
-          <p class="math">\[ a = 0,\quad b = 6,\quad n = 6 \]</p>
+          <p class="math">\[ a = 0,\quad b = 2,\quad n = 6 \]</p>
         
           <p>Calculamos \(h\):</p>
           <p class="math">\[
-            h = \frac{6 - 0}{6} = 1
+            h = \frac{2-0}{6} = \frac{1}{3}
           \]</p>
         
           <p>Completamos la tabla:</p>
@@ -372,59 +372,6 @@
             <tr><td class="math">\( f(x_6)=f(b)=f(6) \)</td></tr>
           </table>
 <table class="table-auto border border-gray-400 w-full text-center">
-  <thead>
-    <tr class="font-semibold bg-gray-100">
-      <td>\(f(x_i)\)</td>
-      <td>Expresión</td>
-      <td>Sustitución</td>
-      <td>Valor</td>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>\(f(x_0)\)</td>
-      <td>\(f(a)\)</td>
-      <td>\(f(0)\)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>\(f(x_1)\)</td>
-      <td>\(f(a+h)\)</td>
-      <td>\(f(0+1/3)\)</td>
-      <td>0.89483</td>
-    </tr>
-    <tr>
-      <td>\(f(x_2)\)</td>
-      <td>\(f(a+2h)\)</td>
-      <td>\(f(0+2/3)\)</td>
-      <td>0.64118</td>
-    </tr>
-    <tr>
-      <td>\(f(x_3)\)</td>
-      <td>\(f(a+3h)\)</td>
-      <td>\(f(0+3/3)\)</td>
-      <td>0.36788</td>
-    </tr>
-    <tr>
-      <td>\(f(x_4)\)</td>
-      <td>\(f(a+4h)\)</td>
-      <td>\(f(0+4/3)\)</td>
-      <td>0.16529</td>
-    </tr>
-    <tr>
-      <td>\(f(x_5)\)</td>
-      <td>\(f(a+5h)\)</td>
-      <td>\(f(0+5/3)\)</td>
-      <td>0.06218</td>
-    </tr>
-    <tr>
-      <td>\(f(x_6)\)</td>
-      <td>\(f(b)\)</td>
-      <td>\(f(2)\)</td>
-      <td>0.01832</td>
-    </tr>
-  </tbody>
 </table>
         
           <br>
@@ -764,8 +711,9 @@
   <h4 class="font-semibold mt-3">Solución por Regla del trapecio:</h4>
   <p>Consideremos la siguiente integral:</p>
   <p class="math mt-2">
+   <!-- Fórmula original -->
     \[
-    E = \int_0^6 (e^{0.1t} + t^2) \, dt
+    E = \int_0^6 (2e^{-0.5t} + 0.4t^2) \, dt
     \]
   </p>
 
