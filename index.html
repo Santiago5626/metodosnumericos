@@ -497,7 +497,7 @@ la derivada de P(t) respecto a h en cada punto utilizando diferenciación numér
     <p class="text-xs text-gray-700">t (min) = [0, 10, 20, 30, 40, 50, 60]</p>
     <p class="text-xs text-gray-700">Paso temporal uniforme: \(h = 10\ \text{min}\).</p>
 
-    <p class="text-lg font-semibold text-gray-900">4. Aplicación del Método</p>
+    <p class="text-lg font-semibold text-gray-900">Aplicación del Método</p>
 
 <p class="text-sm text-gray-700">
 Usamos el método de <strong>diferencias centradas</strong>, ya que ofrece mayor precisión para puntos intermedios:
@@ -954,6 +954,73 @@ Usamos el método de <strong>diferencias centradas</strong>, ya que ofrece mayor
     <li>El método de Simpson 1/3 alcanza alta precisión incluso con pocos subintervalos.</li>
     <li>Por tanto, <b>Simpson 1/3 es más eficiente y preciso</b> para aproximar la integral dada.</li>
   </ul>
+</div>
+    <!-- Datos del caso práctico (tabla sin filas numéricas) -->
+<div class="bg-white p-4 rounded shadow mb-6">
+  <h4 class="font-semibold mb-2">Comparativa de métodos</h4>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm border border-gray-300">
+      <thead class="bg-slate-100">
+        <tr>
+          <th class="border p-1">Método</th>
+          <th class="border p-1">Aproximación</th>
+          <th class="border p-1">Grado</th>
+          <th class="border p-1">n</th>
+          <th class="border p-1">Fórmula</th>
+          <th class="border p-1">Coeficientes</th>
+          <th class="border p-1">Ventajas</th>
+          <th class="border p-1">Desventajas</th>
+          <th class="border p-1">Uso recomendado</th>
+          <th class="border p-1">Error</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td class="border p-1">Trapecio</td>
+          <td class="border p-1">Rectas</td>
+          <td class="border p-1">1</td>
+          <td class="border p-1">Cualquiera</td>
+          <td class="border p-1">\( \frac{h}{2}[f(x_0) + 2Σf(x_i) + f(x_n)] \)</td>
+          <td class="border p-1">1, 2, ..., 2, 1</td>
+          <td class="border p-1">Simple, datos experimentales</td>
+          <td class="border p-1">Menor precisión</td>
+          <td class="border p-1">Rápido y básico</td>
+          <td class="border p-1">\( O(h^2) \)</td>
+        </tr>
+
+        <tr>
+          <td class="border p-1">Simpson 1/3</td>
+          <td class="border p-1">Parábolas</td>
+          <td class="border p-1">2</td>
+          <td class="border p-1">Par</td>
+          <td class="border p-1">\( \frac{h}{3}[f(x_0) + 4Σf(x_i) + 2Σf(x_i) + f(x_n)] \)</td>
+          <td class="border p-1">1, 4, 2, ..., 4, 1</td>
+          <td class="border p-1">Alta precisión</td>
+          <td class="border p-1">n debe ser par</td>
+          <td class="border p-1">Funciones suaves</td>
+          <td class="border p-1">\( O(h^4) \)</td>
+        </tr>
+
+        <tr>
+          <td class="border p-1">Simpson 3/8</td>
+          <td class="border p-1">Cúbicas</td>
+          <td class="border p-1">3</td>
+          <td class="border p-1">Múltiplo de 3</td>
+          <td class="border p-1">\( \frac{3h}{8}[f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3)] \)</td>
+          <td class="border p-1">1, 3, 3, 1, ...</td>
+          <td class="border p-1">Gran precisión</td>
+          <td class="border p-1">Más cálculo</td>
+          <td class="border p-1">Curvas complejas</td>
+          <td class="border p-1">\( O(h^4) \)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-xs text-gray-600 mt-2">
+    *Los valores corresponden a los métodos de integración numérica más comunes.*
+  </p>
 </div>
 
 
