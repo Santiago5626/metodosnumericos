@@ -476,9 +476,56 @@
 
     <h4 class="font-semibold mt-4">Datos del problema</h4>
     <p class="text-sm text-gray-700">Durante una observación de 60 minutos, se registró el número acumulado de botellas producidas:</p>
+<p class="text-xs text-gray-700">P(t) = [0, 480, 1020, 1570, 2100, 2610, 3100]</p>
+<p class="text-xs text-gray-700">t (min) = [0, 10, 20, 30, 40, 50, 60]</p>
+<p class="text-xs text-gray-700">Paso temporal uniforme: \(h = 10\ \text{min}\).</p>
+
+<p class="text-sm text-gray-700">
+El proceso no se derivó usando una función analítica explícita como P(t) = a t² + b t. 
+La razón es que en un proceso industrial real (como la producción de botellas) 
+la relación entre el Tiempo (t) y la Producción Acumulada (P) se obtiene de datos discretos y experimentales, 
+no de una fórmula continua predefinida.
+</p>
+
+<p class="text-sm text-gray-700">
+Por lo tanto, utilizamos la <strong>Derivación Numérica</strong>, una técnica que nos permite aproximar la derivada 
+(la tasa de cambio instantánea, V(t) = dP/dt) en cada punto conocido, basándonos solo en los valores de los puntos vecinos.
+</p>
+
+<p class="text-sm text-gray-700">
+Se debe calcular la estimación de la tasa de cambio de producción de una línea de ensamble, es decir, 
+la derivada de P(t) respecto a h en cada punto utilizando diferenciación numérica.
+</p>
+
+    <p class="text-sm text-gray-700">Durante una observación de 60 minutos, se registró el número acumulado de botellas producidas:</p>
     <p class="text-xs text-gray-700">P(t) = [0, 480, 1020, 1570, 2100, 2610, 3100]</p>
     <p class="text-xs text-gray-700">t (min) = [0, 10, 20, 30, 40, 50, 60]</p>
     <p class="text-xs text-gray-700">Paso temporal uniforme: \(h = 10\ \text{min}\).</p>
+
+    <p class="text-lg font-semibold text-gray-900">4. Aplicación del Método</p>
+
+<p class="text-sm text-gray-700">
+Usamos el método de <strong>diferencias centradas</strong>, ya que ofrece mayor precisión para puntos intermedios:
+</p>
+
+<p class="text-center text-gray-800 mt-3 mb-3">
+    \( f'(x_i) \approx \frac{f(x_{i+1}) - f(x_{i-1})}{2h} \)
+</p>
+
+<p class="text-sm text-gray-700"><strong>Donde:</strong></p>
+
+<p class="text-sm text-gray-700 ml-4">
+\( f'(x_i) \) = tasa de cambio aproximada en el punto \( i \).
+</p>
+
+<p class="text-sm text-gray-700 ml-4">
+\( f(x_{i+1}) \) y \( f(x_{i-1}) \) son los valores de producción en los tiempos adyacentes.
+</p>
+
+<p class="text-sm text-gray-700 ml-4">
+\( h = 10\ \text{minutos} \)
+</p>
+
 
     <h4 class="font-semibold mt-4">Cálculo de la tasa de cambio por punto</h4>
     <div class="text-sm text-gray-700 space-y-2">
@@ -546,6 +593,11 @@
       </table>
     </div>
 
+        <h4 class="font-semibold mt-3">Gráfica</h4>
+    <p class="text-sm text-gray-700">La gráfica de la tasa de cambio mencionada en el documento (ilustrativa):</p>
+    <img src="image.png" alt="Gráfica tasa de cambio (ilustrativa)" class="rounded shadow-md mt-2">
+
+
     <hr class="my-3">
 
     <h4 class="font-semibold">Análisis de datos</h4>
@@ -601,9 +653,6 @@
       <li>Optimizar los recursos, reduciendo tiempos muertos y aumentando la productividad.</li>
     </ul>
 
-    <h4 class="font-semibold mt-3">Gráfica</h4>
-    <p class="text-sm text-gray-700">La gráfica de la tasa de cambio mencionada en el documento (ilustrativa):</p>
-    <img src="image.png" alt="Gráfica tasa de cambio (ilustrativa)" class="rounded shadow-md mt-2">
 
     <h4 class="font-semibold mt-3">Conclusión</h4>
     <p class="text-sm text-gray-700">
