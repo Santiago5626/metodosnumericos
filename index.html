@@ -334,8 +334,11 @@
     <!-- ===================== REGLA DEL TRAPECIO ===================== -->
     <div class="bg-white p-4 rounded shadow">
         <h3 class="text-xl font-semibold mb-2">Regla del Trapecio</h3>
-        <img src="Imagen-trapecio.png" alt="Ilustración de la Regla del Trapecio" class="w-1/2 md:w-1/3 rounded shadow-md float-right ml-4">
-        <p>Aproxima el área bajo la curva usando trapecios. Reemplaza la curva por líneas rectas entre puntos conocidos.</p>
+        <div class="float-right ml-4 w-1/2 md:w-1/3">
+          <img src="Imagen-trapecio.png" alt="Ilustración de la Regla del Trapecio" class="w-full rounded shadow-md">
+          <p class="text-xs italic text-gray-500 mt-1 text-center">Fuente: <a href="https://www.studocu.com/es-ar/document/universidad-nacional-de-lujan/programacion-y-metodos-numericos/integracion-numerica/3092616" target="_blank" class="text-blue-500 hover:underline">studocu.com</a></p>
+        </div>
+        <p>Aproxima el área bajo la curva usando trapecios. Reemplaza la curva por líneas rectas entre puntos conocidos.</p> 
         <p class="mt-2 font-semibold">Fórmula general:</p>
         <p class="math">\[ \int_a^b f(x)\,dx \approx \frac{h}{2} \left[f(x_0) + 2 \sum_{i=1}^{n-1} f(x_i) + f(x_n)\right] \]</p>
         <p class="font-semibold mt-2">Donde:</p>
