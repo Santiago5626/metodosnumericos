@@ -1,0 +1,228 @@
+// Tutorial para el caso de estudio de derivadas (versión corregida y estable)
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const steps = [
+        {
+            element: "#sec-caso-deriv h3.font-semibold.mb-2",
+            text: "Bienvenido. Analizaremos cómo cambia la producción de botellas usando derivación numérica.",
+            position: "bottom",
+            avatar: "saludando.png"
+        },
+        {
+            element: "#sec-caso-deriv img[alt*='Infografía']",
+            text: "Este es el contexto industrial. La planta mide cuántas botellas se producen con el tiempo.",
+            position: "bottom",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv p.text-sm.text-gray-700.mt-1",
+            text: "No tenemos fórmula analítica, sino datos experimentales. Por eso usamos métodos numéricos.",
+            position: "bottom",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv p:nth-of-type(2)",
+            text: "Nuestro objetivo es calcular la tasa de producción, es decir, la derivada de P respecto al tiempo.",
+            position: "bottom",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv ul.list-disc.list-inside.mt-2.space-y-1",
+            text: "Usaremos tres métodos: hacia adelante, hacia atrás y centrada. La centrada suele ser más precisa.",
+            position: "bottom",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv p:containing('Paso temporal uniforme')",
+            text: "Las mediciones se realizan cada 10 minutos. Por lo tanto, h = 10.",
+            position: "top",
+            avatar: "arriba.png"
+        },
+
+        {
+            element: "#sec-caso-deriv div.space-y-2 p:first-child",
+            text: "En los extremos solo se puede usar un método. En puntos intermedios se aplican los tres.",
+            position: "top",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv div.space-y-2 p:nth-child(2)",
+            text: "Aquí se realiza la sustitución de valores para cada método.",
+            position: "top",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv div.overflow-x-auto",
+            text: "Esta tabla muestra los resultados obtenidos con cada método numérico.",
+            position: "top",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv img[alt*='Gráfica']",
+            text: "La gráfica muestra cómo cambia la tasa de producción con respecto al tiempo.",
+            position: "top",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv h4.font-semibold:nth-of-type(6) + p",
+            text: "El análisis permite identificar el periodo de mayor eficiencia en la producción.",
+            position: "top",
+            avatar: "arriba.png"
+        },
+        {
+            element: "#sec-caso-deriv h4:last-of-type + p", 
+            text: "Conclusión: la diferenciación numérica permite analizar procesos reales donde no existe fórmula explícita.",
+            position: "top",
+            avatar: "saludando.png"
+        },
+        {
+            element: null,
+            text: "Has completado el tutorial. ¡Excelente trabajo!",
+            position: "center",
+            avatar: "saludando.png"
+        }
+    ];
+
+    let current = 0;
+    let box, avatar, nextBtn;
+
+    window.startDerivCaseTutorial = () => {
+        current = 0;
+        buildUI();
+        setTimeout(showStep, 200);
+    };
+
+    function buildUI() {
+        box = document.createElement("div");
+        box.style.cssText = `
+            position: absolute;
+            background: #1e293b; color: white;
+            padding: 12px; border-radius: 10px;
+            max-width: 340px; z-index: 9999;
+            box-shadow: 0 4px 14px rgba(0,0,0,.5);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        `;
+
+        avatar = document.createElement("img");
+        avatar.style.cssText = `
+            width: 55px; height: 55px;
+            flex-shrink: 0;
+        `;
+
+        const contentContainer = document.createElement("div");
+
+        const text = document.createElement("div");
+        text.className = "tutorial-text";
+        text.style.fontSize = "15px";
+        text.style.lineHeight = "1.45";
+
+        const controls = document.createElement("div");
+        controls.style = "text-align:right;margin-top:10px;";
+
+        nextBtn = document.createElement("button");
+        nextBtn.textContent = "Siguiente";
+        nextBtn.style.cssText = `
+            padding:6px 14px; border:none; border-radius:6px;
+            background:#2563eb;color:white;cursor:pointer;font-weight:600;
+        `;
+        nextBtn.onclick = () => {
+            current++;
+            current < steps.length ? showStep() : closeTutorial();
+        };
+
+        controls.append(nextBtn);
+        contentContainer.append(text, controls);
+        box.append(avatar, contentContainer);
+        document.body.append(box);
+    }
+
+    function showStep() {
+        const step = steps[current];
+        const el = step.element ? document.querySelector(step.element) : null;
+        const text = box.querySelector(".tutorial-text");
+
+        text.innerHTML = step.text;
+        avatar.src = step.avatar;
+
+        nextBtn.textContent = (current === steps.length - 1) ? "Finalizar" : "Siguiente";
+
+        document.querySelectorAll(".deriv-tutorial-highlight").forEach(e => {
+            e.style.outline = "";
+            e.style.borderRadius = "";
+            e.classList.remove("deriv-tutorial-highlight");
+        });
+
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+            let tries = 0;
+            function waitScrollEnd() {
+                tries++;
+                if (tries > 20) { // Fallback after 20 attempts
+                    highlight(el);
+                    return placeUI(el.getBoundingClientRect(), step.position);
+                }
+
+                requestAnimationFrame(() => {
+                    const rect = el.getBoundingClientRect();
+                    const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+                    if (fullyVisible) {
+                        highlight(el);
+                        placeUI(rect, step.position);
+                    } else {
+                        waitScrollEnd();
+                    }
+                });
+            }
+            waitScrollEnd();
+        } else {
+            centerUI();
+        }
+    }
+
+
+    function placeUI(rect, pos) {
+        const bw = box.offsetWidth, bh = box.offsetHeight;
+
+        let top, left;
+
+        // Posicionar siempre a la derecha del elemento
+        top = rect.top + rect.height / 2 - bh / 2 + window.scrollY;
+        left = rect.right + 12 + window.scrollX;
+
+        // Si se sale de la pantalla por la derecha, lo colocamos a la izquierda
+        if (left + bw > window.innerWidth - 10) {
+            left = rect.left - bw - 12 + window.scrollX;
+        }
+
+        box.style.top = `${top}px`;
+        box.style.left = `${left}px`;
+
+    }
+
+    function highlight(el) {
+        el.classList.add("deriv-tutorial-highlight");
+        el.style.outline = "3px solid #facc15";
+        el.style.borderRadius = "6px";
+    }
+
+    function centerUI() {
+        const top = window.innerHeight/2 - box.offsetHeight/2 + window.scrollY;
+        const left = window.innerWidth/2 - box.offsetWidth/2 + window.scrollX;
+        box.style.top = `${top}px`;
+        box.style.left = `${left}px`;
+    }
+
+    function closeTutorial() {
+        box.remove();
+        avatar.remove();
+        document.querySelectorAll(".deriv-tutorial-highlight").forEach(e => {
+            e.style.outline = "";
+            e.style.borderRadius = "";
+        });
+    }
+});
